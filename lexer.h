@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/19 01:16:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:58:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,20 @@ typedef struct s_list
 	struct s_list	*prev;
 }				t_list;
 
+typedef struct s_env
+{
+	char	*content;
+	char	*name;
+	struct s_env	*next;
+	struct s_env	*prev;
+}				t_env;
+
 typedef struct s_quote
 {
-	int	quote;
-	int	simplequote;
-	int	doublequote;
+	int		quote;
+	int		simplequote;
+	int		doublequote;
+	char	nextquote;
 }				t_quote;
 
 typedef struct s_parsing
@@ -45,9 +54,22 @@ typedef struct s_base
 	t_list		list;
 	t_parsing	parsing;
 	t_quote		quote;
+	t_env		env;
 }				t_base;
-
 void	checkredir(t_list **lst);
+//**************************************************
+//*************Prepa_env.c**************************
+//**************************************************
+void	ft_setenv(char **env);
+//**************************************************
+//************Tool_list_env.c***********************
+//**************************************************
+void    printthelistenv(t_list **head);
+void	addnodeenv(t_list **head, char	*name, char *content);
+//**************************************************
+//**************Parsing.c***************************
+//**************************************************
+char	*removequote(char *str);
 int		checkthestart(char *str, t_list **lst);
 //***************************************************
 //***************Tool_list.c*************************

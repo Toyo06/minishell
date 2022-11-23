@@ -6,13 +6,14 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 16:08:10 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/19 00:57:08 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 10:02:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 t_base	g_base;
+
 int	checkquote(char *str)
 {
 	int	i;
@@ -22,9 +23,11 @@ int	checkquote(char *str)
 	g_base.quote.simplequote = 0;
 	while (str[i])
 	{
-		if (str[i] == '\"')
+		if (str[i] == '\"'
+			&& g_base.quote.simplequote / 2 * 2 == g_base.quote.simplequote)
 			g_base.quote.doublequote++;
-		if (str[i] == '\'')
+		if (str[i] == '\''
+			&& g_base.quote.doublequote / 2 * 2 == g_base.quote.doublequote)
 			g_base.quote.simplequote++;
 		i++;
 	}

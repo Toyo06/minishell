@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   Prepa_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 12:41:16 by sroggens         ###   ########.fr       */
+/*   Created: 2022/11/23 10:36:07 by sroggens          #+#    #+#             */
+/*   Updated: 2022/11/23 12:40:17 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,16 @@
 
 t_base	g_base;
 
-void	rl_replace_line(const char *text, int clear_undo);
-
-int	main(int argc, char **argv, char **env)
+void	ft_setenv(char **env)
 {
-	char	*str;
-	t_list	*lst;
-	t_list	*env;
-	(void)argc;
-	(void)argv;
+	char	**tab_env;
+	int	i;
 
-	env = NULL;
-	ft_setenv(env);
-	while (42)
+	i = 0;
+	tab_env = ft_split(env[0], '=');
+	while (tab_env[i])
 	{
-		lst = NULL;
-		str = readline("\033[0;32m Ce minishell de bg :");
-		if (ft_strlen(str) > 0)
-			add_history(str);
-		checkthestart(str, &lst);
-		printthelist(&lst);
-		free(str);
-		lst = freelist(lst);
-		free(lst);
-		system("leaks lexer");
+		printf("%s\n", tab_env[i]);
+		i++;
 	}
 }
