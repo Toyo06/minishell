@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:16:15 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:32:40 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 	t_list	*lst;
 	t_env	*env;
+
 	(void)argc;
 	(void)argv;
-
 	env = NULL;
 	prepaenv(envp, &env);
 	printthelistenv(&env);

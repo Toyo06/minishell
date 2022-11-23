@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:22:45 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:31:16 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_list
 
 typedef struct s_env
 {
-	char	*content;
-	char	*name;
+	char			*content;
+	char			*name;
 	struct s_env	*next;
 	struct s_env	*prev;
 }				t_env;
@@ -61,13 +61,13 @@ void	checkredir(t_list **lst);
 //*************Prepa_env.c**************************
 //**************************************************
 void	ft_setenv(char **env);
-void    prepaenv(char **envp, t_env **env);
+void	prepaenv(char **envp, t_env **env);
 //**************************************************
 //************Tool_list_env.c***********************
 //**************************************************
-void    printthelistenv(t_env **head);
+void	printthelistenv(t_env **head);
 void	addnodeenv(t_env **head, char	*name, char *content);
-void    addnextnodeenv(t_env **head, t_env *new_node);
+void	addnextnodeenv(t_env **head, t_env *new_node);
 //**************************************************
 //**************Parsing.c***************************
 //**************************************************
