@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 10:36:07 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 12:40:17 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:24:09 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ void	ft_setenv(char **env)
 	while (tab_env[i])
 	{
 		printf("%s\n", tab_env[i]);
+		i++;
+	}
+}
+
+void	prepaenv(char **envp, t_env **env)
+{
+	int	i;
+	t_env	*tmp;
+	char	**tab;
+
+	i = 0;
+	while (envp[i])
+	{
+		tab = ft_split(envp[i], '=');
+		if ((*env) == NULL)
+			addnodeenv(env, tab[0], tab[1]);
+		else
+		{
+			addnodeenv(&tmp, tab[0], tab[1]);
+			addnextnodeenv(env, tmp);
+		}
+		free(tab);
 		i++;
 	}
 }

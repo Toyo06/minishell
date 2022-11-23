@@ -6,13 +6,13 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 10:02:43 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 12:00:13 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:25:36 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	addnodeenv(t_list **head, char	*name, char *content)
+void	addnodeenv(t_env **head, char *name, char *content)
 {
 	(*head) = malloc(sizeof(t_list));
 	(*head)->name = name;
@@ -21,9 +21,9 @@ void	addnodeenv(t_list **head, char	*name, char *content)
 	(*head)->prev = NULL;
 }
 
-void	printthelistenv(t_list **head)
+void	printthelistenv(t_env **head)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 
 	tmp = *head;
 	while (tmp)
@@ -32,4 +32,15 @@ void	printthelistenv(t_list **head)
 		ft_printf("%s\n", tmp->content);
 		tmp = tmp->next;
 	}
+}
+
+void	addnextnodeenv(t_env **head, t_env *new_node)
+{
+	t_env	*tmp;
+
+	tmp = (*head);
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_node;
+	new_node->prev = tmp;
 }

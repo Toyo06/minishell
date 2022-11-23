@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 12:41:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:16:15 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ t_base	g_base;
 
 void	rl_replace_line(const char *text, int clear_undo);
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_list	*lst;
-	t_list	*env;
+	t_env	*env;
 	(void)argc;
 	(void)argv;
 
 	env = NULL;
-	ft_setenv(env);
+	prepaenv(envp, &env);
+	printthelistenv(&env);
 	while (42)
 	{
 		lst = NULL;
