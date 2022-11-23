@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 10:02:43 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:25:36 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:51:37 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,16 @@ void	addnextnodeenv(t_env **head, t_env *new_node)
 		tmp = tmp->next;
 	tmp->next = new_node;
 	new_node->prev = tmp;
+}
+
+void	unsetonlistenv(t_env **env, char *str)
+{
+	while (env->next)
+	{
+		if (strncmp(str, env->name, ft_strlen(str)) == 0)
+			env->name = NULL;
+		env = env->next;
+	}
+	while (env->prev)
+		env = env->prev;
 }

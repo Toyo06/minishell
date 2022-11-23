@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:31:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:51:44 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ typedef struct s_base
 }				t_base;
 void	checkredir(t_list **lst);
 //**************************************************
+//**************Tool_bis.c**************************
+//**************************************************
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+//**************************************************
 //*************Prepa_env.c**************************
 //**************************************************
 void	ft_setenv(char **env);
@@ -65,6 +69,7 @@ void	prepaenv(char **envp, t_env **env);
 //**************************************************
 //************Tool_list_env.c***********************
 //**************************************************
+void	unsetonlistenv(t_env **env, char *str);
 void	printthelistenv(t_env **head);
 void	addnodeenv(t_env **head, char	*name, char *content);
 void	addnextnodeenv(t_env **head, t_env *new_node);
