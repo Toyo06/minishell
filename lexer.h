@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:51:44 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/24 08:34:03 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,21 @@ typedef struct s_parsing
 	char	**tab;
 }				t_parsing;
 
+typedef struct s_pwd
+{
+	char	*pwd;
+}				t_pwd;
+
 typedef struct s_base
 {
+	t_pwd		pwd;
 	t_list		list;
 	t_parsing	parsing;
 	t_quote		quote;
 	t_env		env;
 }				t_base;
 void	checkredir(t_list **lst);
+void    registerpwd(t_env **env);
 //**************************************************
 //**************Tool_bis.c**************************
 //**************************************************
@@ -74,7 +81,7 @@ void	printthelistenv(t_env **head);
 void	addnodeenv(t_env **head, char	*name, char *content);
 void	addnextnodeenv(t_env **head, t_env *new_node);
 //**************************************************
-//**************Parsing.c***************************
+//**************Lexer.c*****************************
 //**************************************************
 char	*removequote(char *str);
 int		checkthestart(char *str, t_list **lst);

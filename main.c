@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/23 13:32:40 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/24 08:38:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = NULL;
 	prepaenv(envp, &env);
+	registerpwd(&env);
 	printthelistenv(&env);
 	while (42)
 	{
