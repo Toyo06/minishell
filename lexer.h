@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 08:39:51 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:37:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ typedef struct s_base
 	t_quote		quote;
 	t_env		env;
 }				t_base;
+char	*addspace_be_foreop(char *str);
 void	checkredir(t_list **lst);
 void	registerpwd(t_env **env);
+int		countmallocstr(char *str);
 //**************************************************
 //**************Tool_bis.c**************************
 //**************************************************

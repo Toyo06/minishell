@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 23:58:02 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 08:29:14 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:50:24 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*removequote(char *str)
 
 int	checkthestart(char *str, t_list **lst)
 {
-	int	i;
+	int		i;
+	char	*new_str;
 
 	i = 0;
 	if (!(checkforbiden(str)) || !(checkquote(str)))
@@ -50,7 +51,8 @@ int	checkthestart(char *str, t_list **lst)
 	else
 	{
 		changebetweenquote(str);
-		g_base.parsing.tab = ft_split(str, ' ');
+		new_str = addspace_be_foreop(str);
+		g_base.parsing.tab = ft_split(new_str, ' ');
 		g_base.parsing.tab = rechangebetweenquote(g_base.parsing.tab);
 		while (g_base.parsing.tab[i])
 		{
@@ -59,6 +61,7 @@ int	checkthestart(char *str, t_list **lst)
 		}
 		prepalist(lst, g_base.parsing.tab);
 		free(g_base.parsing.tab);
+		free(new_str);
 	}
 	return (1);
 }

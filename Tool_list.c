@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 15:40:37 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 08:35:32 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:52:55 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ int	countlist(t_list **head)
 
 t_list	*freelist(t_list *lst)
 {
+	t_list	*tmp;
+
 	while (lst)
 	{
+		tmp = lst->next;
 		free(lst->arg);
 		free(lst);
-		lst = lst->next;
+		lst = tmp;
 	}
 	return (lst);
 }
