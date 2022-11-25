@@ -6,29 +6,19 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/25 09:43:35 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:49:54 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#	include <stdio.h>
-#	include <readline/readline.h>
-#	include <readline/history.h>
-#	include <stdlib.h>
-#	include <unistd.h>
-#	include <fcntl.h>
-#	include <sys/types.h>
-#	include <sys/uio.h>
-#	include <sys/wait.h>
-#	include <signal.h>
-#	include <sys/stat.h>
-#	include <dirent.h>
-#	include <sys/ioctl.h>
-#	include <termios.h>
-#	include <curses.h>
-#	include <term.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
