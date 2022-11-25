@@ -3,20 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sroggens <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 18:46:27 by sroggens          #+#    #+#              #
-#    Updated: 2022/11/24 11:47:47 by sroggens         ###   ########.fr        #
+#    Updated: 2022/11/25 09:39:29 by mayyildi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lexer
 
-SRCS = main.c Tool.c Tool_list.c Ft_split.c \
-	   Printf_part2.c Printf_part1.c Quote_detector.c \
-	   Forbidencharact.c Prepa_list.c Quote_preparator.c \
-	   lexer.c Errormess.c Prepa_env.c Tool_list_env.c \
-	   Tool_bis.c Parsing.c pwd.c \
+SRCS = ${wildcard *.c}
 
 OBJECTS = $(SRCS:.c=.o)
 
@@ -28,7 +24,7 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 all : $(NAME)
 
-$(NAME) : $(OBJECTS) 
+$(NAME) : $(OBJECTS)
 	$(CC) $(READLINEDESESMORT) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 clean :
