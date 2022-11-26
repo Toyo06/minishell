@@ -3,20 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sroggens <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 18:46:27 by sroggens          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/11/26 14:11:48 by sroggens         ###   ########.fr        #
+=======
+#    Updated: 2022/11/25 09:39:29 by mayyildi         ###   ########.fr        #
+>>>>>>> f2cd466ca7ef3cd1c72bc165bf3e2dfa40121880
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lexer
 
+<<<<<<< HEAD
 SRCS = main.c Tool.c Tool_list.c Ft_split.c \
 	   Printf_part2.c Printf_part1.c Quote_detector.c \
 	   Forbidencharact.c Prepa_list.c Quote_preparator.c \
 	   lexer.c Errormess.c Prepa_env.c Tool_list_env.c \
 	   Tool_bis.c Parsing.c pwd.c lexer_opcheck.c \
+=======
+SRCS = ${wildcard *.c}
+>>>>>>> f2cd466ca7ef3cd1c72bc165bf3e2dfa40121880
 
 OBJECTS = $(SRCS:.c=.o)
 
@@ -28,7 +36,7 @@ CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 
 all : $(NAME)
 
-$(NAME) : $(OBJECTS) 
+$(NAME) : $(OBJECTS)
 	$(CC) $(READLINEDESESMORT) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 clean :
