@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 11:52:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:13:40 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,54 +41,4 @@ int	main(int argc, char **argv, char **envp)
 		free(lst);
 		system("leaks lexer");
 	}
-}
-
-int	countmallocstr(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == '|' || str[i] == '<' || str[i] == '>')
-		{
-			if ((str[i + 1] == '<' && str[i] == '<')
-				|| (str[i] == '>' && str[i + 1] == '>'))
-				i++;
-			count += 2;
-		}
-		i++;
-	}
-	return (ft_strlen(str) + count);
-}
-
-char	*addspace_be_foreop(char *str)
-{
-	char	*new_str;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	new_str = malloc(sizeof(char) * (countmallocstr(str) + 1));
-	while (str[i])
-	{
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
-		{
-			new_str[j++] = ' ';
-			new_str[j++] = str[i++];
-			if ((str[i] == '>' && str[i - 1] == '>') || (str[i] == '<'
-					&& str[i - 1] == '<'))
-			{
-				new_str[j++] = str[i++];
-				new_str[j++] = ' ';
-			}
-		}
-		else
-			new_str[j++] = str[i++];
-	}
-	new_str[j] = '\0';
-	return (new_str);
 }

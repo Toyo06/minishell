@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 11:37:18 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/26 14:13:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ typedef struct s_env
 	struct s_env	*prev;
 }				t_env;
 
+typedef struct s_op
+{
+	int		i;
+	int		j;
+	char	quote;
+}			t_op;
+
 typedef struct s_quote
 {
 	int		quote;
@@ -61,11 +68,17 @@ typedef struct s_base
 	t_parsing	parsing;
 	t_quote		quote;
 	t_env		env;
+	t_op		op;
 }				t_base;
-char	*addspace_be_foreop(char *str);
 void	checkredir(t_list **lst);
 void	registerpwd(t_env **env);
+//**************************************************
+//*************lexer_opcheck.c**********************
+//**************************************************
+int		lexercheckcond(char *str);
+void	setvalueforop(void);
 int		countmallocstr(char *str);
+char	*addspace_be_foreop(char *str);
 //**************************************************
 //**************Tool_bis.c**************************
 //**************************************************
