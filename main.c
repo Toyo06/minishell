@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:40:06 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:53:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(str) > 0)
 			add_history(str);
 		checkthestart(str, &lst);
-		ft_pwd(lst);
+		ft_pwd(&lst);
+		ft_env(&env, &lst);
 		free(str);
 		lst = freelist(lst);
 		free(lst);

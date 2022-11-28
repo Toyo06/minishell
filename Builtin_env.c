@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   Builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 08:13:16 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:59:09 by sroggens         ###   ########.fr       */
+/*   Created: 2022/11/28 11:43:42 by sroggens          #+#    #+#             */
+/*   Updated: 2022/11/28 11:54:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_base	g_base;
-
-void	registerpwd(t_env **env)
-{
-	t_env	*tmp;
-
-	tmp = (*env);
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->name, "PWD", 3) == 0)
-		{
-			g_base.pwd.pwd = ft_strdup(tmp->content);
-			printf("%s\n", g_base.pwd.pwd);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-}
-
-void	ft_pwd(t_list **lst)
+void	ft_env(t_env **env, t_list **lst)
 {
 	t_list	*tmp;
 	int		count;
@@ -43,8 +24,22 @@ void	ft_pwd(t_list **lst)
 		count = ft_strlen(tmp->arg);
 		if (count < 3)
 			count = 3;
-		if (ft_strncmp(tmp->arg, "pwd", count) == 0)
-			printf("%s\n", g_base.pwd.pwd);
+		if (ft_strncmp(tmp->arg, "env", count) == 0)
+			ft_printenv(env);
+		tmp = tmp->next;
+	}
+}
+
+void	ft_printenv(t_env **env)
+{
+	t_env	*tmp;
+
+	tmp = (*env);
+	while (tmp)
+	{
+		printf("%s", tmp->name);
+		printf("=");
+		printf("%s\n", tmp->content);
 		tmp = tmp->next;
 	}
 }

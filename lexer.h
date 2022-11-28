@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:41:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:58:56 by sroggens         ###   ########.fr       */
 /*   Updated: 2022/11/25 09:49:54 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -71,6 +71,8 @@ typedef struct s_base
 	t_env		env;
 	t_op		op;
 }				t_base;
+void	ft_env(t_env **env, t_list **lst);
+void	ft_printenv(t_env **env);
 void	ft_pwd(t_list **lst);
 void	ft_exit(t_list **lst);
 void	checkredir(t_list **lst);
