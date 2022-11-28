@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:17:35 by mayyildi          #+#    #+#             */
-/*   Updated: 2022/11/28 15:42:24 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:08:40 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	cprocess(t_list **lst, t_env **env)
 		cmd = ft_strjoin(cmd, " ");
 		cmd = ft_strjoin(cmd, tmp->next->arg);
 		tmp = tmp->next;
-		printf("%s\n", cmd);
 	}
 	ft_exec(cmd, env);
 }
