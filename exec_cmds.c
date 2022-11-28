@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:17:35 by mayyildi          #+#    #+#             */
-/*   Updated: 2022/11/28 16:08:40 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:48:03 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ char	*check_path(char *cmd, char *envp_path)
 char	*get_path(char *cmd, t_env **env)
 {
 	char	*envp_path;
+	t_env	*tmp;
 
-	while (ft_strcmp((*env)->name, "PATH") != 0)
-		(*env) = (*env)->next;
-	envp_path = ft_strdup((*env)->content);
+	tmp = (*env);
+	while (ft_strcmp(tmp->name, "PATH") != 0)
+		tmp = tmp->next;
+	envp_path = ft_strdup(tmp->content);
 	return (check_path(cmd, envp_path));
 }
 
@@ -79,7 +81,7 @@ void	cprocess(t_list **lst, t_env **env)
 	char	*cmd;
 	t_list	*tmp;
 
-	tmp = *lst;
+	tmp = (*lst);
 	cmd = ft_strdup((*lst)->arg);
 	while (tmp->next && tmp->next->arg[0] == '-')
 	{
@@ -92,11 +94,11 @@ void	cprocess(t_list **lst, t_env **env)
 
 int	execcmd(t_list **lst, t_env **env)
 {
-	g_base.cmd.cpid = fork();
-	if (g_base.cmd.cpid < 0)
+	g_base.pl.cpid = fork();
+	if (g_base.pl.cpid < 0)
 		errormess(1);
-	else if (g_base.cmd.cpid == 0)
+	else if (g_base.pl.cpid == 0)
 		cprocess(lst, env);
-	waitpid(g_base.cmd.cpid, NULL, 0);
+	waitpid(g_base.pl.cpid, NULL, 0);
 	return (1);
 }
