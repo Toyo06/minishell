@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:53:31 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:22:49 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("\033[0;32m Ce minishell de bg :");
 		if (ft_strlen(str) > 0)
 			add_history(str);
-		checkthestart(str, &lst);
+		if (checkthestart(str, &lst))
+			execcmd(&lst, &env);
 		ft_pwd(&lst);
 		ft_env(&env, &lst);
 		free(str);
 		lst = freelist(lst);
 		free(lst);
-		system("leaks lexer");
+		// system("leaks lexer");
 	}
 }
