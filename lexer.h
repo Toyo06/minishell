@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 15:24:35 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:24:16 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_base
 	t_quote		quote;
 	t_env		env;
 	t_op		op;
-	t_exec		cmd;
+	t_exec		pl;
 }				t_base;
 void	ft_env(t_env **env, t_list **lst);
 void	ft_printenv(t_env **env);
