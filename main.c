@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/26 14:13:40 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:40:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 	env = NULL;
 	prepaenv(envp, &env);
 	registerpwd(&env);
-	printthelistenv(&env);
 	while (42)
 	{
 		lst = NULL;
@@ -35,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strlen(str) > 0)
 			add_history(str);
 		checkthestart(str, &lst);
-		printthelist(&lst);
+		ft_pwd(lst);
 		free(str);
 		lst = freelist(lst);
 		free(lst);

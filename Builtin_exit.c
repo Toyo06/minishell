@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Tool_bis.c                                         :+:      :+:    :+:   */
+/*   Builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:45:11 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:06:49 by sroggens         ###   ########.fr       */
+/*   Created: 2022/11/28 11:01:53 by sroggens          #+#    #+#             */
+/*   Updated: 2022/11/28 11:35:44 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_exit(t_list **lst)
 {
-	size_t	i;
+	t_list	*tmp;
+	int		count;
 
-	i = -1;
-	if (n == 0)
-		return (0);
-	while (n > ++i)
+	tmp = (*lst);
+	count = 5;
+	while (tmp)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		count = ft_strlen(tmp->arg);
+		if (count < 5)
+			count = 5;
+		if (ft_strncmp(tmp->arg, "exit", count) == 0
+			&& tmp->prev == NULL && tmp->next == NULL)
+			exit (0);
+		tmp = tmp->next;
 	}
-	return (0);
 }

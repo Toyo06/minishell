@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 23:58:02 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/24 11:50:24 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:40:29 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int	checkthestart(char *str, t_list **lst)
 		prepalist(lst, g_base.parsing.tab);
 		free(g_base.parsing.tab);
 		free(new_str);
+		if (errormanagement(lst) == 0)
+			return (0);
+		ft_exit(lst);
 	}
 	return (1);
 }

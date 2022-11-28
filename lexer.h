@@ -6,11 +6,8 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/26 14:13:30 by sroggens         ###   ########.fr       */
-=======
+/*   Updated: 2022/11/28 11:41:16 by sroggens         ###   ########.fr       */
 /*   Updated: 2022/11/25 09:49:54 by mayyildi         ###   ########.fr       */
->>>>>>> f2cd466ca7ef3cd1c72bc165bf3e2dfa40121880
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +71,11 @@ typedef struct s_base
 	t_env		env;
 	t_op		op;
 }				t_base;
+void	ft_pwd(t_list **lst);
+void	ft_exit(t_list **lst);
 void	checkredir(t_list **lst);
 void	registerpwd(t_env **env);
+int		errormanagement(t_list **lst);
 //**************************************************
 //*************lexer_opcheck.c**********************
 //**************************************************

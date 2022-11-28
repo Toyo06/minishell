@@ -6,7 +6,7 @@
 /*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:31:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/19 00:37:26 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:41:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@ void	errormess(int i)
 	if (i == 1)
 		ft_putstr_fd("minishell: syntax error near unexpected token 'newline'\n",
 			2);
-	exit (0);
+	if (i == 2)
+		ft_putstr_fd("minishell: syntax error near unexpected token '|'\n",
+			2);
+	return ;
 }
