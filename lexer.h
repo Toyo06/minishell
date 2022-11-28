@@ -6,10 +6,10 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 11:58:56 by sroggens         ###   ########.fr       */
-/*   Updated: 2022/11/25 09:49:54 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:24:35 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LEXER_H
 # define LEXER_H
@@ -62,6 +62,13 @@ typedef struct s_pwd
 	char	*pwd;
 }				t_pwd;
 
+typedef struct s_exec
+{
+	int	end[2];
+	int	fd[2];
+	int	cpid;
+} t_exec;
+
 typedef struct s_base
 {
 	t_pwd		pwd;
@@ -70,6 +77,7 @@ typedef struct s_base
 	t_quote		quote;
 	t_env		env;
 	t_op		op;
+	t_exec		cmd;
 }				t_base;
 void	ft_env(t_env **env, t_list **lst);
 void	ft_printenv(t_env **env);
@@ -178,4 +186,16 @@ void	ft_putstr_fd(char *s, int fd);
 char	**rechangebetweenquote(char **tab);
 char	*changebetweenquote(char *str);
 char	*replacebetweenquote(char *str);
+//***************************************************
+//************ft_strcmp.c****************************
+//***************************************************
+int		ft_strcmp(const char *s1, const char *s2);
+//***************************************************
+//************exec_cmds.c****************************
+//***************************************************
+int		execcmd(t_list **lst, t_env **env);
+void	cprocess(t_list **lst, t_env **env);
+void	ft_exec(char *arg, t_env **env);
+char	*get_path(char *cmd, t_env **env);
+char	*check_path(char *cmd, char *envp_path);
 #endif
