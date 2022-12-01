@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:27:13 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 15:22:49 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:04:34 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ int	main(int argc, char **argv, char **envp)
 	while (42)
 	{
 		lst = NULL;
-		str = readline("\033[0;32m Ce minishell de bg :");
+		str = readline("\033[0;32m bruh: ");
 		if (ft_strlen(str) > 0)
 			add_history(str);
 		if (checkthestart(str, &lst))
+		{
+			check_heredoc(&lst);
 			execcmd(&lst, &env);
+		}
 		ft_pwd(&lst);
 		ft_env(&env, &lst);
 		free(str);
