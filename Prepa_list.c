@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Prepa_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 11:38:16 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/26 14:53:19 by sroggens         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:56:21 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	selectforlist(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '<' && str[i + 1] != '<')
+		if (str[i] == '<' && str[i + 1] == '<')
 			return (1);
 		else if (str[i] == '<')
 			return (2);
-		else if (str[i] == '>' && str[i + 1] != '>')
+		else if (str[i] == '>' && str[i + 1] == '>')
 			return (3);
 		else if (str[i] == '>')
 			return (4);
