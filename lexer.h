@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:49:35 by sroggens          #+#    #+#             */
-/*   Updated: 2022/11/28 16:24:16 by mayyildi         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:27:02 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_pwd
 
 typedef struct s_exec
 {
-	int	end[2];
 	int	fd[2];
 	int	cpid;
 } t_exec;
@@ -198,4 +197,8 @@ void	cprocess(t_list **lst, t_env **env);
 void	ft_exec(char *arg, t_env **env);
 char	*get_path(char *cmd, t_env **env);
 char	*check_path(char *cmd, char *envp_path);
+//***************************************************
+//************parsing.c******************************
+//***************************************************
+int		check_heredoc(t_list **lst);
 #endif
