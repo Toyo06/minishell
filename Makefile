@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/12 18:46:27 by sroggens          #+#    #+#              #
-#    Updated: 2023/03/09 19:53:16 by mayyildi         ###   ########.fr        #
+#    Created: 2023/03/10 12:14:08 by mayyildi          #+#    #+#              #
+#    Updated: 2023/03/11 16:31:25 by mayyildi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJECTS = $(SRCS:.c=.o)
 
 CC = gcc
 
-READLINE = #READLINE PATH
+READLINE = #READLINE
 
 CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 

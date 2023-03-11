@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 19:56:31 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:23:53 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,14 +220,15 @@ int		check_nb(char *str);
 void	display_exit(int nb, int choice);
 int		check_pipes(t_list **lst);
 /*	builtin_export.c	*/
+void	ft_update_export(t_env **env, char *name, char *content, int eq_flag);
 void	ft_export(t_list **lst, t_env **env);
-// void	rm_if_find_equal(t_env **env, char *str);
-// void	rm_if_no_equal(t_env **env, char *str);
 void	ft_printexport(t_env **env);
 /*	builtin_export_utils.c	*/
-// int		count_equal(char *str);
-// char	*before_equal(char *str);
-// char	*after_equal(char *str);
+char	*get_arg(char *equal);
+char	*ft_trim(char *str);
+int		count_quotes(char *str);
+int		check_export_arg(char *str);
+int		eq_check(char *str);
 /*	builtin_unset.c	*/
 void	ft_unset(t_env **env, char *str);
 void	check_unset(t_list **lst, t_env **env);
@@ -261,7 +262,7 @@ void	preparepathforexec(t_env **env, t_list **lst);
 void	tabforcmd(t_list **lst);
 void	checkaccess(t_list	**lst);
 void	checkaccessbis(t_list **lst);
-/*	signals.c*/
+/*	signals.c	*/
 void	sig_handler(int sig);
 void	sig_block_handler(int sig);
 /*	pipeline.c	*/
