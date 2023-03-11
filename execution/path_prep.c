@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 15:25:45 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:31:36 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	preparepathforexec(t_env **env, t_list **lst)
 	t_env	*tmp;
 	int		i;
 
+	g_base.path.nbpath = 0;
 	if (!(*env))
 		return ;
 	tmp = (*env);
@@ -27,7 +28,8 @@ void	preparepathforexec(t_env **env, t_list **lst)
 			break ;
 		if (tmp->next == NULL)
 		{
-			printf("Minishell: %s: No such file or directory\n", (*lst)->arg);
+			g_base.path.nbpath = 1;
+			g_base.retval.code = 127;
 			break ;
 		}
 		tmp = tmp->next;
@@ -107,8 +109,18 @@ void	checkaccessbis(t_list **lst)
 		if (g_base.path.preppath[i + 1] == NULL)
 		{
 			g_base.path.finalpath = NULL;
-			g_base.retval.code = 127; // echo $?
-			printf("minishell: %s: command not found\n", (*lst)->arg);
+			printf(RED "%d" CRESET "\n", g_base.retval.code);
+			if (g_base.path.nbpath == 1)
+			{
+				printf("Minishell: %s: No such file or directory\n", (*lst)->arg);
+				g_base.retval.code = 127;
+			}
+			else
+			{
+				printf("minishell: %s: command not found\n", (*lst)->arg);
+				g_base.retval.code = 1;
+			}
 		}
 	}
 }
+

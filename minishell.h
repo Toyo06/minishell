@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 16:23:53 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:27:40 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_path
 	int		pipefd[2];
 	int		forkparent;
 	int		forkchild;
+	int		nbpath;
 }				t_path;
 
 typedef struct s_retval
