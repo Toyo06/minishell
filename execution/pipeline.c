@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 23:29:49 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:06:45 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void    pipeline(t_env **env, t_list **lst)
 			fdout = pipefd[i][1];
 		//fdout = redir(&tmp, fdout);
 		forkfd[i] = fork();
+		signal(SIGQUIT, sig_block_handler);
+		signal(SIGINT, sig_block_handler);
 		if (forkfd[i] == 0)
 		{
 			dup2(fdin, 0);
@@ -103,17 +105,17 @@ void    pipeline(t_env **env, t_list **lst)
 			close(pipefd[i - 2][0]);
 		}
 		i++;
-		if (WIFEXITED(status))
-			g_base.retval.code = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
-		{
-			g_base.retval.code = status + 128;
-			if (WTERMSIG(status) == 3)
-				printf("Quit: 3\n");
-		}
 		//g_base.path.totalredir = 0;
 	}
-	waitpid(forkfd[i - 1], NULL, 0);
+	waitpid(forkfd[i - 1], &status, 0);
+	if (WIFEXITED(status))
+		g_base.retval.code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		g_base.retval.code = status + 128;
+		if (WTERMSIG(status) == 3)
+			printf("Quit: 3\n");
+	}
 	if (totalpipe > 2)
 	{
 		close(pipefd[i - 2][1]);
