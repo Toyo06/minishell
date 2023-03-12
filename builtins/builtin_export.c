@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 16:33:11 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/12 08:44:39 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,30 @@ void	ft_export(t_list **lst, t_env **env)
 	{
 		eq_flag = 1;
 		tmp = tmp->next;
-		if (!ft_isalpha(tmp->arg[0]) || !eq_check(tmp->arg))
-			return (error_msg(5));
+		if (!ft_isalpha(tmp->arg[0]))
+		{
+			error_msg(5);
+			continue ;
+		}
 		equal = ft_strchr(tmp->arg, '=');
 		if (equal == NULL)
 		{
 			eq_flag = 0;
+			if (!eq_check(tmp->arg))
+			{
+				error_msg(5);
+				continue ;
+			}
 			ft_update_export(env, tmp->arg, NULL, eq_flag);
 			continue ;
 		}
-		*equal = '\0';
-		arg = get_arg(equal);
-		ft_update_export(env, tmp->arg, arg, eq_flag);
-		continue ;
+		else
+		{
+			*equal = '\0';
+			arg = get_arg(equal);
+			ft_update_export(env, tmp->arg, arg, eq_flag);
+			continue ;
+		}
 		free(arg);
 	}
 }
