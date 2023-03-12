@@ -6,12 +6,25 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/16 22:38:35 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:10:28 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	check_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	check_prompt(char *str, t_list **lst, t_env **env)
 {
@@ -19,6 +32,8 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 
 	i = 0;
 	if (!(check_forbidden_char(str)) || !(check_quotes(str)))
+		return (0);
+	if (check_space(str) == 1)
 		return (0);
 	else
 	{
