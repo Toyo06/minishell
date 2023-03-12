@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 18:04:56 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:40:37 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	execsimglecmd(t_list **lst, t_env **env)
 
 	// tmp = (*env);
 	// tmpb = (*lst);
+	if (g_base.path.nbpath == 1)
+		return ;
 	tabforcmd(lst);
 	preparepathforexec(env, lst);
 	f = fork();
@@ -35,7 +37,11 @@ void	execsimglecmd(t_list **lst, t_env **env)
 	}
 	waitpid(f, &status, 0);
 	if (WIFEXITED(status))
+	{
 		g_base.retval.code = WEXITSTATUS(status);
+		if (g_base.path.nbpath == 1)
+			g_base.retval.code = 127;
+	}
 	if (WIFSIGNALED(status))
 	{
 		g_base.retval.code = status + 128;

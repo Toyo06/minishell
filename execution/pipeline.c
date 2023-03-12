@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 18:06:45 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:40:31 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,11 @@ void    pipeline(t_env **env, t_list **lst)
 	}
 	waitpid(forkfd[i - 1], &status, 0);
 	if (WIFEXITED(status))
+	{
 		g_base.retval.code = WEXITSTATUS(status);
+		if (g_base.path.nbpath == 1)
+			g_base.retval.code = 127;
+	}
 	if (WIFSIGNALED(status))
 	{
 		g_base.retval.code = status + 128;

@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 13:20:33 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:41:07 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	execonepipe(t_list **lst, t_env **env)
 		waitpid(g_base.path.forkparent, &status, 0);
 		waitpid(g_base.path.forkchild, NULL, 0);
 		if (WIFEXITED(status))
-		g_base.retval.code = WEXITSTATUS(status);
+		{
+			g_base.retval.code = WEXITSTATUS(status);
+			if (g_base.path.nbpath == 1)
+				g_base.retval.code = 127;
+		}
 		if (WIFSIGNALED(status))
 		{
 			g_base.retval.code = status + 128;
