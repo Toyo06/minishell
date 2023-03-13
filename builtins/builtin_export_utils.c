@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 16:26:01 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:50:18 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ int	check_export_arg(char *str)
 	return (1);
 }
 
-int	eq_check(char *str)
+int	sp_check(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i])
 	{
 		if (str[i] == ' ')
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 17:27:40 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:50:02 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ char	*get_arg(char *equal);
 char	*ft_trim(char *str);
 int		count_quotes(char *str);
 int		check_export_arg(char *str);
-int		eq_check(char *str);
+int		sp_check(char *str);
 /*	builtin_unset.c	*/
 void	ft_unset(t_env **env, char *str);
 void	check_unset(t_list **lst, t_env **env);
