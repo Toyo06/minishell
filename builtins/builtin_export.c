@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:54:08 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:32:55 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_export(t_list **lst, t_env **env)
 		else
 		{
 			*equal = '\0';
-			arg = get_arg(equal);
+			arg = get_arg(equal, env);
 			ft_update_export(env, tmp->arg, arg, eq_flag);
 			continue ;
 		}

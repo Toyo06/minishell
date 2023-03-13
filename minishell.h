@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 16:50:02 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:23:28 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,11 +225,13 @@ void	ft_update_export(t_env **env, char *name, char *content, int eq_flag);
 void	ft_export(t_list **lst, t_env **env);
 void	ft_printexport(t_env **env);
 /*	builtin_export_utils.c	*/
-char	*get_arg(char *equal);
+char	*get_arg(char *equal, t_env **env);
 char	*ft_trim(char *str);
 int		count_quotes(char *str);
 int		check_export_arg(char *str);
 int		sp_check(char *str);
+char	*get_env_var(char **arr, t_env **env);
+int		check_env_var(char *str);
 /*	builtin_unset.c	*/
 void	ft_unset(t_env **env, char *str);
 void	check_unset(t_list **lst, t_env **env);
