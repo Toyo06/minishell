@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:22:31 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/08 18:34:28 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 17:51:33 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,8 @@ void	ft_unset(t_env **env, char *str)
 	tmp = (*env);
 	while (tmp)
 	{
-		if (ft_strcmp(str, tmp->name) == 0
-			|| ft_strcmp(str, tmp->content) == 0)
+		if (ft_strcmp(str, tmp->name) == 0)
 		{
-			// if (!ft_isalpha(tmp->content[0]) || !check_unset_arg(tmp->content))
-			// {
-			// 	error_msg(5);
-			// 	return ;
-			// }
 			if (tmp->next != NULL)
 				tmp->next->prev = tmp->prev;
 			if (tmp->prev != NULL)
@@ -63,16 +57,20 @@ void	check_unset(t_list **lst, t_env **env)
 	t_list	*tmp;
 
 	tmp = (*lst);
-	tmp = tmp->next;
-	while (tmp)
+	while (tmp->next)
 	{
+		tmp = tmp->next;
 		if (!check_alnum(tmp->arg))
 		{
 			error_msg(1);
-			return ;
+			continue ;
+		}
+		if (!ft_isalpha(tmp->arg[0]))
+		{
+			error_msg(5);
+			continue ;
 		}
 		ft_unset(env, tmp->arg);
-		tmp = tmp->next;
 	}
 }
 
