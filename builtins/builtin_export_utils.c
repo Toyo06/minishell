@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 19:20:51 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:57:29 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ char	*get_env_var(char **arr, t_env **env)
 	char	*path;
 
 	i = 0;
-	path = ft_strdup(ft_getenv(env, arr[i]));
-	while (arr[++i])
+	if (ft_getenv(env, arr[i]) != NULL)
+		path = ft_strdup(ft_getenv(env, arr[i]));
+	else
+		path = ft_strdup("");
+	i++;
+	while (arr[i])
 	{
-		path = ft_strjoin(path, ft_getenv(env, arr[i]));
+		if (ft_getenv(env, arr[i]) != NULL)
+			path = ft_strjoin(path, ft_getenv(env, arr[i]));
 		i++;
 	}
 	ft_free_arr(arr);
