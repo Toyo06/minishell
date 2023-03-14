@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:38:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/07 18:58:25 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:24:29 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,29 @@
 void ft_cd(t_list **lst, t_env **env)
 {
     t_list	*tmp;
-    char	*path;
-    int		arg_count;
     char    cwd[2048];
 
 	tmp = (*lst);
-	arg_count = 0;
+	g_base.cd.arg_count = 0;
     while (tmp)
 	{
-        arg_count++;
+        g_base.cd.arg_count++;
         tmp = tmp->next;
     }
-    if (arg_count > 2)
-        return ((void)printf("cd: too many arguments\n"));
+    if (g_base.cd.arg_count > 2)
+        return (err_msg_cd(6));
     tmp = (*lst)->next;
     if (tmp == NULL)
-        path = ft_getenv(env, "HOME");
+        g_base.cd.path = ft_getenv(env, "HOME");
 	else
-        path = tmp->arg;
-    if (path == NULL)
-        return ((void)printf("cd: no home directory\n"));
-    if (chdir(path) == -1)
-        return ((void)printf("cd: %s: No such file or directory\n", path));
+        g_base.cd.path = tmp->arg;
+    if (g_base.cd.path == NULL)
+        return (err_msg_cd(7));
+    if (chdir(g_base.cd.path) == -1)
+        return (err_msg_cd(8));
     if (!ft_getenv(env, "PWD"))
         ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
     ft_update_env(env, "OLDPWD", ft_getenv(env, "PWD"));
     ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
     register_pwd();
 }
-
