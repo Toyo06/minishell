@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 19:23:28 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:29:10 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,23 @@ typedef struct s_export
 	t_env	*tmpenv;
 	t_list	*tmp;
 	int		count;
+	char	*eq;
+	int		eq_fl;
+	char	*arg;
 }				t_export;
+
+typedef struct s_echo
+{
+	int		option;
+}				t_echo;
+
+typedef struct s_cd
+{
+	t_list	*tmp;
+	char	*path;
+	int		arg_count;
+	char	cwd[2048];
+}				t_cd;
 
 typedef struct s_parsing
 {
@@ -123,6 +139,8 @@ typedef struct s_base
 	t_env		env;
 	t_op		op;
 	t_export	xport;
+	t_echo		echo;
+	t_cd		cd;
 	t_exec		pl;
 	t_sig		sig;
 	t_retval	retval;
@@ -173,6 +191,10 @@ char	*cpy_until_dollar(char *str);
 char	*cpy_after_dollar(char *str);
 /*	error_msg.c	*/
 void	error_msg(int i);
+void	err_msg_cd(int i);
+void	err_msg_exit(int i);
+void	err_msg_export(int i);
+void	err_msg_unset(int i);
 /*	env_utils.c	*/
 t_env	*create_node_env(char *name, char *content);
 void	add_next_node_env(t_env **head, t_env *new_node);
@@ -225,13 +247,15 @@ void	ft_update_export(t_env **env, char *name, char *content, int eq_flag);
 void	ft_export(t_list **lst, t_env **env);
 void	ft_printexport(t_env **env);
 /*	builtin_export_utils.c	*/
+char	*get_env_var(char **arr, t_env **env);
 char	*get_arg(char *equal, t_env **env);
 char	*ft_trim(char *str);
 int		count_quotes(char *str);
+/*	builtin_export_utils_bis.c	*/
 int		check_export_arg(char *str);
 int		sp_check(char *str);
-char	*get_env_var(char **arr, t_env **env);
 int		check_env_var(char *str);
+int		check_arg_validity(char *str);
 /*	builtin_unset.c	*/
 void	ft_unset(t_env **env, char *str);
 void	check_unset(t_list **lst, t_env **env);
