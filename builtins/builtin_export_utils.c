@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 19:57:29 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:04:28 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ char	*get_env_var(char **arr, t_env **env)
 	}
 	ft_free_arr(arr);
 	return (path);
-}
-
-int	check_env_var(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 char	*get_arg(char *equal, t_env **env)
@@ -101,34 +87,4 @@ int	count_quotes(char *str)
 		i++;
 	}
 	return (count_quotes);
-}
-
-int	check_export_arg(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			i++;
-		if (!ft_isalnum(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	sp_check(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			return (1);
-		i++;
-	}
-	return (0);
 }

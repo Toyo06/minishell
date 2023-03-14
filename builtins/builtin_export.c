@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 18:32:55 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:04:42 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,40 +42,27 @@ void	ft_update_export(t_env **env, char *name, char *content, int eq_flag)
 void	ft_export(t_list **lst, t_env **env)
 {
 	t_list	*tmp;
-	char	*equal;
-	int		eq_flag;
-	char	*arg;
 
 	tmp = (*lst);
 	while (tmp->next != NULL && tmp->next->data != 6)
 	{
-		eq_flag = 1;
+		g_base.xport.eq_fl = 1;
 		tmp = tmp->next;
-		if (!ft_isalpha(tmp->arg[0]))
-		{
-			error_msg(5);
+		if (!check_arg_validity(tmp->arg))
 			continue ;
-		}
-		equal = ft_strchr(tmp->arg, '=');
-		if (equal == NULL)
+		g_base.xport.eq = ft_strchr(tmp->arg, '=');
+		if (g_base.xport.eq == NULL)
 		{
-			eq_flag = 0;
-			if (sp_check(tmp->arg))
-			{
-				error_msg(5);
+			g_base.xport.eq_fl = 0;
+			if (!check_arg_validity(tmp->arg))
 				continue ;
-			}
-			ft_update_export(env, tmp->arg, NULL, eq_flag);
+			ft_update_export(env, tmp->arg, NULL, g_base.xport.eq_fl);
 			continue ;
 		}
-		else
-		{
-			*equal = '\0';
-			arg = get_arg(equal, env);
-			ft_update_export(env, tmp->arg, arg, eq_flag);
-			continue ;
-		}
-		free(arg);
+		*g_base.xport.eq = '\0';
+		g_base.xport.arg = get_arg(g_base.xport.eq, env);
+		ft_update_export(env, tmp->arg, g_base.xport.arg, g_base.xport.eq_fl);
+		free(g_base.xport.arg);
 	}
 }
 
