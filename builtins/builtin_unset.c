@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:22:31 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/13 17:51:33 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:29:21 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	check_unset(t_list **lst, t_env **env)
 		}
 		if (!ft_isalpha(tmp->arg[0]))
 		{
-			error_msg(5);
+			err_msg_unset(9);
 			continue ;
 		}
 		ft_unset(env, tmp->arg);

@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:48:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 19:46:55 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:25:40 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	display_exit(int nb, int choice)
 	if (choice == 1)
 		error_msg(1);
 	else if (choice == 3)
-		error_msg(3);
+		err_msg_exit(3);
 	else if (choice == 4)
 	{
-		error_msg(4);
+		err_msg_exit(4);
 		return ;
 	}
 	exit (nb);
