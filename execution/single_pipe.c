@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 20:41:07 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:10:03 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,9 @@ void	execonepipe(t_list **lst, t_env **env)
 		if (g_base.path.forkchild == 0)
 			exectwo();
 		waitpid(g_base.path.forkparent, &status, 0);
-		waitpid(g_base.path.forkchild, NULL, 0);
+		waitpid(g_base.path.forkchild, &status, 0);
 		if (WIFEXITED(status))
-		{
 			g_base.retval.code = WEXITSTATUS(status);
-			if (g_base.path.nbpath == 1)
-				g_base.retval.code = 127;
-		}
 		if (WIFSIGNALED(status))
 		{
 			g_base.retval.code = status + 128;
@@ -68,7 +64,8 @@ void	execone(void)
 {
 	dup2(0, 0);
 	dup2(g_base.path.pipefd[1], 1);
-	execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab);
+	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
+		exit(127);
 	exit(0);
 }
 
@@ -76,6 +73,7 @@ void	exectwo(void)
 {
 	dup2(1, 1);
 	dup2(g_base.path.pipefd[0], 0);
-	execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab);
+	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
+		exit(127);
 	exit(0);
 }
