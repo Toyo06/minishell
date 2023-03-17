@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 20:06:58 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:46:10 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ int	check_sym_err(t_list **lst)
 			g_base.retval.code = 258;
 			error_msg(1);
 			return (1);
+		}
+		if (tmp->data == 8 )
+		{
+			tmp->arg = ft_strdup(ft_itoa(g_base.retval.code));
 		}
 		// if (tmp->data == 8)
 		// {
