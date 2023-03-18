@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/17 17:10:03 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:40:55 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	execonepipe(t_list **lst, t_env **env)
 {
-	// t_env	*tmp;
 	t_list	*tmpb;
 	int	status;
 
-	// tmp = (*env);
 	tmpb = (*lst);
 	tabforcmd(&tmpb);
 	preparepathforexec(env, &tmpb);
@@ -55,7 +53,7 @@ void	singlepipeaction(t_list **tmpb, t_env **env)
 	while ((*tmpb)->data != 6)
 		(*tmpb) = (*tmpb)->next;
 	(*tmpb) = (*tmpb)->next;
-	// freeforpipe();
+	freeforpipe();
 	tabforcmd(tmpb);
 	preparepathforexec(env, tmpb);
 }

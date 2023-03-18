@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/18 16:45:52 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:50:11 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,22 @@ void	countheredoc(t_list **lst)
 	g_base.heredoc.fdout = malloc(sizeof(int) * g_base.heredoc.countheredoc);
 }
 
+int	counthereinpipe(t_list **lst)
+{
+	t_list	*tmp;
+	int		i;
+
+	tmp = (*lst);
+	i = 0;
+	while (tmp->next == NULL || tmp->data == 6)
+	{
+		if (tmp->data == 1)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
 int	heredoc(t_list **lst)
 {
 	t_list	*tmp;
@@ -128,10 +144,9 @@ int	heredoc(t_list **lst)
 		tmp = tmp->next;
 	if (tmp->data == 1)
 	{
-		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(tmp->next->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(tmp->next->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		while (1)
 		{
-			printf("here\n");
 			line = readline("> ");
 			if (ft_strcmp(line, tmp->next->arg) == 0)
 				break ;
