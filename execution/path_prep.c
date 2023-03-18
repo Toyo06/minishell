@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 20:42:11 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:25:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ void	tabforcmd(t_list **lst)
 	i = 0;
 	while (tmp && tmp->data != 6)
 	{
+		if (tmp->data == 11 && tmp->next != NULL && tmp->next->data != 6)
+			tmp = tmp->next;
+		else if (tmp->data == 11 && (tmp->next == NULL || tmp->next->data == 6))
+			break ;
 		g_base.path.cmdfull[i] = ft_strdup(tmp->arg);
 		i++;
 		tmp = tmp->next;

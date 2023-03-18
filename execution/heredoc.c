@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/18 17:50:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:16:56 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	countheredoc(t_list **lst)
 	}
 	g_base.heredoc.countheredoc = i;
 	g_base.heredoc.totalheredoc = i;
+	g_base.heredoc.processhere = i;
 	g_base.heredoc.fdout = malloc(sizeof(int) * g_base.heredoc.countheredoc);
 }
 
@@ -125,9 +126,9 @@ int	counthereinpipe(t_list **lst)
 
 	tmp = (*lst);
 	i = 0;
-	while (tmp->next == NULL || tmp->data == 6)
+	while (tmp != NULL && tmp->data != 6)
 	{
-		if (tmp->data == 1)
+		if (tmp->data == 11)
 			i++;
 		tmp = tmp->next;
 	}
@@ -159,8 +160,9 @@ int	heredoc(t_list **lst)
 		free(tmp->arg);
 		tmp->arg = ft_strdup(tmp->next->arg);
 		removenextnode(&tmp);
-		tmp->data = 10;
+		tmp->data = 11;
 		g_base.heredoc.countheredoc--;
+		//printf("count in here = %d\n", counthereinpipe(&tmp));
 		return (0);
 	}
 	return (1);

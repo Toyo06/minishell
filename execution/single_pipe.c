@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/18 17:40:55 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:32:54 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execonepipe(t_list **lst, t_env **env)
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
 		if (g_base.path.forkparent == 0)
-			execone();
+			execone(&tmpb);
 		singlepipeaction(&tmpb, env);
 		g_base.path.forkchild = fork();
 		close(g_base.path.pipefd[1]);
@@ -58,9 +58,15 @@ void	singlepipeaction(t_list **tmpb, t_env **env)
 	preparepathforexec(env, tmpb);
 }
 
-void	execone(void)
+void	execone(t_list **lst)
 {
-	dup2(0, 0);
+	if (counthereinpipe(lst) == 0)
+		dup2(0, 0);
+	else
+	{
+		g_base.heredoc.processhere = g_base.heredoc.processhere - counthereinpipe(lst);
+		dup2(g_base.heredoc.fdout[g_base.heredoc.processhere + 1], 0);
+	}
 	dup2(g_base.path.pipefd[1], 1);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 		exit(127);
