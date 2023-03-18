@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:45:43 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 17:14:57 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/17 21:52:24 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@ void	ft_echo(t_list	**lst, int fd)
 	g_base.echo.option = ft_checkoption(tmp->arg);
 	if (g_base.echo.option == 1 && tmp->next == NULL)
 		return ;
-	if (tmp->next != NULL && g_base.echo.option == 1)
+	while (tmp->next != NULL && g_base.echo.option == 1)
+	{
+		tmp = tmp->next;
+		if (ft_checkoption(tmp->arg) && tmp->next == NULL)
+			return ;
+		else if (!ft_checkoption(tmp->arg))
+			break ;
+	}
+	if (ft_checkoption(tmp->arg) && tmp->next != NULL)
 		tmp = tmp->next;
 	while (tmp || tmp->next->data != 6)
 	{
