@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 18:29:10 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:38:43 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,16 @@ typedef struct s_exec
 	char	**cmds;
 }				t_exec;
 
+typedef struct s_heredoc
+{
+	int		*fdout;
+	int		countheredoc;
+	int		totalheredoc;
+}				t_heredoc;
+
 typedef struct s_base
 {
+	t_heredoc	heredoc;
 	t_pwd		pwd;
 	t_list		list;
 	t_parsing	parsing;
@@ -296,6 +304,10 @@ void	sig_block_handler(int sig);
 void	pipeline(t_env **env, t_list **lst);
 /*	Extras	*/
 void	rl_replace_line(char *str, int i);
+int		heredoc(t_list **lst);
+void	removenextnode(t_list	**lst);
+void	printthelist(t_list **head);
+void	countheredoc(t_list **lst);
 
 extern	t_base g_base;
 #endif

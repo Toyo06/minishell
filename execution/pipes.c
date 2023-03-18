@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 13:26:04 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:32:21 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	execution(t_list **lst, t_env **env)
 {
+	countheredoc(lst);
+	while (1)
+		if (heredoc(lst) == 1)
+			break ;
 	if (checkpipes(lst) == 0)
 		if (isitabuiltin(lst, env) == 1)
 			execsimglecmd(lst, env);

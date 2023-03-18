@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 21:58:01 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/10 17:50:51 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:31:52 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ t_list	*free_list(t_list *lst)
 	return (lst);
 }
 
-// void	printthelist(t_list **head)
-// {
-// 	t_list	*tmp;
+ void	printthelist(t_list **head)
+ {
+ 	t_list	*tmp;
 
-// 	tmp = *head;
-// 	while (tmp)
-// 	{
-// 		ft_printf("%d     ", tmp->data);
-// 		ft_printf("%s\n", tmp->arg);
-// 		tmp = tmp->next;
-// 	}
-// }
+ 	tmp = *head;
+ 	while (tmp)
+ 	{
+ 		printf("%d     ", tmp->data);
+ 		printf("%s\n", tmp->arg);
+		tmp = tmp->next;
+ 	}
+ }
