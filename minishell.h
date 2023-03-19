@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/18 16:38:43 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:13:54 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_heredoc
 	int		*fdout;
 	int		countheredoc;
 	int		totalheredoc;
+	int		processhere;
 }				t_heredoc;
 
 typedef struct s_base
@@ -288,8 +289,8 @@ int		isitabuiltin(t_list	**lst, t_env **env);
 /*	single_pipe.c	*/
 void	execonepipe(t_list **lst, t_env **env);
 void	singlepipeaction(t_list **tmpb, t_env **env);
-void	execone(void);
-void	exectwo(void);
+void	execone(t_list **lst);
+void	exectwo(t_list **lst);
 /*	single_cmd.c	*/
 void	execsimglecmd(t_list **lst, t_env **env);
 /*	path_prep.c	*/
@@ -308,6 +309,7 @@ int		heredoc(t_list **lst);
 void	removenextnode(t_list	**lst);
 void	printthelist(t_list **head);
 void	countheredoc(t_list **lst);
+int		counthereinpipe(t_list **lst);
 
 extern	t_base g_base;
 #endif

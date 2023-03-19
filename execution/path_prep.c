@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/18 18:25:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 15:58:37 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	tabforcmd(t_list **lst)
 			tmp = tmp->next;
 		else if (tmp->data == 11 && (tmp->next == NULL || tmp->next->data == 6))
 			break ;
-		g_base.path.cmdfull[i] = ft_strdup(tmp->arg);
-		i++;
-		tmp = tmp->next;
+		else
+		{
+			g_base.path.cmdfull[i] = ft_strdup(tmp->arg);
+			i++;
+			tmp = tmp->next;
+		}
 	}
 	g_base.path.cmdfull[i] = NULL;
 }

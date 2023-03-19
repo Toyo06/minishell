@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/18 18:32:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:24:49 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void	execonepipe(t_list **lst, t_env **env)
 		signal(SIGINT, sig_block_handler);
 		if (g_base.path.forkparent == 0)
 			execone(&tmpb);
+		g_base.heredoc.processhere += counthereinpipe(lst);
+		
 		singlepipeaction(&tmpb, env);
 		g_base.path.forkchild = fork();
 		close(g_base.path.pipefd[1]);
 		if (g_base.path.forkchild == 0)
-			exectwo();
+			exectwo(&tmpb);
+		g_base.heredoc.processhere += counthereinpipe(lst);
 		waitpid(g_base.path.forkparent, &status, 0);
 		waitpid(g_base.path.forkchild, &status, 0);
 		if (WIFEXITED(status))
@@ -63,20 +66,26 @@ void	execone(t_list **lst)
 	if (counthereinpipe(lst) == 0)
 		dup2(0, 0);
 	else
-	{
-		g_base.heredoc.processhere = g_base.heredoc.processhere - counthereinpipe(lst);
-		dup2(g_base.heredoc.fdout[g_base.heredoc.processhere + 1], 0);
-	}
+		{
+			g_base.heredoc.processhere += counthereinpipe(lst);
+			dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
+		}
 	dup2(g_base.path.pipefd[1], 1);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 		exit(127);
 	exit(0);
 }
 
-void	exectwo(void)
+void	exectwo(t_list **lst)
 {
 	dup2(1, 1);
-	dup2(g_base.path.pipefd[0], 0);
+	if (counthereinpipe(lst) == 0)
+		dup2(g_base.path.pipefd[0], 0);
+	else
+		{
+			g_base.heredoc.processhere += counthereinpipe(lst);
+			dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
+		}
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 		exit(127);
 	exit(0);

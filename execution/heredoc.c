@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/18 18:16:56 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:06:24 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ void	countheredoc(t_list **lst)
 			i++;
 		tmp = tmp->next;
 	}
-	g_base.heredoc.countheredoc = i;
+	g_base.heredoc.countheredoc = 1;
 	g_base.heredoc.totalheredoc = i;
-	g_base.heredoc.processhere = i;
-	g_base.heredoc.fdout = malloc(sizeof(int) * g_base.heredoc.countheredoc);
+	g_base.heredoc.processhere = 0;
+	g_base.heredoc.fdout = malloc(sizeof(int) * g_base.heredoc.totalheredoc);
 }
 
 int	counthereinpipe(t_list **lst)
@@ -141,14 +141,14 @@ int	heredoc(t_list **lst)
 	char	*line;
 
 	tmp = (*lst);
-	while (tmp->next && tmp->data != 1)
+	while (tmp->next != NULL && tmp->data != 1)
 		tmp = tmp->next;
 	if (tmp->data == 1)
 	{
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(tmp->next->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		while (1)
 		{
-			line = readline("> ");
+			line = readline("heredoc > ");
 			if (ft_strcmp(line, tmp->next->arg) == 0)
 				break ;
 			ft_putstr_fd(line, g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
@@ -161,8 +161,7 @@ int	heredoc(t_list **lst)
 		tmp->arg = ft_strdup(tmp->next->arg);
 		removenextnode(&tmp);
 		tmp->data = 11;
-		g_base.heredoc.countheredoc--;
-		//printf("count in here = %d\n", counthereinpipe(&tmp));
+		g_base.heredoc.countheredoc++;
 		return (0);
 	}
 	return (1);
