@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 17:48:03 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:06:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	main(int argc, char **argv, char **envp)
 				}
 			lst = free_list(lst);
 			free(lst);
+			unlinkheredoc();
 		}
 		free(g_base.sig.str);
-		unlinkheredoc();
+		
 	}
 }
