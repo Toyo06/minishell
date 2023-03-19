@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 16:13:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:48:44 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ typedef struct s_heredoc
 {
 	int		*fdout;
 	int		countheredoc;
+	char	**filename;
 	int		totalheredoc;
 	int		processhere;
 }				t_heredoc;
@@ -310,6 +311,7 @@ void	removenextnode(t_list	**lst);
 void	printthelist(t_list **head);
 void	countheredoc(t_list **lst);
 int		counthereinpipe(t_list **lst);
+void	unlinkheredoc(void);
 
 extern	t_base g_base;
 #endif
