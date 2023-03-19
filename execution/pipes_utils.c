@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:03:08 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 15:29:08 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:52:34 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_base	g_base;
 
 void	freeforpipe(void)
 {
@@ -19,24 +21,12 @@ void	freeforpipe(void)
 	i = 0;
 	while (g_base.path.cmdfull[i])
 	{
-		// if (g_base.path.cmdfull[i]) {
-		// 	printf(YEL "CHECK" CRESET "\n");
 		free(g_base.path.cmdfull[i]);
-		// }
 		i++;
 	}
-	// if (g_base.path.cmdfull) {
-	// 	printf(RED "CHECK" CRESET "\n");
 	free(g_base.path.cmdfull);
-	// }
-	// if (g_base.path.preppath) {
-		// printf(GRN "CHECK" CRESET "\n");
 	free(g_base.path.preppath);
-	// }
-	// if (g_base.path.finalpath) {
-		// printf(BLU "CHECK" CRESET "\n");
 	free(g_base.path.finalpath);
-	// }
 }
 
 int	checkpipes(t_list **lst)

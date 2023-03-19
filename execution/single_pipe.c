@@ -6,11 +6,13 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 17:37:51 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:50:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_base	g_base;
 
 void	execonepipe(t_list **lst, t_env **env)
 {

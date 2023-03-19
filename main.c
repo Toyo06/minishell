@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 18:06:31 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:51:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **envp)
 			free(lst);
 			free(g_base.sig.str);
 			break ;
-			// ft_exit();
 		}
 		if (ft_strlen(g_base.sig.str) > 0)
 		{
@@ -45,16 +44,8 @@ int	main(int argc, char **argv, char **envp)
 			if (op_count(g_base.sig.str) == 0)
 				if (check_prompt(g_base.sig.str, &lst, &env) == 1)
 				{
-					// if ((*lst).data == 1)
-					// 	ft_readline((*lst).next->arg, 0);
-					// if ((*lst).next != NULL && (*lst).next->data == 4 && (*lst).next->next != NULL)
-					// 	simpleredir((*lst).arg, (*lst).next->next->arg);
-					// if ((*lst).next != NULL && (*lst).next->data == 3 && (*lst).next->next != NULL)
-					// 	doubleredir((*lst).arg, (*lst).next->next->arg);
-					// dispatch_builtins(&lst, &env);
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
-					// execcmd(&lst, &env);
 				}
 			lst = free_list(lst);
 			free(lst);

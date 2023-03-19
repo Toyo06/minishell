@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 15:58:37 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:49:21 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ void	tabforcmd(t_list **lst)
 
 void	checkaccess(t_list	**lst)
 {
-	// t_list	*tmp;
 	int		i;
 
-	// tmp = (*lst);
 	i = 0;
 	if (access((*lst)->arg, F_OK) == 0)
 	{
@@ -128,4 +126,3 @@ void	checkaccessbis(t_list **lst)
 		}
 	}
 }
-

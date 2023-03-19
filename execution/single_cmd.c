@@ -6,11 +6,13 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:41:57 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:50:26 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_base	g_base;
 
 void	execsimglecmd(t_list **lst, t_env **env)
 {
