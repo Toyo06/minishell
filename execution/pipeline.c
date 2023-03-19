@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/17 17:09:56 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:33:19 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void    pipeline(t_env **env, t_list **lst)
 	int status;
 	int fdin = 0;
 	int fdout = 1;
+	g_base.heredoc.processhere += counthereinpipe(&tmp);
 	preparepathforexec(env, &tmp);
 	tabforcmd(&tmp);
 	while (i <= totalpipe)
@@ -89,7 +90,10 @@ void    pipeline(t_env **env, t_list **lst)
 		signal(SIGINT, sig_block_handler);
 		if (forkfd[i] == 0)
 		{
-			dup2(fdin, 0);
+			if (counthereinpipe(&tmp) == 0)
+				dup2(fdin, 0);
+			else
+					dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
 			dup2(fdout, 1);
 			close(pipefd[i][0]);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
@@ -100,6 +104,7 @@ void    pipeline(t_env **env, t_list **lst)
 		close(pipefd[i][1]);
 		if (i < totalpipe && totalpipe > 0)
 			singlepipeaction(&tmp, env);
+		g_base.heredoc.processhere += counthereinpipe(&tmp);
 		if (i > 1)
 		{
 			close(pipefd[i - 2][1]);
