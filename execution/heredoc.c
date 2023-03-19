@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/19 18:33:58 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:43:10 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	heredoc(t_list **lst)
 		tmp = tmp->next;
 	if (tmp->data == 1)
 	{	
-		tmpa = ft_strdup("..");
+		tmpa = ft_strdup(".aa");
 		g_base.heredoc.filename[g_base.heredoc.countheredoc] = ft_strjoin(tmpa, tmp->next->arg);
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		while (1)
@@ -161,7 +161,7 @@ int	heredoc(t_list **lst)
 			free(line);
 		}
 		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
-		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(tmp->next->arg, O_RDONLY);
+		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY);
 		free(tmp->arg);
 		tmp->arg = ft_strdup(tmp->next->arg);
 		removenextnode(&tmp);
@@ -169,7 +169,7 @@ int	heredoc(t_list **lst)
 		g_base.heredoc.countheredoc++;
 		return (0);
 	}
-	//g_base.heredoc.filename[g_base.heredoc.countheredoc] = NULL;
+	g_base.heredoc.filename[g_base.heredoc.countheredoc] = NULL;
 	return (1);
 }
 
@@ -178,10 +178,8 @@ void	unlinkheredoc(void)
 	int	i;
 
 	i = g_base.heredoc.countheredoc - 1;
-	printf("%d\n", g_base.heredoc.countheredoc);
 	while (i >= 1)
 		{
-			printf("filename = %s\n", g_base.heredoc.filename[i]);
 			unlink(g_base.heredoc.filename[i]);
 			free(g_base.heredoc.filename[i]);
 			i--;
