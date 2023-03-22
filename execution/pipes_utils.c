@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:03:08 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:52:34 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:44:44 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_base	g_base;
 
 void	freeforpipe(void)
 {

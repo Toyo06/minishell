@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:49:21 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:29:31 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,15 @@ void	tabforcmd(t_list **lst)
 void	checkaccess(t_list	**lst)
 {
 	int		i;
+	t_list	*tmp;
 
+	tmp = (*lst);
 	i = 0;
-	if (access((*lst)->arg, F_OK) == 0)
+	while (tmp->data == 11)
+		tmp = tmp->next;
+	if (access(tmp->arg, F_OK) == 0) // if cmd == builtin
 	{
-		g_base.path.finalpath = ft_strdup((*lst)->arg);
+		g_base.path.finalpath = ft_strdup(tmp->arg);
 		while (g_base.path.preppath[i])
 		{
 			free(g_base.path.preppath[i]);
@@ -96,10 +100,14 @@ void	checkaccessbis(t_list **lst)
 
 	i = -1;
 	tmp = (*lst);
+	while (tmp->data == 11)
+		tmp = tmp->next;
+	if (tmp == NULL)
+		return ;
 	while (g_base.path.preppath[++i])
 	{
 		g_base.path.finalpath = ft_strjoin(g_base.path.preppath[i], tmp->arg);
-		if (access(g_base.path.finalpath, F_OK) == 0)
+		if (access(g_base.path.finalpath, F_OK) == 0) // if cmd == builtin : 0 or 1
 		{
 			i++;
 			while (g_base.path.preppath[i])

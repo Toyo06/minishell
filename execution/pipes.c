@@ -3,29 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:50:17 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:01:54 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_base	g_base;
+int	check_if_empty(t_list **lst)
+{
+	t_list *tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (tmp->data == 10)
+			return (0);
+		else if (tmp->data == 6)
+		{
+			while ((*lst)->data == 6)
+				(*lst) = (*lst)->next;
+			(*lst) = (*lst)->next;
+			(*lst) = (*lst)->next;
+			tmp = (*lst);
+			printf(YEL "%d" CRESET "\n", tmp->data);
+		}
+		if (tmp->next == NULL)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 void	execution(t_list **lst, t_env **env)
 {
+	int	retval;
+
+	retval = 0;
 	countheredoc(lst);
 	while (1)
-		if (heredoc(lst) == 1)
+	{
+		retval = heredoc(lst);
+		if (retval == 1)
 			break ;
+		if (retval == 2)
+			return ;
+	}
+	// while (tmp && tmp->data == 11)
+	// 	tmp = tmp->next;
+	// if (tmp->next == NULL)
+	// 	return ;
 	if (checkpipes(lst) == 0)
 		if (isitabuiltin(lst, env) == 1)
 			execsimglecmd(lst, env);
 	if (checkpipes(lst) == 1)
-		if (isitabuiltin(lst, env) == 1)
-			execonepipe(lst, env);
+		if (isitabuiltin(lst, env) == 1) // remove this line
+			execonepipe(lst, env); // check builtin in ececonepipe()
 	if (checkpipes(lst) > 1)
 		pipeline(env, lst);
 }

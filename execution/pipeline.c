@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:50:02 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/21 18:39:47 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_base	g_base;
 
 void    pipeline(t_env **env, t_list **lst)
 {
@@ -47,6 +45,7 @@ void    pipeline(t_env **env, t_list **lst)
 					dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
 			dup2(fdout, 1);
 			close(pipefd[i][0]);
+			//	execute builtin with exit [in the custom dispatch, exit(0) after execution]
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 				exit(127);
 			exit(0);

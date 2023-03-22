@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:07:05 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/06 17:16:03 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:21:26 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,34 @@ void	sig_handler(int sig)
 		printf("\e[2K");
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	sig_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_base.sigint_received = 1;
+		printf("\e[2K");
+		// printf("\33[2K\r");
+		rl_on_new_line();
+		// rl_redisplay();
+		simulate_return_key_press();
+		// remove_newline();
+	}
+	else if (sig == SIGQUIT)
+	{
+		g_base.sigquit_received = 1;
+		printf("\e[2K");
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGTERM)
+	{
+		g_base.sigterm_received = 1;
+		printf("\e[2K");
+		rl_on_new_line();
+		rl_redisplay();
+		simulate_return_key_press();
 	}
 }

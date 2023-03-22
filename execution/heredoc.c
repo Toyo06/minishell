@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/19 20:48:53 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:29:39 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_base	g_base;
 
 void	countheredoc(t_list **lst)
 {
@@ -50,28 +48,56 @@ int	counthereinpipe(t_list **lst)
 	return (i);
 }
 
+void simulate_return_key_press()
+{
+	char newline = '\n';
+	ioctl(STDIN_FILENO, TIOCSTI, &newline);
+}
+
 int	heredoc(t_list **lst)
 {
 	t_list	*tmp;
 	char	*line;
 	char	*tmpa;
 
+	g_base.sigint_received = 0;
+	g_base.sigterm_received = 0;
 	tmp = (*lst);
 	while (tmp->next != NULL && tmp->data != 1)
 		tmp = tmp->next;
 	if (tmp->data == 1)
-	{	
+	{
 		tmpa = ft_strdup(".aa");
 		g_base.heredoc.filename[g_base.heredoc.countheredoc] = ft_strjoin(tmpa, tmp->next->arg);
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		signal(SIGINT, sig_heredoc);
+		signal(SIGQUIT, sig_heredoc);
+		signal(SIGTERM, sig_heredoc);
 		while (1)
 		{
-			line = readline("heredoc > ");
+			line = readline("heredoc> ");
 			if (ft_strcmp(line, tmp->next->arg) == 0)
 				break ;
+			if (g_base.sigint_received)
+				return (2) ;
+			if (line == NULL)
+			{
+				printf(GRN "HERE" CRESET "\n");
+				if (tmp->next)
+					removenextnode(&tmp);
+				tmp->data = 11;
+				free(line);
+				printthelist(&tmp);
+				close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
+				open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY, 0644);
+				g_base.heredoc.countheredoc++;
+				return (0);
+			}
+			printf(RED "HERE" CRESET "\n");
 			ft_putstr_fd(line, g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
 			ft_putstr_fd("\n", g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
-			free(line);
+			if (line)
+				free(line);
 		}
 		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY);
@@ -97,7 +123,7 @@ void	unlinkheredoc(void)
 			free(g_base.heredoc.filename[i]);
 			i--;
 		}
-	
+
 	free(g_base.heredoc.filename);
 }
 
@@ -115,7 +141,7 @@ void	removenextnode(t_list	**lst)
 				{
 					tmp->prev->next = NULL;
 					tmp->next = NULL;
-					tmp->next = NULL;
+					tmp->prev = NULL;
 					free(tmp->arg);
 					free(tmp);
 				}
@@ -127,6 +153,6 @@ void	removenextnode(t_list	**lst)
 				tmp->next = NULL;
 				free(tmp->arg);
 				free(tmp);
-			}				
+			}
 		}
 }

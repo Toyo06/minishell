@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:50:26 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:00:38 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_base	g_base;
 
 void	execsimglecmd(t_list **lst, t_env **env)
 {
@@ -21,6 +19,8 @@ void	execsimglecmd(t_list **lst, t_env **env)
 
 	if (g_base.path.nbpath == 1)
 		return ;
+	if (check_if_empty(lst) == 1)
+		return ;
 	tabforcmd(lst);
 	preparepathforexec(env, lst);
 	f = fork();
@@ -28,13 +28,15 @@ void	execsimglecmd(t_list **lst, t_env **env)
 	signal(SIGINT, sig_block_handler);
 	if (f == 0)
 	{
+		printf(MAG "%d" CRESET "\n", g_base.heredoc.countheredoc++);
+		printf(CYN "%d" CRESET "\n", g_base.heredoc.processhere);
 		if (counthereinpipe(lst) == 0)
 				dup2(0, 0);
 		else
 			{
 				g_base.heredoc.processhere += counthereinpipe(lst);
 				dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
-			}	
+			}
 		dup2(1, 1);
 		if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 			exit(127);

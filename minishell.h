@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 17:48:44 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:02:16 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <signal.h>
+# include <stddef.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 typedef struct s_path
 {
@@ -155,6 +158,9 @@ typedef struct s_base
 	t_sig		sig;
 	t_retval	retval;
 	t_path		path;
+	sig_atomic_t	sigint_received;
+	sig_atomic_t	sigterm_received;
+	sig_atomic_t	sigquit_received;
 }				t_base;
 
 /*	-----	Minilib	-----	*/
@@ -312,6 +318,12 @@ void	printthelist(t_list **head);
 void	countheredoc(t_list **lst);
 int		counthereinpipe(t_list **lst);
 void	unlinkheredoc(void);
+
+void	sig_heredoc(int sig);
+void	simulate_return_key_press();
+void	remove_newline();
+int		check_if_empty(t_list **lst);
+
 
 extern	t_base g_base;
 #endif

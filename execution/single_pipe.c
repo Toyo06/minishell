@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   single_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:50:31 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:26:51 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_base	g_base;
 
 void	execonepipe(t_list **lst, t_env **env)
 {
@@ -31,7 +29,7 @@ void	execonepipe(t_list **lst, t_env **env)
 			execone(&tmpb);
 		g_base.heredoc.processhere += counthereinpipe(lst);
 		singlepipeaction(&tmpb, env);
-		
+
 		g_base.path.forkchild = fork();
 		close(g_base.path.pipefd[1]);
 		if (g_base.path.forkchild == 0)
@@ -71,6 +69,7 @@ void	execone(t_list **lst)
 	else
 			dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
 	dup2(g_base.path.pipefd[1], 1);
+	// void	execbuiltin check if builtin (in check function exit(0))
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 		exit(127);
 	exit(0);
