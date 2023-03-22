@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 10:31:56 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:47:00 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int	main(int argc, char **argv, char **envp)
 			while (lst->prev) {
 				lst = lst->prev;
 			}
+			unlinkheredoc();
 			lst = free_list(lst);
 			free(lst);
-			unlinkheredoc();
+			
 		}
 		free(g_base.sig.str);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/22 10:29:39 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:47:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,20 @@ int	heredoc(t_list **lst)
 			if (g_base.sigint_received)
 				return (2) ;
 			if (line == NULL)
-			{
-				printf(GRN "HERE" CRESET "\n");
-				if (tmp->next)
-					removenextnode(&tmp);
-				tmp->data = 11;
-				free(line);
-				printthelist(&tmp);
-				close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
-				open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY, 0644);
-				g_base.heredoc.countheredoc++;
-				return (0);
-			}
+			//{
+				//printf(GRN "HERE" CRESET "\n");
+				break ;
+				//tmp->data = 11;
+				//free(line);
+				//close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
+				//open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY, 0644);
+				//g_base.heredoc.countheredoc++;
+				//return (0);
+			//}
 			printf(RED "HERE" CRESET "\n");
 			ft_putstr_fd(line, g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
 			ft_putstr_fd("\n", g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
-			if (line)
-				free(line);
+			free(line);
 		}
 		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY);
