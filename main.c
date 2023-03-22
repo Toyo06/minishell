@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/19 20:51:33 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:31:56 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ int	main(int argc, char **argv, char **envp)
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
 				}
+			while (lst->prev) {
+				lst = lst->prev;
+			}
 			lst = free_list(lst);
 			free(lst);
 			unlinkheredoc();
 		}
 		free(g_base.sig.str);
-		
+
 	}
 }
