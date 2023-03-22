@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/21 20:02:16 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:06:21 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,20 +144,20 @@ typedef struct s_heredoc
 
 typedef struct s_base
 {
-	t_heredoc	heredoc;
-	t_pwd		pwd;
-	t_list		list;
-	t_parsing	parsing;
-	t_quote		quote;
-	t_env		env;
-	t_op		op;
-	t_export	xport;
-	t_echo		echo;
-	t_cd		cd;
-	t_exec		pl;
-	t_sig		sig;
-	t_retval	retval;
-	t_path		path;
+	t_heredoc		heredoc;
+	t_pwd			pwd;
+	t_list			list;
+	t_parsing		parsing;
+	t_quote			quote;
+	t_env			env;
+	t_op			op;
+	t_export		xport;
+	t_echo			echo;
+	t_cd			cd;
+	t_exec			pl;
+	t_sig			sig;
+	t_retval		retval;
+	t_path			path;
 	sig_atomic_t	sigint_received;
 	sig_atomic_t	sigterm_received;
 	sig_atomic_t	sigquit_received;
@@ -296,14 +296,14 @@ int		isitabuiltin(t_list	**lst, t_env **env);
 /*	single_pipe.c	*/
 void	execonepipe(t_list **lst, t_env **env);
 void	singlepipeaction(t_list **tmpb, t_env **env);
-void	execone(t_list **lst);
-void	exectwo(t_list **lst);
+void	execone(t_list **lst, t_env **env);
+void	exectwo(t_list **lst, t_env **env);
 /*	single_cmd.c	*/
 void	execsimglecmd(t_list **lst, t_env **env);
 /*	path_prep.c	*/
 void	preparepathforexec(t_env **env, t_list **lst);
 void	tabforcmd(t_list **lst);
-void	checkaccess(t_list	**lst);
+void	checkaccess(t_list	**lst, t_env **env);
 void	checkaccessbis(t_list **lst);
 /*	signals.c	*/
 void	sig_handler(int sig);
@@ -323,7 +323,7 @@ void	sig_heredoc(int sig);
 void	simulate_return_key_press();
 void	remove_newline();
 int		check_if_empty(t_list **lst);
-
+int		check_builtin(char *arg, t_list **lst, t_env **env);
 
 extern	t_base g_base;
 #endif

@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 10:29:31 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:51:07 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	preparepathforexec(t_env **env, t_list **lst)
 	g_base.path.preppath = ft_split(tmp->content, ':');
 	while (g_base.path.preppath[++i])
 		g_base.path.preppath[i] = ft_strjoin(g_base.path.preppath[i], "/");
-	checkaccess(lst);
+	checkaccess(lst, env);
 }
 
 void	tabforcmd(t_list **lst)
@@ -70,7 +70,7 @@ void	tabforcmd(t_list **lst)
 	g_base.path.cmdfull[i] = NULL;
 }
 
-void	checkaccess(t_list	**lst)
+void	checkaccess(t_list	**lst, t_env **env)
 {
 	int		i;
 	t_list	*tmp;
@@ -79,7 +79,7 @@ void	checkaccess(t_list	**lst)
 	i = 0;
 	while (tmp->data == 11)
 		tmp = tmp->next;
-	if (access(tmp->arg, F_OK) == 0) // if cmd == builtin
+	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg, lst, env) == 1) // if cmd == builtin
 	{
 		g_base.path.finalpath = ft_strdup(tmp->arg);
 		while (g_base.path.preppath[i])

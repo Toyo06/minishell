@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/21 18:39:47 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:54:02 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,13 @@ void    pipeline(t_env **env, t_list **lst)
 			dup2(fdout, 1);
 			close(pipefd[i][0]);
 			//	execute builtin with exit [in the custom dispatch, exit(0) after execution]
+			// exec_builtin(lst, env);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
+			{
+				if (check_builtin(tmp->arg, lst, env) == 1)
+					exit (0);
 				exit(127);
+			}
 			exit(0);
 		}
 		fdin = pipefd[i][0];
