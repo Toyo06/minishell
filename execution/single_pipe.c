@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 15:03:48 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:39:08 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	execonepipe(t_list **lst, t_env **env)
 		if (g_base.path.forkchild == 0)
 			exectwo(&tmpb, env);
 		g_base.heredoc.processhere += counthereinpipe(lst);
+		close(g_base.path.pipefd[0]);
 		waitpid(g_base.path.forkparent, &status, 0);
 		waitpid(g_base.path.forkchild, &status, 0);
 		if (WIFEXITED(status))
@@ -74,6 +75,8 @@ void	execone(t_list **lst, t_env **env)
 			g_base.redir.fdcount += countredirinpipe(lst) - 1;
 			dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
 		}
+	close(g_base.path.pipefd[0]);
+	//close(g_base.path.pipefd[1]);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 	{
 		if (check_builtin((*lst)->arg, lst, env) == 1)
