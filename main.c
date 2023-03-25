@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 19:23:08 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:31:19 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	main(int argc, char **argv, char **envp)
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
 				}
-			//while (lst->prev) {
-				//lst = lst->prev;
-			//}
-					printf("here\n");
+			while (lst && lst->prev) {
+				lst = lst->prev;
+			}
 			if (g_base.heredoc.totalheredoc > 0)
 				unlinkheredoc();
 			lst = free_list(lst);

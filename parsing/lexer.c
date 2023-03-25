@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 19:24:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:29:41 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 
 	i = 0;
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
-		{
-			printf("here\n");
 			return (1);
-		}
 	else
 	{
 		prep_quotes(str);
