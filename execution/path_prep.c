@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 17:51:07 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:38:15 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	tabforcmd(t_list **lst)
 	i = 0;
 	while (tmp && tmp->data != 6)
 	{
-		if (tmp->data == 11 && tmp->next != NULL && tmp->next->data != 6)
+		if ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13) && tmp->next != NULL && tmp->next->data != 6)
 			tmp = tmp->next;
-		else if (tmp->data == 11 && (tmp->next == NULL || tmp->next->data == 6))
+		else if ((tmp->data == 11 || tmp->data == 13) && (tmp->next == NULL || tmp->next->data == 6))
 			break ;
 		else
 		{
@@ -77,7 +77,7 @@ void	checkaccess(t_list	**lst, t_env **env)
 
 	tmp = (*lst);
 	i = 0;
-	while (tmp->data == 11)
+	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13)
 		tmp = tmp->next;
 	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg, lst, env) == 1) // if cmd == builtin
 	{
@@ -100,7 +100,7 @@ void	checkaccessbis(t_list **lst)
 
 	i = -1;
 	tmp = (*lst);
-	while (tmp->data == 11)
+	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13)
 		tmp = tmp->next;
 	if (tmp == NULL)
 		return ;

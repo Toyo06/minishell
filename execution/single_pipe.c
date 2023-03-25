@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 17:56:44 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:03:48 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	execonepipe(t_list **lst, t_env **env)
 			execone(&tmpb, env);
 		g_base.heredoc.processhere += counthereinpipe(lst);
 		singlepipeaction(&tmpb, env);
-
 		g_base.path.forkchild = fork();
 		close(g_base.path.pipefd[1]);
 		if (g_base.path.forkchild == 0)
@@ -68,8 +67,13 @@ void	execone(t_list **lst, t_env **env)
 		dup2(0, 0);
 	else
 			dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
-	dup2(g_base.path.pipefd[1], 1);
-	// void	execbuiltin check if builtin (in check function exit(0))
+	if (countredirinpipe(lst) == 0)
+		dup2(g_base.path.pipefd[1], 1);
+	else
+		{
+			g_base.redir.fdcount += countredirinpipe(lst) - 1;
+			dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
+		}
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 	{
 		if (check_builtin((*lst)->arg, lst, env) == 1)
@@ -82,7 +86,13 @@ void	execone(t_list **lst, t_env **env)
 void	exectwo(t_list **lst, t_env **env)
 {
 	g_base.heredoc.processhere += counthereinpipe(lst);
-	dup2(1, 1);
+	if (countredirinpipe(lst) == 0)
+		dup2(1, 1);
+	else
+	{
+		g_base.redir.fdcount += countredirinpipe(lst);
+		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
+	}
 	if (counthereinpipe(lst) == 0)
 		dup2(g_base.path.pipefd[0], 0);
 	else

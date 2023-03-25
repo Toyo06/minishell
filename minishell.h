@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 18:06:21 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:11:16 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 }				t_list;
+
+typedef struct s_redir
+{
+	int		*fdout;
+	int 	totalred;
+	int		fdcount;
+}				t_redir;
 
 typedef struct s_env
 {
@@ -144,6 +151,7 @@ typedef struct s_heredoc
 
 typedef struct s_base
 {
+	t_redir			redir;
 	t_heredoc		heredoc;
 	t_pwd			pwd;
 	t_list			list;
@@ -324,6 +332,11 @@ void	simulate_return_key_press();
 void	remove_newline();
 int		check_if_empty(t_list **lst);
 int		check_builtin(char *arg, t_list **lst, t_env **env);
+
+void	setvaluered(t_list **lst);
+int	countredir(t_list	**lst);
+void	redirection(t_list **lst);
+int	countredirinpipe(t_list **lst);
 
 extern	t_base g_base;
 #endif

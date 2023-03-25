@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 17:54:02 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 15:57:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ void    pipeline(t_env **env, t_list **lst)
 	int status;
 	int fdin = 0;
 	int fdout = 1;
+	int	j = 0;
 	g_base.heredoc.processhere += counthereinpipe(&tmp);
 	preparepathforexec(env, &tmp);
 	tabforcmd(&tmp);
+	if (countredirinpipe(&tmp) > 0)
+			g_base.redir.fdcount += countredirinpipe(&tmp) - 1;
 	while (i <= totalpipe)
 	{
 		if (totalpipe > 0)
@@ -33,20 +36,21 @@ void    pipeline(t_env **env, t_list **lst)
 			fdout = 1;
 		else
 			fdout = pipefd[i][1];
-		//fdout = redir(&tmp, fdout);
 		forkfd[i] = fork();
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
+		
 		if (forkfd[i] == 0)
 		{
 			if (counthereinpipe(&tmp) == 0)
 				dup2(fdin, 0);
 			else
 					dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
-			dup2(fdout, 1);
+			if (countredirinpipe(&tmp) == 0)
+				dup2(fdout, 1);
+			else
+				dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
 			close(pipefd[i][0]);
-			//	execute builtin with exit [in the custom dispatch, exit(0) after execution]
-			// exec_builtin(lst, env);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 			{
 				if (check_builtin(tmp->arg, lst, env) == 1)
@@ -55,6 +59,8 @@ void    pipeline(t_env **env, t_list **lst)
 			}
 			exit(0);
 		}
+		if (countredirinpipe(&tmp) > 0)
+			g_base.redir.fdcount += countredirinpipe(&tmp);
 		fdin = pipefd[i][0];
 		close(pipefd[i][1]);
 		if (i < totalpipe && totalpipe > 0)
@@ -68,7 +74,11 @@ void    pipeline(t_env **env, t_list **lst)
 		i++;
 		//g_base.path.totalredir = 0;
 	}
-	waitpid(forkfd[i - 1], &status, 0);
+	while (j < totalpipe)
+		{
+			waitpid(forkfd[j], &status, 0);
+			j++;
+		}
 	if (WIFEXITED(status))
 		g_base.retval.code = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
