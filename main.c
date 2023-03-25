@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 19:31:19 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:45:08 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			k = 1;
 		}
+		if (!g_base.sig.str)
+			break ;
 		if (ft_strlen(g_base.sig.str) > 0 && k == 0)
 		{
 			add_history(g_base.sig.str);
