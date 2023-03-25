@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/11 20:10:28 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:24:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 	int		i;
 
 	i = 0;
-	if (!(check_forbidden_char(str)) || !(check_quotes(str)))
-		return (0);
-	if (check_space(str) == 1)
-		return (0);
+	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
+		{
+			printf("here\n");
+			return (1);
+		}
 	else
 	{
 		prep_quotes(str);
@@ -48,7 +49,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab, env);
 		free(g_base.parsing.tab);
 		if (err_management(lst) == 0)
-			return (0);
+			return (1);
 	}
-	return (1);
+	return (0);
 }

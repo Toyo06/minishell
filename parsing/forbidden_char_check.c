@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forbidden_char_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:29:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/13 19:57:07 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:18:38 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	check_forbidden_char(char *str)
 		if (str[i] == ';')
 		{
 			printf("\';\' not allowed on our minishell.\n");
-			return (0);
+			return (1);
 		}
 		if (str[i] == '\\')
 		{
 			printf("'\\' not allowed on our minishell.\n");
-			return (0);
+			return (1);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }

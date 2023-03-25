@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 17:40:56 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:23:08 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(g_base.sig.str);
 			if (op_count(g_base.sig.str) == 0)
-				if (check_prompt(g_base.sig.str, &lst, &env) == 1)
+				if (check_prompt(g_base.sig.str, &lst, &env) == 0)
 				{
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
 				}
-			while (lst->prev) {
-				lst = lst->prev;
-			}
-			unlinkheredoc();
+			//while (lst->prev) {
+				//lst = lst->prev;
+			//}
+					printf("here\n");
+			if (g_base.heredoc.totalheredoc > 0)
+				unlinkheredoc();
 			lst = free_list(lst);
 			free(lst);
 			
