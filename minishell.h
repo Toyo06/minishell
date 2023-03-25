@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 14:11:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:35:13 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,6 +337,7 @@ void	setvaluered(t_list **lst);
 int	countredir(t_list	**lst);
 void	redirection(t_list **lst);
 int	countredirinpipe(t_list **lst);
+int	checklinespace(char *str);
 
 extern	t_base g_base;
 #endif
