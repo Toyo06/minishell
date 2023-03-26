@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/22 19:47:06 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/26 14:29:11 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	countheredoc(t_list **lst)
 	tmp = (*lst);
 	while (tmp)
 	{
-		if (tmp->data == 1)
+		if (tmp->data == 1 || tmp->data == 2)
 			i++;
 		tmp = tmp->next;
 	}
@@ -41,7 +41,7 @@ int	counthereinpipe(t_list **lst)
 	i = 0;
 	while (tmp != NULL && tmp->data != 6)
 	{
-		if (tmp->data == 11)
+		if (tmp->data == 11 || tmp->data == 12)
 			i++;
 		tmp = tmp->next;
 	}
@@ -63,12 +63,12 @@ int	heredoc(t_list **lst)
 	g_base.sigint_received = 0;
 	g_base.sigterm_received = 0;
 	tmp = (*lst);
-	while (tmp->next != NULL && tmp->data != 1)
+	while (tmp->next != NULL && tmp->data != 1 && tmp->data != 2)
 		tmp = tmp->next;
 	if (tmp->data == 1)
 	{
 		tmpa = ft_strdup(".aa");
-		g_base.heredoc.filename[g_base.heredoc.countheredoc] = ft_strjoin(tmpa, tmp->next->arg);
+		g_base.heredoc.filename[g_base.heredoc.countheredoc]= ft_strjoin(tmpa, tmp->next->arg);
 		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		signal(SIGINT, sig_heredoc);
 		signal(SIGQUIT, sig_heredoc);
@@ -81,16 +81,7 @@ int	heredoc(t_list **lst)
 			if (g_base.sigint_received)
 				return (2) ;
 			if (line == NULL)
-			//{
-				//printf(GRN "HERE" CRESET "\n");
 				break ;
-				//tmp->data = 11;
-				//free(line);
-				//close(g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
-				//open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_RDONLY, 0644);
-				//g_base.heredoc.countheredoc++;
-				//return (0);
-			//}
 			printf(RED "HERE" CRESET "\n");
 			ft_putstr_fd(line, g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
 			ft_putstr_fd("\n", g_base.heredoc.fdout[g_base.heredoc.countheredoc]);
@@ -102,6 +93,14 @@ int	heredoc(t_list **lst)
 		tmp->arg = ft_strdup(tmp->next->arg);
 		removenextnode(&tmp);
 		tmp->data = 11;
+		g_base.heredoc.countheredoc++;
+		return (0);
+	}
+	else if (tmp->data == 2)
+	{
+		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(tmp->next->arg, O_RDONLY);
+		tmp->next->data = 15;
+		tmp->data = 12;
 		g_base.heredoc.countheredoc++;
 		return (0);
 	}

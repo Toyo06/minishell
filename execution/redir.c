@@ -10,14 +10,18 @@ void	redirection(t_list **lst)
 	setvaluered(lst);
 	while (tmp)
 	{
-		if (tmp->data == 3 || tmp->data == 4)
-			{
-				g_base.redir.fdout[i] = open(tmp->next->arg, O_WRONLY | O_TRUNC | O_CREAT , 0644);
-				i++;	
-				//if (i > 1)
-					//close(g_base.redir.fdout[i - 1]);
-				tmp->next->data = 13;
-			}
+		if (tmp->data == 4)
+		{
+			g_base.redir.fdout[i] = open(tmp->next->arg, O_WRONLY | O_TRUNC | O_CREAT , 0644);
+			i++;	
+			tmp->next->data = 13;
+		}
+		else if (tmp->data == 3)
+		{
+			g_base.redir.fdout[i] = open(tmp->next->arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			tmp->next->data = 13;
+			i++;
+		}
 		tmp = tmp->next;
 	}
 }
