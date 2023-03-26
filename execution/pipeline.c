@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 23:31:46 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 00:02:45 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ void    pipeline(t_env **env, t_list **lst)
 			close(pipefd[i][0]);
 			isitabuiltin(&tmp, env);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
+			{
+				if (check_builtin(tmp->arg) == 1)
+					exit (0);
 				exit(127);
+			}
 			exit(0);
 		}
 		if (countredirinpipe(&tmp) > 0)

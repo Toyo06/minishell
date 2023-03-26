@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 23:38:52 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:58:36 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	execution(t_list **lst, t_env **env)
 int	isitabuiltin(t_list	**lst, t_env **env)
 {
 	if (ft_strcmp("echo", (*lst)->arg) == 0)
-		ft_echo(lst, 0);
+		ft_echo(lst, 1);
 	else if (ft_strcmp("exit", (*lst)->arg) == 0)
 		ft_exit(lst);
 	else if (ft_strcmp("export", (*lst)->arg) == 0)
