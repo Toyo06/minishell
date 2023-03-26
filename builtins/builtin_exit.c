@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:48:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 18:25:40 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:31:34 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,31 @@ void	ft_exit(t_list **lst)
 	t_list	*tmp;
 
 	tmp = (*lst);
+	g_base.retval.pxit = 1;
 	if (ft_strcmp(tmp->arg, "exit") == 0)
 	{
-		if (check_pipes(lst) == 0)
-			display_exit(0, 0);
-		else if (!check_nb(tmp->next->arg))
-			display_exit(255, 3);
-		else if (check_nb(tmp->next->arg) && tmp->next->next != NULL)
-			display_exit(1, 4);
-		else if (check_pipes(lst) > 1)
+		if (check_exit_args(lst) == 0)
 		{
-			printf(RED "CHECK " CRESET "\n");
-			error_msg(1);
-			return ;
+			if (tmp->prev == NULL && tmp->next == NULL)
+				g_base.retval.pxit = 0;
+			display_exit(0, 0);
 		}
-		else
-			display_exit(base_check(ft_atoi(tmp->next->arg)), 0);
+		else if (check_exit_args(lst) >= 1)
+		{
+			g_base.retval.pxit = 1;
+			if (tmp->next->data == 6)
+				display_exit(0, 0);
+			if (!check_nb(tmp->next->arg))
+				display_exit(255, 3);
+			else if (check_nb(tmp->next->arg) && tmp->next->next != NULL && tmp->next->next->data != 6)
+			{
+				if (tmp->prev == NULL)
+					g_base.retval.pxit = 0;
+				display_exit(1, 4);
+			}
+			else
+				display_exit(base_check(ft_atoi(tmp->next->arg)), 0);
+		}
 	}
 }
 
@@ -59,7 +68,8 @@ int	check_nb(char *str)
 
 void	display_exit(int nb, int choice)
 {
-	printf("exit\n");
+	if (g_base.retval.pxit != 1)
+		printf("exit\n");
 	if (choice == 1)
 		error_msg(1);
 	else if (choice == 3)
@@ -67,12 +77,15 @@ void	display_exit(int nb, int choice)
 	else if (choice == 4)
 	{
 		err_msg_exit(4);
-		return ;
+		if (g_base.retval.pxit == 1)
+			exit (1);
+		else if (g_base.retval.pxit == 0)
+			return ;
 	}
 	exit (nb);
 }
 
-int	check_pipes(t_list **lst)
+int	check_exit_args(t_list **lst)
 {
 	t_list	*tmp;
 	int		i;

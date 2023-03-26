@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 14:19:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:41:23 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	tabforcmd(t_list **lst)
 	g_base.path.cmdfull = malloc(sizeof(char *) * (i + 1));
 	tmp = (*lst);
 	i = 0;
-	while (tmp && tmp->data != 6)
+	while (tmp && tmp->data != 6 && check_builtin(tmp->arg) == 0)
 	{
 		while ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13 || tmp->data == 15 || tmp->data == 12) && tmp->next != NULL && tmp->next->data != 6)
 			tmp = tmp->next;
@@ -75,11 +75,12 @@ void	checkaccess(t_list	**lst, t_env **env)
 	int		i;
 	t_list	*tmp;
 
+	(void)env;
 	tmp = (*lst);
 	i = 0;
 	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13)
 		tmp = tmp->next;
-	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg, lst, env) == 1) // if cmd == builtin
+	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg) == 1)
 	{
 		g_base.path.finalpath = ft_strdup(tmp->arg);
 		while (g_base.path.preppath[i])
@@ -107,7 +108,7 @@ void	checkaccessbis(t_list **lst)
 	while (g_base.path.preppath[++i])
 	{
 		g_base.path.finalpath = ft_strjoin(g_base.path.preppath[i], tmp->arg);
-		if (access(g_base.path.finalpath, F_OK) == 0) // if cmd == builtin : 0 or 1
+		if (access(g_base.path.finalpath, F_OK) == 0)
 		{
 			i++;
 			while (g_base.path.preppath[i])

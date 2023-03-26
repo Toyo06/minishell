@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 13:48:26 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:38:52 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,21 @@ int	check_if_empty(t_list **lst)
 	return (1);
 }
 
-int		check_builtin(char *arg, t_list **lst, t_env **env)
+int		check_builtin(char *arg)
 {
-	(void)lst;
 	if (ft_strcmp("exit", arg) == 0)
 		return (1);
 	else if (ft_strcmp("export", arg) == 0)
-	{
-		if ((*lst)->next)
-			return (1);
-		ft_printexport(env);
 		return (1);
-	}
 	else if (ft_strcmp("unset", arg) == 0)
+		return (1);
+	else if (ft_strcmp("echo", arg) == 0)
+		return (1);
+	else if (ft_strcmp("pwd", arg) == 0)
+		return (1);
+	else if (ft_strcmp("env", arg) == 0)
+		return (1);
+	else if (ft_strcmp("cd", arg) == 0)
 		return (1);
 	return (0);
 }
@@ -77,7 +79,7 @@ void	execution(t_list **lst, t_env **env)
 		if (isitabuiltin(lst, env) == 1)
 			execsimglecmd(lst, env);
 	if (checkpipes(lst) == 1)
-			execonepipe(lst, env); // check builtins
+			execonepipe(lst, env);
 	if (checkpipes(lst) > 1)
 		pipeline(env, lst);
 }

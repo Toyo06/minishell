@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 16:05:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/26 23:31:46 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    pipeline(t_env **env, t_list **lst)
 		forkfd[i] = fork();
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
-		
+
 		if (forkfd[i] == 0)
 		{
 			if (counthereinpipe(&tmp) == 0)
@@ -51,12 +51,9 @@ void    pipeline(t_env **env, t_list **lst)
 			else
 				dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
 			close(pipefd[i][0]);
+			isitabuiltin(&tmp, env);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
-			{
-				if (check_builtin(tmp->arg, lst, env) == 1)
-					exit (0);
 				exit(127);
-			}
 			exit(0);
 		}
 		if (countredirinpipe(&tmp) > 0)

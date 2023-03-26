@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 17:35:13 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:14:47 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_path
 typedef struct s_retval
 {
 	int	code;
+	int	pxit;
 }			t_retval;
 
 typedef struct s_sig
@@ -265,7 +266,7 @@ void	ft_exit(t_list **lst);
 int		base_check(int nb);
 int		check_nb(char *str);
 void	display_exit(int nb, int choice);
-int		check_pipes(t_list **lst);
+int		check_exit_args(t_list **lst);
 /*	builtin_export.c	*/
 void	ft_update_export(t_env **env, char *name, char *content, int eq_flag);
 void	ft_export(t_list **lst, t_env **env);
@@ -331,7 +332,7 @@ void	sig_heredoc(int sig);
 void	simulate_return_key_press();
 void	remove_newline();
 int		check_if_empty(t_list **lst);
-int		check_builtin(char *arg, t_list **lst, t_env **env);
+int		check_builtin(char *arg);
 
 void	setvaluered(t_list **lst);
 int	countredir(t_list	**lst);
