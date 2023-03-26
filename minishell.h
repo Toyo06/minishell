@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 22:14:47 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 01:05:50 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_retval
 {
 	int	code;
 	int	pxit;
+	int	pcd;
 }			t_retval;
 
 typedef struct s_sig

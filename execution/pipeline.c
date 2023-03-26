@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 00:02:45 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 01:08:27 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void    pipeline(t_env **env, t_list **lst)
 			else
 				dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
 			close(pipefd[i][0]);
+			g_base.retval.pcd = 1;
 			isitabuiltin(&tmp, env);
 			if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 			{

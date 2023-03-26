@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 23:58:36 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 01:06:50 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	execution(t_list **lst, t_env **env)
 	int	retval;
 
 	retval = 0;
+	g_base.retval.pcd = 0;
 	redirection(lst);
 	countheredoc(lst);
 	while (1)
