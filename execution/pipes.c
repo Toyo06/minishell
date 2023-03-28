@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 23:45:27 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:11:03 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	isitabuiltin(t_list	**lst, t_env **env)
 		ft_exit(lst);
 	else if (ft_strcmp("export", (*lst)->arg) == 0)
 	{
-		if ((*lst)->next == NULL)
+		if ((*lst)->next == NULL || (*lst)->next->data == 6)
 			ft_printexport(env);
 		else
 			ft_export(lst, env);
