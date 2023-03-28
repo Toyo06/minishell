@@ -6,36 +6,64 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:27:47 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/17 00:25:30 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 00:16:57 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 void	register_pwd(void)
 {
 	g_base.pwd.pwd = getcwd(g_base.pwd.buf, sizeof(g_base.pwd.buf));
-	// t_env	*tmp;
+}
 
-	// tmp = (*env);
-	// while (tmp)
-	// {
-	// 	if (ft_strncmp(tmp->name, "PWD", 3) == 0)
-	// 	{
-	// 		g_base.pwd.pwd = ft_strdup(tmp->content);
-	// 		printf("%s\n", g_base.pwd.pwd);
-	// 		return ;
-	// 	}
-	// 	tmp = tmp->next;
-	// }
+void	ft_pwd_p(t_list **lst)
+{
+	if ((*lst)->next == NULL)
+		{
+			if (g_base.pwd.pwd)
+				printf("%s\n", g_base.pwd.pwd);
+			exit_condition(0);
+			return ;
+		}
+		if ((*lst)->next->data == 10)
+		{
+			ft_putstr_fd("usage: pwd [-L | -P]\n", 2);
+			exit_condition(1);
+			g_base.retval.code = 1;
+			return ;
+		}
+		else if ((*lst)->prev->data == 6)
+		{
+			if ((*lst)->next == NULL && g_base.pwd.pwd)
+				printf("%s\n", g_base.pwd.pwd);
+			exit_condition(0);
+			return ;
+		}
+		else
+			err_msg_pwd(10);
 }
 
 void	ft_pwd(t_list **lst)
 {
-	(void)lst;
-	if (g_base.pwd.pwd)
-		printf("%s\n", g_base.pwd.pwd);
-	else
-		printf("pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+	if (ft_strcmp((*lst)->arg, PWD_P) == 0)
+		ft_pwd_p(lst);
+	else if (ft_strcmp((*lst)->arg, "pwd") == 0)
+	{
+		if (g_base.pwd.pwd)
+		{
+			printf("%s\n", g_base.pwd.pwd);
+			exit_condition(0);
+			return ;
+		}
+		else if ((*lst)->prev->data == 6 && (*lst)->next == NULL)
+		{
+			if (g_base.pwd.pwd)
+				printf("%s\n", g_base.pwd.pwd);
+			exit_condition(0);
+			return ;
+		}
+		else
+			err_msg_pwd(10);
+	}
 }

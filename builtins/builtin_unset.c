@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:22:31 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 00:18:15 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:42:05 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void	check_unset(t_list **lst, t_env **env)
 	while (tmp->next)
 	{
 		tmp = tmp->next;
-		if (!check_alnum(tmp->arg))
+		if (!ft_isalpha(tmp->arg[0]) || !check_alnum(tmp->arg))
 		{
-			if (tmp->data != 6)
-				error_msg(1);
-			continue ;
-		}
-		if (!ft_isalpha(tmp->arg[0]))
-		{
+			if (tmp->data == 6)
+				break ;
 			err_msg_unset(9);
-			continue ;
+			exit_condition(1);
+			if (tmp->next)
+				continue ;
+			return ;
 		}
 		ft_unset(env, tmp->arg);
 	}
+	exit_condition(0);
 }
 
 int	check_alnum(char *str)

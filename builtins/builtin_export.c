@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 17:04:42 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 00:03:10 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_export(t_list **lst, t_env **env)
 		ft_update_export(env, tmp->arg, g_base.xport.arg, g_base.xport.eq_fl);
 		free(g_base.xport.arg);
 	}
+	exit_condition(0);
 }
 
 void	ft_printexport(t_env **env)

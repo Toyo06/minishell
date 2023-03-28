@@ -6,46 +6,73 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:38:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 01:30:28 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:50:18 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_cd(t_list **lst, t_env **env)
+static t_list	*find_break(t_list **lst)
 {
-	t_list	*tmp;
-	char	cwd[2048];
+	t_list *tmp;
 
 	tmp = (*lst);
 	while (tmp)
 	{
 		if (tmp->next && tmp->next->data == 6)
-			break ;
+			break;
 		tmp = tmp->next;
 	}
-	tmp = (*lst)->next;
+	return tmp;
+}
+
+static void	update_path(t_list *tmp, t_env **env)
+{
 	if (tmp == NULL || tmp->data == 6)
 		g_base.cd.path = ft_getenv(env, "HOME");
 	else
 		g_base.cd.path = tmp->arg;
-	if (g_base.cd.path == NULL)
-	{
-		err_msg_cd(7);
-		if (g_base.retval.pcd == 1)
-			exit (1);
-		return ;
-	}
-	if (chdir(g_base.cd.path) == -1)
-	{
-		err_msg_cd(8);
-		if (g_base.retval.pcd == 1)
-			exit (1);
-		return ;
-	}
+}
+
+void	handle_err(int err_code)
+{
+	err_msg_cd(err_code);
+	if (g_base.retval.pcd == 1)
+		exit(1);
+}
+
+static void	update_env_vars(t_env **env)
+{
+	char cwd[2048];
+
 	if (!ft_getenv(env, "PWD"))
 		ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
 	ft_update_env(env, "OLDPWD", ft_getenv(env, "PWD"));
 	ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
-	register_pwd();
+}
+
+void	ft_cd(t_list **lst, t_env **env)
+{
+	t_list *tmp;
+
+	if (ft_strcmp((*lst)->arg, CD_P) == 0)
+		ft_cd_p(lst);
+	else if (ft_strcmp((*lst)->arg, "cd") == 0)
+	{
+		tmp = find_break(lst);
+		tmp = (*lst)->next;
+		update_path(tmp, env);
+		if (g_base.cd.path == NULL)
+		{
+			handle_err(7);
+			return;
+		}
+		if (chdir(g_base.cd.path) == -1)
+		{
+			handle_err(8);
+			return;
+		}
+		update_env_vars(env);
+		register_pwd();
+	}
 }
