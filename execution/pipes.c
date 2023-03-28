@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 01:06:50 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:45:27 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int		check_builtin(char *arg)
 		return (1);
 	else if (ft_strcmp("unset", arg) == 0)
 		return (1);
-	else if (ft_strcmp("echo", arg) == 0)
+	else if (ft_strcmp("echo", arg) == 0 || ft_strcmp(ECHO_P, arg) == 0)
 		return (1);
-	else if (ft_strcmp("pwd", arg) == 0)
+	else if (ft_strcmp("pwd", arg) == 0 || ft_strcmp(PWD_P, arg) == 0)
 		return (1);
-	else if (ft_strcmp("env", arg) == 0)
+	else if (ft_strcmp("env", arg) == 0 || ft_strcmp(ENV_P, arg) == 0)
 		return (1);
-	else if (ft_strcmp("cd", arg) == 0)
+	else if (ft_strcmp("cd", arg) == 0 || ft_strcmp(CD_P, arg) == 0)
 		return (1);
 	return (0);
 }
@@ -62,6 +62,7 @@ void	execution(t_list **lst, t_env **env)
 
 	retval = 0;
 	g_base.retval.pcd = 0;
+	g_base.retval.inp = 0;
 	redirection(lst);
 	countheredoc(lst);
 	while (1)
@@ -72,10 +73,6 @@ void	execution(t_list **lst, t_env **env)
 		if (retval == 2)
 			return ;
 	}
-	// while (tmp && tmp->data == 11)
-	// 	tmp = tmp->next;
-	// if (tmp->next == NULL)
-	// 	return ;
 	if (checkpipes(lst) == 0)
 		if (isitabuiltin(lst, env) == 1)
 			execsimglecmd(lst, env);
@@ -87,7 +84,8 @@ void	execution(t_list **lst, t_env **env)
 
 int	isitabuiltin(t_list	**lst, t_env **env)
 {
-	if (ft_strcmp("echo", (*lst)->arg) == 0)
+	if (ft_strcmp("echo", (*lst)->arg) == 0
+		|| ft_strcmp(ECHO_P, (*lst)->arg) == 0)
 		ft_echo(lst, 1);
 	else if (ft_strcmp("exit", (*lst)->arg) == 0)
 		ft_exit(lst);
@@ -98,13 +96,16 @@ int	isitabuiltin(t_list	**lst, t_env **env)
 		else
 			ft_export(lst, env);
 	}
-	else if (ft_strcmp("pwd", (*lst)->arg) == 0)
+	else if (ft_strcmp("pwd", (*lst)->arg) == 0
+			|| ft_strcmp(PWD_P, (*lst)->arg) == 0)
 		ft_pwd(lst);
 	else if (ft_strcmp("unset", (*lst)->arg) == 0)
 		check_unset(lst, env);
-	else if (ft_strcmp("cd", (*lst)->arg) == 0)
+	else if (ft_strcmp("cd", (*lst)->arg) == 0
+			|| ft_strcmp(CD_P, (*lst)->arg) == 0)
 		ft_cd(lst, env);
-	else if (ft_strcmp("env", (*lst)->arg) == 0)
+	else if (ft_strcmp("env", (*lst)->arg) == 0
+			|| ft_strcmp(ENV_P, (*lst)->arg) == 0)
 		ft_env(env, lst);
 	else
 		return (1);

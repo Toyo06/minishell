@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/26 14:29:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:44:33 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,6 @@ int	counthereinpipe(t_list **lst)
 		tmp = tmp->next;
 	}
 	return (i);
-}
-
-void simulate_return_key_press()
-{
-	char newline = '\n';
-	ioctl(STDIN_FILENO, TIOCSTI, &newline);
 }
 
 int	heredoc(t_list **lst)

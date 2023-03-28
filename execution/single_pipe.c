@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 01:19:02 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:19:48 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	execone(t_list **lst, t_env **env)
 		}
 	close(g_base.path.pipefd[0]);
 	g_base.retval.pcd = 1;
+	g_base.retval.inp = 1;
 	isitabuiltin(lst, env);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 	{
@@ -102,6 +103,7 @@ void	exectwo(t_list **lst, t_env **env)
 	else
 			dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
 	g_base.retval.pcd = 1;
+	g_base.retval.inp = 1;
 	isitabuiltin(lst, env);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull, g_base.path.envtab) == -1)
 	{

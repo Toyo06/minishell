@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/26 14:28:59 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:06:01 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	execsimglecmd(t_list **lst, t_env **env)
 	int		f;
 	int		status;
 
-	if (g_base.path.nbpath == 1)
-		return ;
+	// if (g_base.path.nbpath == 1)
+	// 	return ;
 	if (check_if_empty(lst) == 1)
 		return ;
 	tabforcmd(lst);
