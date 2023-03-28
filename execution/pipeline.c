@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 17:19:48 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:24:01 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,23 @@ void    pipeline(t_env **env, t_list **lst)
 	int fdin = 0;
 	int fdout = 1;
 	int	j = 0;
+	int	k = 0;
+	int	l = 0;
 	g_base.heredoc.processhere += counthereinpipe(&tmp);
+	while (k < g_base.heredoc.processhere)
+		{
+			close(g_base.heredoc.fdout[k]);
+			k++;
+		}
 	preparepathforexec(env, &tmp);
 	tabforcmd(&tmp);
 	if (countredirinpipe(&tmp) > 0)
 			g_base.redir.fdcount += countredirinpipe(&tmp) - 1;
+	while (l < g_base.redir.fdcount)
+		{
+			close(g_base.redir.fdout[l]);
+			l++;
+		}
 	while (i <= totalpipe)
 	{
 		if (totalpipe > 0)
@@ -66,9 +78,21 @@ void    pipeline(t_env **env, t_list **lst)
 			g_base.redir.fdcount += countredirinpipe(&tmp);
 		fdin = pipefd[i][0];
 		close(pipefd[i][1]);
+		g_base.heredoc.processhere += counthereinpipe(&tmp);
+		k = 0;
+		while (k < g_base.heredoc.processhere)
+		{
+			close(g_base.heredoc.fdout[k]);
+			k++;
+		}
+		l = 0;
+		while (l < g_base.redir.fdcount)
+		{
+			close(g_base.redir.fdout[l]);
+			l++;
+		}
 		if (i < totalpipe && totalpipe > 0)
 			singlepipeaction(&tmp, env);
-		g_base.heredoc.processhere += counthereinpipe(&tmp);
 		if (i > 1)
 		{
 			close(pipefd[i - 2][1]);

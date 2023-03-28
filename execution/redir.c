@@ -3,24 +3,24 @@
 void	redirection(t_list **lst)
 {
 	t_list	*tmp;
-	int		i;
 
 	tmp = (*lst);
-	i = 0;
 	setvaluered(lst);
 	while (tmp)
 	{
 		if (tmp->data == 4)
 		{
-			g_base.redir.fdout[i] = open(tmp->next->arg, O_WRONLY | O_TRUNC | O_CREAT , 0644);
-			i++;	
+			g_base.redir.fdout[g_base.redir.i] = open(tmp->next->arg,
+					O_WRONLY | O_TRUNC | O_CREAT , 0644);
+			g_base.redir.i++;	
 			tmp->next->data = 13;
 		}
 		else if (tmp->data == 3)
 		{
-			g_base.redir.fdout[i] = open(tmp->next->arg, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			g_base.redir.fdout[g_base.redir.i] = open(tmp->next->arg,
+					O_WRONLY | O_APPEND | O_CREAT, 0644);
 			tmp->next->data = 13;
-			i++;
+			g_base.redir.i++;
 		}
 		tmp = tmp->next;
 	}
@@ -29,8 +29,10 @@ void	redirection(t_list **lst)
 void	setvaluered(t_list **lst)
 {
 	g_base.redir.totalred = countredir(lst);
-	g_base.redir.fdout = malloc(sizeof(int) * g_base.redir.totalred);
+	if (g_base.redir.totalred > 0)
+		g_base.redir.fdout = malloc(sizeof(int) * g_base.redir.totalred);
 	g_base.redir.fdcount = 0;
+	g_base.redir.i = 0;
 }
 
 int	countredir(t_list	**lst)

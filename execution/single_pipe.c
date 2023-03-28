@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 17:19:48 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:18:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	execonepipe(t_list **lst, t_env **env)
 	preparepathforexec(env, &tmpb);
 	if (pipe(g_base.path.pipefd) == 0)
 	{
-		g_base.path.forkparent = fork();
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
+		g_base.path.forkparent = fork();
 		if (g_base.path.forkparent == 0)
 			execone(&tmpb, env);
 		g_base.heredoc.processhere += counthereinpipe(lst);

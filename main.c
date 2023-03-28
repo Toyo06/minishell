@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/25 19:45:08 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:40:23 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,18 @@ int	main(int argc, char **argv, char **envp)
 			while (lst && lst->prev) {
 				lst = lst->prev;
 			}
-			if (g_base.heredoc.totalheredoc > 0)
+			if (g_base.heredoc.totalrealheredoc > 0)
 				unlinkheredoc();
+			if (g_base.heredoc.totalheredoc > 0)
+				free(g_base.heredoc.fdout);
+			if (g_base.redir.totalred > 0)
+					free(g_base.redir.fdout);
 			lst = free_list(lst);
 			free(lst);
 			
 		}
 		free(g_base.sig.str);
-
+		system("leaks minishell");
 	}
 }
 
@@ -75,3 +79,4 @@ int	checklinespace(char *str)
 	}
 	return (1);
 }
+

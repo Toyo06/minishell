@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:56:40 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:32:43 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_redir
 	int		*fdout;
 	int 	totalred;
 	int		fdcount;
+	int		i;
 }				t_redir;
 
 typedef struct s_env
@@ -151,7 +152,9 @@ typedef struct s_exec
 typedef struct s_heredoc
 {
 	int		*fdout;
+	int		totalrealheredoc;
 	int		countheredoc;
+	int		countalldoc;
 	char	**filename;
 	int		totalheredoc;
 	int		processhere;
@@ -352,6 +355,8 @@ void	err_msg_pwd(int i);
 void	exit_condition(int n);
 void	ft_cd_p(t_list **lst);
 void	handle_err(int err_code);
+
+int	checklinespace(char *str);
 
 extern	t_base g_base;
 #endif
