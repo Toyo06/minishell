@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 01:05:50 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:56:40 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # define MAG "\e[0;35m"
 # define CYN "\e[0;36m"
 # define CRESET "\e[0m"
+
+# define ECHO_P "/bin/echo"
+# define PWD_P "/bin/pwd"
+# define ENV_P "/usr/bin/env"
+# define CD_P "/usr/bin/cd"
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -55,6 +60,7 @@ typedef struct s_retval
 	int	code;
 	int	pxit;
 	int	pcd;
+	int	inp;
 }			t_retval;
 
 typedef struct s_sig
@@ -336,10 +342,16 @@ int		check_if_empty(t_list **lst);
 int		check_builtin(char *arg);
 
 void	setvaluered(t_list **lst);
-int	countredir(t_list	**lst);
+int		countredir(t_list	**lst);
 void	redirection(t_list **lst);
-int	countredirinpipe(t_list **lst);
-int	checklinespace(char *str);
+int		countredirinpipe(t_list **lst);
+int		checklinespace(char *str);
+
+void	ft_pwd_p(t_list **lst);
+void	err_msg_pwd(int i);
+void	exit_condition(int n);
+void	ft_cd_p(t_list **lst);
+void	handle_err(int err_code);
 
 extern	t_base g_base;
 #endif
