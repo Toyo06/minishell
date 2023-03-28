@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:40:03 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 18:31:52 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:58:37 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,19 @@ void	err_msg_unset(int i)
 		ft_putstr_fd("minishell: unset: not a valid identifier\n",
 			2);
 		g_base.retval.code = 1;
+	}
+}
+
+void	err_msg_pwd(int i)
+{
+	if (i == 10)
+	{
+		ft_putstr_fd("pwd: error retrieving current directory: ", 2);
+		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
+		ft_putstr_fd("No such file or directory\n", 2);
+		if (g_base.retval.inp == 1)
+			exit (1);
+		g_base.retval.code = 1;
+		return ;
 	}
 }

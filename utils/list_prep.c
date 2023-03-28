@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:59:30 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/10 20:29:09 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:02:53 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	set_lst_data(char *str)
 int	double_char(char *str)
 {
 	if ((str[0] == '>' && str[1] == '>') || (str[0] == '<' && str[0] == '<' )
-		|| (str[0] == '$' && str[1] == '?'))
+		|| (str[0] == '$' && str[1] == '?' && str[2] == '\0'))
 	{
 		if (str[0] == '>' && str[1] == '>' && str[2] == '\0')
 			return (3);
