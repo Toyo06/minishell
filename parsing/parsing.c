@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/17 18:46:10 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:37:58 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,17 @@ int	check_sym_err(t_list **lst)
 			error_msg(1);
 			return (1);
 		}
-		if (tmp->data == 8 )
+		if (tmp->data == 8)
 		{
 			tmp->arg = ft_strdup(ft_itoa(g_base.retval.code));
+			if (tmp->prev == NULL || tmp->prev->data == 6)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(tmp->arg, 2);
+				ft_putstr_fd(": command not found\n", 2);
+				g_base.retval.code = 127;
+				return (1);
+			}
 		}
 		// if (tmp->data == 8)
 		// {
