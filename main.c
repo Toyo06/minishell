@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 22:40:23 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:49:03 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 			
 		}
 		free(g_base.sig.str);
-		system("leaks minishell");
+		//system("leaks minishell");
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:37:13 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:48:07 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,35 @@ void	preparepathforexec(t_env **env, t_list **lst)
 	checkaccess(lst, env);
 }
 
-void	tabforcmd(t_list **lst)
+int	mallocfortab(t_list *tmp)
 {
-	t_list	*tmp;
-	int		i;
+	int	i;
 
-	tmp = (*lst);
 	i = 0;
 	while (tmp && tmp->data != 6)
 	{
 		tmp = tmp->next;
 		i++;
 	}
-	g_base.path.cmdfull = malloc(sizeof(char *) * (i + 1));
+	return (i);
+}
+
+void	tabforcmd(t_list **lst)
+{
+	t_list	*tmp;
+	int		i;
+
 	tmp = (*lst);
+	g_base.path.cmdfull = malloc(sizeof(char *) * (mallocfortab(tmp) + 1));
 	i = 0;
 	while (tmp && tmp->data != 6 && check_builtin(tmp->arg) == 0)
 	{
-		while ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13 || tmp->data == 15 || tmp->data == 12) && tmp->next != NULL && tmp->next->data != 6)
+		while ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4
+				|| tmp->data == 13 || tmp->data == 15 || tmp->data == 12)
+			&& tmp->next != NULL && tmp->next->data != 6)
 			tmp = tmp->next;
-		if ((tmp->data == 11 || tmp->data == 13 || tmp->data == 15) && (tmp->next == NULL || tmp->next->data == 6))
+		if ((tmp->data == 11 || tmp->data == 13 || tmp->data == 15)
+			&& (tmp->next == NULL || tmp->next->data == 6))
 			break ;
 		else
 		{
@@ -78,7 +87,8 @@ void	checkaccess(t_list	**lst, t_env **env)
 	(void)env;
 	tmp = (*lst);
 	i = 0;
-	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13)
+	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4
+		|| tmp->data == 13)
 		tmp = tmp->next;
 	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg) == 1)
 	{
@@ -92,46 +102,4 @@ void	checkaccess(t_list	**lst, t_env **env)
 	}
 	else
 		checkaccessbis(lst);
-}
-
-void	checkaccessbis(t_list **lst)
-{
-	int		i;
-	t_list	*tmp;
-
-	i = -1;
-	tmp = (*lst);
-	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4 || tmp->data == 13)
-		tmp = tmp->next;
-	if (tmp == NULL)
-		return ;
-	while (g_base.path.preppath[++i])
-	{
-		g_base.path.finalpath = ft_strjoin(g_base.path.preppath[i], tmp->arg);
-		if (access(g_base.path.finalpath, F_OK) == 0)
-		{
-			i++;
-			while (g_base.path.preppath[i])
-			{
-				free(g_base.path.preppath[i]);
-				i++;
-			}
-			break ;
-		}
-		free(g_base.path.finalpath);
-		if (g_base.path.preppath[i + 1] == NULL)
-		{
-			g_base.path.finalpath = NULL;
-			if (g_base.path.nbpath == 1)
-			{
-				printf("Minishell: %s: No such file or directory\n", (*lst)->arg);
-				g_base.retval.code = 127;
-			}
-			else
-			{
-				printf("minishell: %s: command not found\n", (*lst)->arg);
-				g_base.retval.code = 1;
-			}
-		}
-	}
 }

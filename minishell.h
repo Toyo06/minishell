@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 22:32:43 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:47:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ typedef struct s_heredoc
 	char	**filename;
 	int		totalheredoc;
 	int		processhere;
+	int		countreforset;
+	int		countallforset;
 }				t_heredoc;
 
 typedef struct s_base
@@ -356,7 +358,18 @@ void	exit_condition(int n);
 void	ft_cd_p(t_list **lst);
 void	handle_err(int err_code);
 
-int	checklinespace(char *str);
+int		checklinespace(char *str);
+void	execsinglechild(t_list **lst);
+void	closesinglecmd(void);
+void	singlepipesign(int status);
+void	execonepipebis(t_list **tmpb, t_env **env, int status);
+
+int		mallocfortab(t_list *tmp);
+void	taberrorprint(t_list **lst);
+void	accessfree(int i);
+int		isitabuiltinbis(t_list	**lst, t_env **env);
+void	countmuchhere(t_list *tmp, t_list **lst);
+int	heredocexec(t_list *tmp);
 
 extern	t_base g_base;
 #endif

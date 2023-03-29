@@ -11,8 +11,8 @@ void	redirection(t_list **lst)
 		if (tmp->data == 4)
 		{
 			g_base.redir.fdout[g_base.redir.i] = open(tmp->next->arg,
-					O_WRONLY | O_TRUNC | O_CREAT , 0644);
-			g_base.redir.i++;	
+					O_WRONLY | O_TRUNC | O_CREAT, 0644);
+				g_base.redir.i++;
 			tmp->next->data = 13;
 		}
 		else if (tmp->data == 3)
@@ -37,7 +37,7 @@ void	setvaluered(t_list **lst)
 
 int	countredir(t_list	**lst)
 {
-	int	i;
+	int		i;
 	t_list	*tmp;
 
 	i = 0;
@@ -53,7 +53,7 @@ int	countredir(t_list	**lst)
 
 int	countredirinpipe(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	int		i;
 
 	i = 0;
