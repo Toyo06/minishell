@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/03/29 22:42:57 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:10:55 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,17 @@ int	counthereinpipe(t_list **lst)
 int	heredocexec(t_list *tmp)
 {
 	char	*line;
-
-	g_base.sigint_received = 0;
-	g_base.sigterm_received = 0;
+	signal(SIGTERM, sig_heredoc);
 	signal(SIGINT, sig_heredoc);
 	signal(SIGQUIT, sig_heredoc);
-	signal(SIGTERM, sig_heredoc);
 	while (1)
 	{
 		line = readline("heredoc> ");
 		if (ft_strcmp(line, tmp->next->arg) == 0)
-			{
-				free(line);
-				break ;
-			}
+		{
+			free(line);
+			break ;
+		}
 		if (g_base.sigint_received)
 			return (2) ;
 		if (line == NULL)
@@ -101,8 +98,7 @@ int	heredoc(t_list **lst)
 	t_list	*tmp;
 	char	*tmpa;
 
-	//g_base.sigint_received = 0;
-	//g_base.sigterm_received = 0;
+	g_base.sigint_received = 0;
 	tmp = (*lst);
 	while (tmp->next != NULL && tmp->data != 1 && tmp->data != 2)
 		tmp = tmp->next;
@@ -110,12 +106,15 @@ int	heredoc(t_list **lst)
 	{
 		tmpa = ft_strdup(".aa");
 		g_base.heredoc.filename[g_base.heredoc.countheredoc]= ft_strjoin(tmpa, tmp->next->arg);
-		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_WRONLY | O_CREAT | O_TRUNC, 0644);	
+		g_base.heredoc.fdout[g_base.heredoc.countheredoc] = open(g_base.heredoc.filename[g_base.heredoc.countheredoc], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (heredocexec(tmp) == 2)
+		{
+			g_base.retval.code = 1;
 			return (2);
+		}
 		//signal(SIGINT, sig_heredoc);
 		//signal(SIGQUIT, sig_heredoc);
-	//	signal(SIGTERM, sig_heredoc);
+		//signal(SIGTERM, sig_heredoc);
 		/*while (1)
 		{
 			line = readline("heredoc> ");
