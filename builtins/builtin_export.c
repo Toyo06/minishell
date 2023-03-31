@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 00:03:10 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:42:56 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,31 +67,62 @@ void	ft_export(t_list **lst, t_env **env)
 	exit_condition(0);
 }
 
-void	ft_printexport(t_env **env)
+static t_env	*find_next_min(t_env *env, const char *prev_min)
 {
 	t_env	*tmp;
+	t_env	*min;
 
-	tmp = (*env);
+	min = NULL;
+	tmp = env;
 	while (tmp)
 	{
-		if (tmp->name != NULL)
+		if (ft_strcmp(tmp->name, prev_min) > 0
+			&& (min == NULL || ft_strcmp(tmp->name, min->name) < 0))
 		{
-			printf("declare -x ");
-			printf("%s", tmp->name);
-			if (tmp->content)
-			{
-				printf("=");
-				printf("\"");
-				printf("%s", tmp->content);
-				printf("\"");
-			}
-			printf("\n");
-		}
-		if (tmp->name == NULL)
-		{
-			printf("declare -x ");
-			printf("%s\n", tmp->content);
+			min = tmp;
 		}
 		tmp = tmp->next;
 	}
+	return (min);
+}
+
+static void	print_env_node(t_env *node)
+{
+	if (node->name != NULL)
+	{
+		printf("declare -x ");
+		printf("%s", node->name);
+		if (node->content)
+		{
+			printf("=");
+			printf("\"");
+			printf("%s", node->content);
+			printf("\"");
+		}
+		printf("\n");
+	}
+	else
+	{
+		printf("declare -x ");
+		printf("%s\n", node->content);
+	}
+}
+
+void	ft_printexport(t_env **env)
+{
+	t_env	*min;
+	char	*prev_min;
+
+	prev_min = NULL;
+	// (char *)malloc(sizeof(char) * 1);
+	// prev_min[0] = '\0';
+	min = find_next_min(*env, prev_min);
+	while (min != NULL)
+	{
+		print_env_node(min);
+		free(prev_min);
+		prev_min = ft_strdup(min->name);
+		min = find_next_min(*env, prev_min);
+	}
+	free(prev_min);
 }
