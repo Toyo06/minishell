@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/29 22:47:30 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:10:07 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,6 +325,10 @@ void	execsimglecmd(t_list **lst, t_env **env);
 void	preparepathforexec(t_env **env, t_list **lst);
 void	tabforcmd(t_list **lst);
 void	checkaccess(t_list	**lst, t_env **env);
+/*	path_prep_utils.c	*/
+t_list	*find_next_valid_node(t_list **lst);
+void	free_preppath_from_index(int index);
+void	path_not_found(t_list **lst);
 void	checkaccessbis(t_list **lst);
 /*	signals.c	*/
 void	sig_handler(int sig);
@@ -369,7 +373,7 @@ void	taberrorprint(t_list **lst);
 void	accessfree(int i);
 int		isitabuiltinbis(t_list	**lst, t_env **env);
 void	countmuchhere(t_list *tmp, t_list **lst);
-int	heredocexec(t_list *tmp);
+int		heredocexec(t_list *tmp);
 
 extern	t_base g_base;
 #endif
