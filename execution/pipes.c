@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/29 22:22:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:22:15 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_if_empty(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = (*lst);
 	while (tmp)
@@ -37,7 +37,7 @@ int	check_if_empty(t_list **lst)
 	return (1);
 }
 
-int		check_builtin(char *arg)
+int	check_builtin(char *arg)
 {
 	if (ft_strcmp("exit", arg) == 0)
 		return (1);
@@ -77,9 +77,17 @@ void	execution(t_list **lst, t_env **env)
 		if (isitabuiltin(lst, env) == 1)
 			execsimglecmd(lst, env);
 	if (checkpipes(lst) == 1)
-			execonepipe(lst, env);
+		execonepipe(lst, env);
 	if (checkpipes(lst) > 1)
 		pipeline(env, lst);
+}
+
+void	isitabuiltin_bis(t_list **lst, t_env **env)
+{
+	if ((*lst)->next == NULL || (*lst)->next->data == 6)
+		ft_printexport(env);
+	else
+		ft_export(lst, env);
 }
 
 int	isitabuiltin(t_list	**lst, t_env **env)
@@ -90,25 +98,19 @@ int	isitabuiltin(t_list	**lst, t_env **env)
 	else if (ft_strcmp("exit", (*lst)->arg) == 0)
 		ft_exit(lst);
 	else if (ft_strcmp("export", (*lst)->arg) == 0)
-	{
-		if ((*lst)->next == NULL || (*lst)->next->data == 6)
-			ft_printexport(env);
-		else
-			ft_export(lst, env);
-	}
+		isitabuiltin_bis(lst, env);
 	else if (ft_strcmp("pwd", (*lst)->arg) == 0
-			|| ft_strcmp(PWD_P, (*lst)->arg) == 0)
+		|| ft_strcmp(PWD_P, (*lst)->arg) == 0)
 		ft_pwd(lst);
 	else if (ft_strcmp("unset", (*lst)->arg) == 0)
 		check_unset(lst, env);
 	else if (ft_strcmp("cd", (*lst)->arg) == 0
-			|| ft_strcmp(CD_P, (*lst)->arg) == 0)
+		|| ft_strcmp(CD_P, (*lst)->arg) == 0)
 		ft_cd(lst, env);
 	else if (ft_strcmp("env", (*lst)->arg) == 0
-			|| ft_strcmp(ENV_P, (*lst)->arg) == 0)
+		|| ft_strcmp(ENV_P, (*lst)->arg) == 0)
 		ft_env(env, lst);
 	else
 		return (1);
 	return (0);
 }
-
