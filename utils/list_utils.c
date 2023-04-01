@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 21:58:01 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/22 19:47:15 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:19:48 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ t_list	*free_list(t_list *lst)
 	return (lst);
 }
 
- void	printthelist(t_list **head)
- {
- 	t_list	*tmp;
+void	printthelist(t_list **head)
+{
+	t_list	*tmp;
 
- 	tmp = *head;
- 	while (tmp)
- 	{
- 		printf("%d     ", tmp->data);
- 		printf("%s\n", tmp->arg);
+	tmp = *head;
+	while (tmp)
+	{
+		printf("%d     ", tmp->data);
+		printf("%s\n", tmp->arg);
 		tmp = tmp->next;
- 	}
- }
+	}
+}

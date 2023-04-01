@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:27:47 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 00:16:57 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:53:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@ void	register_pwd(void)
 void	ft_pwd_p(t_list **lst)
 {
 	if ((*lst)->next == NULL)
-		{
-			if (g_base.pwd.pwd)
-				printf("%s\n", g_base.pwd.pwd);
-			exit_condition(0);
-			return ;
-		}
-		if ((*lst)->next->data == 10)
-		{
-			ft_putstr_fd("usage: pwd [-L | -P]\n", 2);
-			exit_condition(1);
-			g_base.retval.code = 1;
-			return ;
-		}
-		else if ((*lst)->prev->data == 6)
-		{
-			if ((*lst)->next == NULL && g_base.pwd.pwd)
-				printf("%s\n", g_base.pwd.pwd);
-			exit_condition(0);
-			return ;
-		}
-		else
-			err_msg_pwd(10);
+	{
+		if (g_base.pwd.pwd)
+			printf("%s\n", g_base.pwd.pwd);
+		exit_condition(0);
+		return ;
+	}
+	if ((*lst)->next->data == 10)
+	{
+		ft_putstr_fd("usage: pwd [-L | -P]\n", 2);
+		exit_condition(1);
+		g_base.retval.code = 1;
+		return ;
+	}
+	else if ((*lst)->prev->data == 6)
+	{
+		if ((*lst)->next == NULL && g_base.pwd.pwd)
+			printf("%s\n", g_base.pwd.pwd);
+		exit_condition(0);
+		return ;
+	}
+	else
+		err_msg_pwd(10);
 }
 
 void	ft_pwd(t_list **lst)

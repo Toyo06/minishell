@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/31 18:20:37 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:58:45 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = NULL;
-	int	k = 0;
 	env_prep(envp, &env);
 	register_pwd();
 	convertenvtotab(&env);
@@ -34,9 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		lst = NULL;
 		g_base.sig.str = readline("\e[0;33mMinishell: \e[0m");
 		if (!g_base.sig.str || checklinespace(g_base.sig.str) == 1)
-		{
 			k = 1;
-		}
 		if (!g_base.sig.str)
 			break ;
 		if (ft_strlen(g_base.sig.str) > 0 && k == 0)
@@ -51,15 +48,14 @@ int	main(int argc, char **argv, char **envp)
 			while (lst && lst->prev) {
 				lst = lst->prev;
 			}
-			if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
-				unlinkheredoc();
-			if (g_base.heredoc.totalheredoc > 0)
-				free(g_base.heredoc.fdout);
-			if (g_base.redir.totalred > 0)
-				free(g_base.redir.fdout);
-			lst = free_list(lst);
-			free(lst);
-			
+				if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
+					unlinkheredoc();
+				if (g_base.heredoc.totalheredoc > 0)
+					free(g_base.heredoc.fdout);
+				if (g_base.redir.totalred > 0)
+					free(g_base.redir.fdout);
+				lst = free_list(lst);
+				free(lst);		
 		}
 		free(g_base.sig.str);
 		//system("leaks minishell");
@@ -79,4 +75,3 @@ int	checklinespace(char *str)
 	}
 	return (1);
 }
-

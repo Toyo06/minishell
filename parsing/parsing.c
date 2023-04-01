@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:37:58 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:52:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,6 @@ int	check_sym_err(t_list **lst)
 				return (1);
 			}
 		}
-		// if (tmp->data == 8)
-		// {
-
-		// 	if (tmp->prev == NULL ||
-		// 			ft_strcmp(tmp->prev->arg, "echo") != 0 ||
-		// 			count > 1)
-		// 	{
-		// 		error_msg(1);
-		// 		return (1);
-		// 	}
-		// }
 		tmp = tmp->next;
 		count++;
 	}

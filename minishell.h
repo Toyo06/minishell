@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 12:11:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:55:42 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_list
 typedef struct s_redir
 {
 	int		*fdout;
-	int 	totalred;
+	int		totalred;
 	int		fdcount;
 	int		i;
 }				t_redir;
@@ -165,10 +165,10 @@ typedef struct s_heredoc
 
 typedef struct s_multipipe
 {
-	int 	totalpipe;
-	int 	i;
-	int 	fdin;
-	int 	fdout;
+	int		totalpipe;
+	int		i;
+	int		fdin;
+	int		fdout;
 	int		j;
 	int		k;
 	int		l;
@@ -361,8 +361,8 @@ int		counthereinpipe(t_list **lst);
 void	unlinkheredoc(void);
 
 void	sig_heredoc(int sig);
-void	simulate_return_key_press();
-void	remove_newline();
+void	simulate_return_key_press(void);
+void	remove_newline(void);
 int		check_if_empty(t_list **lst);
 int		check_builtin(char *arg);
 
@@ -391,7 +391,7 @@ int		isitabuiltinbis(t_list	**lst, t_env **env);
 void	countmuchhere(t_list *tmp, t_list **lst);
 int		heredocexec(t_list *tmp);
 
-void    isitabuiltin_bis(t_list **lst, t_env **env);
+void	isitabuiltin_bis(t_list **lst, t_env **env);
 int		controlcheredoc(void);
 int		sinplehere(t_list **lst);
 int		doubleredir(t_list **lst);
@@ -402,6 +402,10 @@ void	closeheredoc(void);
 void	multipipesend(void);
 void	startingpipe(t_list **tmp, t_env **env);
 void	execvething(t_list **lst, t_env **env);
+void	mallocpipeline(void);
+void	freepipeline(void);
+void	actionpipeline(t_list **lst, t_env **env);
+void	envofpipeline(void);
 
-extern	t_base g_base;
+extern t_base	g_base;
 #endif
