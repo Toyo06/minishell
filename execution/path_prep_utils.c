@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_prep_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:37:13 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/31 14:37:39 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:51:41 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*find_next_valid_node(t_list **lst)
 
 	tmp = (*lst);
 	while (tmp && (tmp->data == 11 || tmp->data == 3
-		|| tmp->data == 4 || tmp->data == 13))
+			|| tmp->data == 4 || tmp->data == 13))
 	{
 		tmp = tmp->next;
 	}
@@ -64,7 +64,7 @@ void	checkaccessbis(t_list **lst)
 		{
 			i++;
 			free_preppath_from_index(i);
-			break;
+			break ;
 		}
 		free(g_base.path.finalpath);
 		if (g_base.path.preppath[i + 1] == NULL)

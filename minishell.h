@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/31 15:10:07 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:11:00 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,26 @@ typedef struct s_heredoc
 	int		processhere;
 	int		countreforset;
 	int		countallforset;
+	int		sign;
 }				t_heredoc;
+
+typedef struct s_multipipe
+{
+	int 	totalpipe;
+	int 	i;
+	int 	fdin;
+	int 	fdout;
+	int		j;
+	int		k;
+	int		l;
+	int		status;
+	int		**pipefd;
+	int		*forkfd;
+}				t_multipipe;
 
 typedef struct s_base
 {
+	t_multipipe		multipipe;
 	t_redir			redir;
 	t_heredoc		heredoc;
 	t_pwd			pwd;
@@ -374,6 +390,18 @@ void	accessfree(int i);
 int		isitabuiltinbis(t_list	**lst, t_env **env);
 void	countmuchhere(t_list *tmp, t_list **lst);
 int		heredocexec(t_list *tmp);
+
+void    isitabuiltin_bis(t_list **lst, t_env **env);
+int		controlcheredoc(void);
+int		sinplehere(t_list **lst);
+int		doubleredir(t_list **lst);
+void	setvaluemultipipe(t_list **lst);
+void	multipipechild(t_list *tmp);
+void	closeredir(void);
+void	closeheredoc(void);
+void	multipipesend(void);
+void	startingpipe(t_list **tmp, t_env **env);
+void	execvething(t_list **lst, t_env **env);
 
 extern	t_base g_base;
 #endif

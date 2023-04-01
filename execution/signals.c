@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:07:05 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 23:44:41 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:10:28 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-			printf("\e[2K");
-			rl_on_new_line();
-			rl_redisplay();
-			printf("\n");
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
+		printf("\e[2K");
+		rl_on_new_line();
+		rl_redisplay();
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -41,9 +41,11 @@ void	sig_handler(int sig)
 	}
 }
 
-void simulate_return_key_press()
+void	simulate_return_key_press(void)
 {
-	char newline = '\n';
+	char	newline;
+
+	newline = '\n';
 	ioctl(STDIN_FILENO, TIOCSTI, &newline);
 }
 
