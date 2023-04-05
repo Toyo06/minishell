@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:37:13 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/31 17:51:41 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:34:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	checkaccessbis(t_list **lst)
 	t_list	*tmp;
 
 	tmp = find_next_valid_node(lst);
-	if (tmp == NULL)
+	if (tmp == NULL || tmp->data == 6)
 		return ;
 	i = -1;
 	while (g_base.path.preppath[++i])

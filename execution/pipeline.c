@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:15:45 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:04:04 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ void	pipeline(t_env **env, t_list **lst)
 	startingpipe(&tmp, env);
 	while (g_base.multipipe.i <= g_base.multipipe.totalpipe)
 	{
+		printthelist(&tmp);
 		actionpipeline(&tmp, env);
 			g_base.multipipe.fdin
 			= g_base.multipipe.pipefd[g_base.multipipe.i][0];
 		close(g_base.multipipe.pipefd[g_base.multipipe.i][1]);
-		g_base.heredoc.processhere += counthereinpipe(&tmp);
 		closeheredoc();
 		closeredir();
 		if (g_base.multipipe.i < g_base.multipipe.totalpipe
 			&& g_base.multipipe.totalpipe > 0)
 			singlepipeaction(&tmp, env);
+		g_base.heredoc.processhere += counthereinpipe(&tmp);
+		g_base.redir.fdcount += countredirinpipe(&tmp);
 		g_base.multipipe.i++;
 	}
 	envofpipeline();

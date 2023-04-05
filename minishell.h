@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:55:42 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:13:46 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ typedef struct s_redir
 	int		fdcount;
 	int		i;
 }				t_redir;
+
+typedef struct s_spaceoppipe
+{
+	int		i;
+	int		j;
+	int		quote;
+}				t_spaceoppipe;
 
 typedef struct s_env
 {
@@ -179,6 +186,7 @@ typedef struct s_multipipe
 
 typedef struct s_base
 {
+	t_spaceoppipe	spaceoppipe;
 	t_multipipe		multipipe;
 	t_redir			redir;
 	t_heredoc		heredoc;
@@ -379,7 +387,7 @@ void	ft_cd_p(t_list **lst);
 void	handle_err(int err_code);
 
 int		checklinespace(char *str);
-void	execsinglechild(t_list **lst);
+void	execsinglechild(t_list **lst, t_env **env);
 void	closesinglecmd(void);
 void	singlepipesign(int status);
 void	execonepipebis(t_list **tmpb, t_env **env, int status);
@@ -407,5 +415,12 @@ void	freepipeline(void);
 void	actionpipeline(t_list **lst, t_env **env);
 void	envofpipeline(void);
 
+int	deletenullarg(t_list **lst);
+int	checkererrorparsing(t_list **lst);
+int	freenullargbis(t_list **lst);
+void	setvalueforquotepipe(void);
+void	checkstatusquotepipe(char *str);
+char	*addspacewhenneededpipe(char *str);
+size_t	countmallocnewstring(char *str);
 extern t_base	g_base;
 #endif

@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/29 21:54:43 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:52:46 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ void	execonepipe(t_list **lst, t_env **env)
 
 	tmpb = (*lst);
 	status = 0;
+	
 	tabforcmd(&tmpb);
 	preparepathforexec(env, &tmpb);
 	if (pipe(g_base.path.pipefd) == 0)
 	{
+		g_base.redir.fdcount += countredirinpipe(&tmpb) - 1;
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
 		g_base.path.forkparent = fork();
 		if (g_base.path.forkparent == 0)
 			execone(&tmpb, env);
-		g_base.heredoc.processhere += counthereinpipe(lst);
+		g_base.heredoc.processhere += counthereinpipe(&tmpb);
 		singlepipeaction(&tmpb, env);
+		g_base.redir.fdcount += countredirinpipe(&tmpb);
 		g_base.path.forkchild = fork();
 		execonepipebis(&tmpb, env, status);
-		g_base.heredoc.processhere += counthereinpipe(lst);
+		g_base.heredoc.processhere += counthereinpipe(&tmpb);
 	}
 	close(g_base.path.pipefd[1]);
 	close(g_base.path.pipefd[0]);
@@ -82,10 +85,7 @@ void	execone(t_list **lst, t_env **env)
 	if (countredirinpipe(lst) == 0)
 		dup2(g_base.path.pipefd[1], 1);
 	else
-	{
-		g_base.redir.fdcount += countredirinpipe(lst) - 1;
 		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
-	}
 	close(g_base.path.pipefd[0]);
 	g_base.retval.pcd = 1;
 	g_base.retval.inp = 1;

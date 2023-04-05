@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:58:45 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:25:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
 	t_env	*env;
+	int	k = 0;
 
 	(void)argc;
 	(void)argv;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:47 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/01 13:16:48 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:03:51 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,11 @@ void	startingpipe(t_list **lst, t_env **env)
 
 	tmp = (*lst);
 	g_base.heredoc.processhere += counthereinpipe(&tmp);
+	g_base.redir.fdcount += countredirinpipe(&tmp) - 1;
+	closeredir();
 	closeheredoc();
 	preparepathforexec(env, &tmp);
 	tabforcmd(&tmp);
-	if (countredirinpipe(&tmp) > 0)
-		g_base.redir.fdcount += countredirinpipe(&tmp) - 1;
-	closeredir();
 }
 
 void	multipipechild(t_list *tmp)

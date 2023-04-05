@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:43 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/01 13:16:44 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:04:28 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,4 @@ void	actionpipeline(t_list **lst, t_env **env)
 		close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
 		execvething(&tmp, env);
 	}
-	if (countredirinpipe(&tmp) > 0)
-		g_base.redir.fdcount += countredirinpipe(&tmp);
 }

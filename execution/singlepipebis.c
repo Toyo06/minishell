@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singlepipebis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:27 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/01 13:16:29 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 18:51:59 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	exectwo(t_list **lst, t_env **env)
 	g_base.heredoc.processhere += counthereinpipe(lst);
 	if (countredirinpipe(lst) == 0)
 		dup2(1, 1);
-	else
-	{
-		g_base.redir.fdcount += countredirinpipe(lst);
+	else if (countredirinpipe(lst) > 0)
 		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
-	}
 	if (counthereinpipe(lst) == 0)
 		dup2(g_base.path.pipefd[0], 0);
 	else

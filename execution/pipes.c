@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/31 19:22:15 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:54:21 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,18 @@ void	execution(t_list **lst, t_env **env)
 			return ;
 	}
 	if (checkpipes(lst) == 0)
-		if (isitabuiltin(lst, env) == 1)
-			execsimglecmd(lst, env);
+	{
+		if (ft_strcmp("exit", (*lst)->arg) == 0)
+			ft_exit(lst);
+		else if (ft_strcmp("cd", (*lst)->arg) == 0
+		|| ft_strcmp(CD_P, (*lst)->arg) == 0)
+			ft_cd(lst, env);
+		else if (ft_strcmp("export", (*lst)->arg) == 0)
+			isitabuiltin_bis(lst, env);
+		else if (ft_strcmp("unset", (*lst)->arg) == 0)
+			check_unset(lst, env);
+		execsimglecmd(lst, env);
+	}
 	if (checkpipes(lst) == 1)
 		execonepipe(lst, env);
 	if (checkpipes(lst) > 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:57:35 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/10 19:00:44 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:14:49 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	op_count(char *str)
 	count = 0;
 	count += op_check(str);
 	count += op_check_bis(str);
-	count += pipe_check(str);
 	return (count);
 }
 

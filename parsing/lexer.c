@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:52:14 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:14:25 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,24 @@ int	check_space(char *str)
 
 int	check_prompt(char *str, t_list **lst, t_env **env)
 {
-	int		i;
+	int	i;
+	int	comp;
 
+	comp = 0;
 	i = 0;
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
 		return (1);
 	else
 	{
+		if (ft_strlen(str) != countmallocnewstring(str))
+			{
+				comp = countmallocnewstring(str);
+				str = addspacewhenneededpipe(str);
+			}
 		prep_quotes(str);
 		g_base.parsing.tab = ft_split(str, ' ');
+		if (comp > 0)
+			free(str);
 		g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
 		while (g_base.parsing.tab[i])
 		{
@@ -45,8 +54,66 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		}
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab, env);
 		free(g_base.parsing.tab);
-		if (err_management(lst) == 0)
+		if (err_management(lst) == 0 || checkererrorparsing(lst) == 1)
 			return (1);
+		while (deletenullarg(lst) == 1)	
+			deletenullarg(lst);
 	}
 	return (0);
+}
+
+int	deletenullarg(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (tmp->arg == NULL)
+			return (freenullargbis(&tmp));
+		tmp = tmp->next;	
+	}
+	return (0);
+}
+
+int	checkererrorparsing(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (tmp->data == 6 && (tmp->next == NULL || tmp->prev == NULL))
+		{
+			error_msg(3);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	freenullargbis(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	if (tmp->next == NULL)
+	{
+		tmp->prev->next = NULL;
+		tmp->next = NULL;
+		tmp->prev = NULL;
+		free(tmp);
+		return (1);
+	}
+	else
+	{
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
+		tmp->next = NULL;
+		tmp->prev = NULL;
+		free(tmp);
+		return (1);
+	}
+	return (1);
 }
