@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/04 20:25:33 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:52:08 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(g_base.sig.str);
 			if (op_count(g_base.sig.str) == 0)
-				if (check_prompt(g_base.sig.str, &lst, &env) == 0)
+				if (check_prompt(g_base.sig.str, &lst, &env) == 0 && g_base.op.liststate == 0)
 				{
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);

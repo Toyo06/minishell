@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/04 22:29:27 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:12:16 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	tabforcmd(t_list **lst)
 	tmp = (*lst);
 	g_base.path.cmdfull = malloc(sizeof(char *) * (mallocfortab(tmp) + 1));
 	i = 0;
+	printthelist(lst);
 	while (tmp && tmp->data != 6 && check_builtin(tmp->arg) == 0)
 	{
 		while ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4

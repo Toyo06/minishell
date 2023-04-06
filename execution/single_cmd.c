@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/04 21:44:14 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:58:11 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	execsimglecmd(t_list **lst, t_env **env)
 	signal(SIGQUIT, sig_block_handler);
 	signal(SIGINT, sig_block_handler);
 	g_base.redir.fdcount += countredirinpipe(lst) - 1;
+	g_base.heredoc.processhere += counthereinpipe(lst) - 1;
 	if (f == 0)
 		execsinglechild(lst, env);
 	closesinglecmd();
 	waitpid(f, &status, 0);
-	g_base.heredoc.processhere += counthereinpipe(lst);
 	if (WIFEXITED(status))
 		g_base.retval.code = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))

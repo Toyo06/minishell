@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/05 20:14:25 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:56:28 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 
 	comp = 0;
 	i = 0;
+	g_base.op.liststate = 0;
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
 		return (1);
 	else
@@ -69,8 +70,13 @@ int	deletenullarg(t_list **lst)
 	tmp = (*lst);
 	while (tmp)
 	{
-		if (tmp->arg == NULL)
+		if (tmp->arg == NULL && (tmp->next != NULL || tmp->prev != NULL))
 			return (freenullargbis(&tmp));
+		else if (tmp->arg == NULL)
+			{
+				g_base.op.liststate = 1;
+				return (0);
+			}
 		tmp = tmp->next;	
 	}
 	return (0);

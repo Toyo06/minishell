@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/05 20:13:46 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:53:53 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_op
 	int		i;
 	int		j;
 	char	quote;
+	int		liststate;
 }				t_op;
 
 typedef struct s_quote
