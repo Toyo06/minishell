@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 20:37:13 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/08 23:08:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	tabforcmd(t_list **lst)
 				|| tmp->data == 13 || tmp->data == 15 || tmp->data == 12)
 			&& tmp->next != NULL && tmp->next->data != 6)
 			tmp = tmp->next;
-		printthelist(&tmp);
 		if ((tmp->data == 11 || tmp->data == 13 || tmp->data == 15)
 			&& (tmp->next == NULL || tmp->next->data == 6))
 			break ;

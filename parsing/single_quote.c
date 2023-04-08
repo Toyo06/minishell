@@ -18,7 +18,6 @@ char	*checkdol(char *str, t_env **env)
 			}
 		if (str[i] && str[i] == '$' && str[i + 1] != '\0' && str[i + 1] != '?')
 			{
-				printf("here\n");
 				retstr = finalstringdol(str, env);
 				return (retstr);
 			}
@@ -168,7 +167,6 @@ char	*finalstringdol(char *str, t_env **env)
 	tmp = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
 	afterdol(str);
 	strnew = ft_strjoin(tmp, g_base.dol.end);
-	//free(tmp);
 	if (strnew == NULL)
 		return (NULL);
 	free(str);
