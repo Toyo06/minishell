@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 17:53:53 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/08 22:56:46 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ typedef struct s_quote
 	int		returnvalue;
 }				t_quote;
 
+typedef struct s_dol
+{
+	char	*strret;
+	char	*beforedol;
+	char	*end;
+}			t_dol;
+
 typedef struct s_export
 {
 	t_env	*tmpenv;
@@ -187,6 +194,7 @@ typedef struct s_multipipe
 
 typedef struct s_base
 {
+	t_dol			dol;
 	t_spaceoppipe	spaceoppipe;
 	t_multipipe		multipipe;
 	t_redir			redir;
@@ -223,7 +231,7 @@ void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strrchr(const char *s, int c);
@@ -247,7 +255,7 @@ int		single_char(char *str);
 int		list_prep(t_list **list, char **arr, t_env **env);
 /*	va_env.c	*/
 void	va_env(t_list **lst, t_env **env);
-char	*va_convert(char *str, t_env **env);
+void	va_convert(t_list **lst);
 char	*va_search(char *new_str, t_env **env, char **arr);
 char	*cpy_until_dollar(char *str);
 char	*cpy_after_dollar(char *str);
@@ -287,7 +295,7 @@ int		check_quote_state(void);
 char	*prep_quotes(char *str);
 char	*revert_nl_to_sp(char *str);
 char	**revert_quotes(char **arr);
-char	*rm_quote(char *str);
+char	*rm_quote(char *str, t_env **env);
 /*	lexer.c	*/
 int		check_prompt(char *str, t_list **lst, t_env **env);
 
@@ -416,12 +424,18 @@ void	freepipeline(void);
 void	actionpipeline(t_list **lst, t_env **env);
 void	envofpipeline(void);
 
-int	deletenullarg(t_list **lst);
-int	checkererrorparsing(t_list **lst);
-int	freenullargbis(t_list **lst);
+int		deletenullarg(t_list **lst);
+int		checkererrorparsing(t_list **lst);
+int		freenullargbis(t_list **lst);
 void	setvalueforquotepipe(void);
 void	checkstatusquotepipe(char *str);
 char	*addspacewhenneededpipe(char *str);
 size_t	countmallocnewstring(char *str);
+void	replacedol(char *str);
+char	*checkdol(char *str, t_env **env);
+int		countdolmal(char *str);
+char	*finalstringdol(char *str, t_env **env);
+void	checkenvdol(t_env **env);
+int		countmallocend(char *str);
 extern t_base	g_base;
 #endif

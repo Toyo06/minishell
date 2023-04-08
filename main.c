@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 17:52:08 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:53:46 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ int	main(int argc, char **argv, char **envp)
 				{
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
+					//free(g_base.sig.str);
 				}
 			while (lst && lst->prev) {
 				lst = lst->prev;
 			}
-				if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
+			if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
 					unlinkheredoc();
-				if (g_base.heredoc.totalheredoc > 0)
+			if (g_base.heredoc.totalheredoc > 0)
 					free(g_base.heredoc.fdout);
-				if (g_base.redir.totalred > 0)
+			if (g_base.redir.totalred > 0)
 					free(g_base.redir.fdout);
-				lst = free_list(lst);
-				free(lst);		
+			lst = free_list(lst);
+			free(lst);		
 		}
-		free(g_base.sig.str);
 		//system("leaks minishell");
 	}
 }

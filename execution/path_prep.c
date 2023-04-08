@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 18:12:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:37:13 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,19 @@ void	tabforcmd(t_list **lst)
 	tmp = (*lst);
 	g_base.path.cmdfull = malloc(sizeof(char *) * (mallocfortab(tmp) + 1));
 	i = 0;
-	printthelist(lst);
 	while (tmp && tmp->data != 6 && check_builtin(tmp->arg) == 0)
 	{
 		while ((tmp->data == 11 || tmp->data == 3 || tmp->data == 4
 				|| tmp->data == 13 || tmp->data == 15 || tmp->data == 12)
 			&& tmp->next != NULL && tmp->next->data != 6)
 			tmp = tmp->next;
+		printthelist(&tmp);
 		if ((tmp->data == 11 || tmp->data == 13 || tmp->data == 15)
 			&& (tmp->next == NULL || tmp->next->data == 6))
 			break ;
-		else
-		{
-			g_base.path.cmdfull[i] = ft_strdup(tmp->arg);
-			i++;
-			tmp = tmp->next;
-		}
+		g_base.path.cmdfull[i] = ft_strdup(tmp->arg);
+		i++;
+		tmp = tmp->next;
 	}
 	g_base.path.cmdfull[i] = NULL;
 }
@@ -89,7 +86,7 @@ void	checkaccess(t_list	**lst, t_env **env)
 	tmp = (*lst);
 	i = 0;
 	while (tmp->data == 11 || tmp->data == 3 || tmp->data == 4
-		|| tmp->data == 13)
+		|| tmp->data == 13 || tmp->data == 12 || tmp->data == 15)
 		tmp = tmp->next;
 	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg) == 1)
 	{

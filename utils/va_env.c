@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   va_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:12:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/02/10 17:31:49 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/08 23:01:36 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	va_env(t_list **lst, t_env **env)
 	t_list	*tmp;
 
 	tmp = (*lst);
+	(void)env;
 	while (tmp)
 	{
 		if (tmp->data == 9)
@@ -26,8 +27,6 @@ void	va_env(t_list **lst, t_env **env)
 				free(tmp->arg);
 				tmp->arg = NULL;
 			}
-			else
-				tmp->arg = va_convert(tmp->arg, env);
 			tmp->data = 10;
 		}
 		tmp = tmp->next;
@@ -35,22 +34,25 @@ void	va_env(t_list **lst, t_env **env)
 	tmp = (*lst);
 }
 
-char	*va_convert(char *str, t_env **env)
+void	va_convert(t_list **lst)
 {
-	char	*new_str;
-	char	**arr;
+	char	**tmp;
+	int		i;
 
-	new_str = NULL;
-	if (str[0] != '$')
+	i = 0;
+	tmp = ft_split((*lst)->arg,'$');
+	free((*lst)->arg);
+	if (tmp[1] == NULL)
+		(*lst)->arg = ft_strdup(tmp[0]);
+	else
+		(*lst)->arg = ft_strjoin(tmp[0], tmp[1]);
+	(*lst)->data = 10;
+	while (tmp[i])
 	{
-		new_str = cpy_until_dollar(str);
-		str = cpy_after_dollar(str);
+		free(tmp[i]);
+		i++;
 	}
-	arr = ft_split(str, '$');
-	new_str = va_search(new_str, env, arr);
-	free(str);
-	ft_free_arr(arr);
-	return (new_str);
+	free(tmp);
 }
 
 char	*va_search(char *new_str, t_env **env, char **arr)

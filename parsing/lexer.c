@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 17:56:28 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/08 22:31:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 				comp = countmallocnewstring(str);
 				str = addspacewhenneededpipe(str);
 			}
+		str = checkdol(str, env);
+		if (str == NULL)
+		{
+			free(str);
+			return (1);
+		}
 		prep_quotes(str);
 		g_base.parsing.tab = ft_split(str, ' ');
 		if (comp > 0)
@@ -50,7 +56,9 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
 		while (g_base.parsing.tab[i])
 		{
-			g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i]);
+			g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i], env);
+			if (g_base.parsing.tab[i] == NULL)
+				return (1);
 			i++;
 		}
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab, env);

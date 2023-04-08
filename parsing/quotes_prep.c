@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_prep.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:39:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/09 19:58:15 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/08 22:29:16 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,45 @@ char	*revert_nl_to_sp(char *str)
 char	**revert_quotes(char **arr)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	while (arr[i])
 	{
-		if (arr[i][0] == '\"' || arr[i][0] == '\'')
+		if (arr[i][j] == '\"' || arr[i][j] == '\'')
 			arr[i] = revert_nl_to_sp(arr[i]);
-		i++;
+		j++;
+		if (arr[i][j] == '\0')
+		{
+			i++;
+			j = 0;
+		}
 	}
 	return (arr);
 }
 
 
-char	*rm_quote(char *str)
+char	*rm_quote(char *str, t_env **env)
 {
 	char	*new_str;
 	int		i;
 	int		j;
+	(void)env;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	if (str[0] != 34 && str[0] != 39)
+	if (str == NULL)
 		return (str);
-	g_base.quote.nextquote = str[0];
-	new_str = malloc(sizeof(char) * ft_strlen(str) - 1);
+	new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[i] && str[i] != 34 && str[i] != 39)
+	{
+		new_str[j] = str[i];
+		i++;
+		j++;
+	}
+	if (str[i] != '\0')
+		i++;
 	while (str[i])
 	{
 		if (str[i] != g_base.quote.nextquote)
