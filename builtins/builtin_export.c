@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/30 21:42:56 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:31:17 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void	ft_printexport(t_env **env)
 	char	*prev_min;
 
 	prev_min = NULL;
-	// (char *)malloc(sizeof(char) * 1);
-	// prev_min[0] = '\0';
 	min = find_next_min(*env, prev_min);
 	while (min != NULL)
 	{

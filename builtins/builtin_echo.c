@@ -6,21 +6,21 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:45:43 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 12:47:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:34:32 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_echo_option(t_list *tmp)
+int	check_echo_option(t_list *tmp)
 {
 	if (tmp->next != NULL && ft_checkoption(tmp->arg)
 		&& tmp->next != NULL)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
-void handle_echo_option(t_list **tmp)
+void	handle_echo_option(t_list **tmp)
 {
 	while ((*tmp)->next != NULL && g_base.echo.option == 1)
 	{
@@ -28,14 +28,14 @@ void handle_echo_option(t_list **tmp)
 		if (ft_checkoption((*tmp)->arg) && (*tmp)->next == NULL)
 		{
 			exit_condition(0);
-			return;
+			return ;
 		}
 		else if (!ft_checkoption((*tmp)->arg))
-			break;
+			break ;
 	}
 }
 
-void print_echo_output(t_list **tmp, int fd)
+void	print_echo_output(t_list **tmp, int fd)
 {
 	while (*tmp || (*tmp)->next->data != 6)
 	{
@@ -44,7 +44,7 @@ void print_echo_output(t_list **tmp, int fd)
 		else
 			ft_putstr_fd((*tmp)->arg, fd);
 		if ((*tmp)->next == NULL)
-			break;
+			break ;
 		if ((*tmp)->next != NULL)
 			ft_putstr_fd(" ", fd);
 		*tmp = (*tmp)->next;
@@ -69,9 +69,9 @@ int	ft_checkoption(char *str)
 	return (1);
 }
 
-void ft_echo(t_list **lst, int fd)
+void	ft_echo(t_list **lst, int fd)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = (*lst);
 	tmp = tmp->next;
@@ -81,7 +81,7 @@ void ft_echo(t_list **lst, int fd)
 	if (g_base.echo.option == 1 && tmp->next == NULL)
 	{
 		exit_condition(0);
-		return;
+		return ;
 	}
 	handle_echo_option(&tmp);
 	if (check_echo_option(tmp))
@@ -91,5 +91,5 @@ void ft_echo(t_list **lst, int fd)
 		ft_putstr_fd("\n", fd);
 	g_base.retval.code = 0;
 	exit_condition(0);
-	return;
+	return ;
 }

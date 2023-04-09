@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:12:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 23:01:36 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:29:15 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	va_convert(t_list **lst)
 	int		i;
 
 	i = 0;
-	tmp = ft_split((*lst)->arg,'$');
+	tmp = ft_split((*lst)->arg, '$');
 	free((*lst)->arg);
 	if (tmp[1] == NULL)
 		(*lst)->arg = ft_strdup(tmp[0]);

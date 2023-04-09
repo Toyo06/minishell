@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:48:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:44:46 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:32:20 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	handle_exit_multiple_args(t_list *tmp)
 		display_exit(0, 0);
 	if (!check_nb(tmp->next->arg))
 		display_exit(255, 3);
-	else if (check_nb(tmp->next->arg) && tmp->next->next != NULL && tmp->next->next->data != 6)
+	else if (check_nb(tmp->next->arg) && tmp->next->next != NULL
+		&& tmp->next->next->data != 6)
 	{
 		if (tmp->prev == NULL)
 			g_base.retval.pxit = 0;
@@ -38,7 +39,9 @@ void	handle_exit_multiple_args(t_list *tmp)
 
 void	handle_exit_cmd(t_list *tmp)
 {
-	int exit_args = check_exit_args(&tmp);
+	int	exit_args;
+
+	exit_args = check_exit_args(&tmp);
 	if (exit_args == 0)
 		handle_exit_zero_args(tmp);
 	else if (exit_args >= 1)

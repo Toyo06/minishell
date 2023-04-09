@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:59:30 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 12:51:28 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:28:27 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	set_lst_data(char *str)
 			return (double_char(str));
 		if (single_char(str) != 0)
 			return (single_char(str));
-		//if (str[i] == '$')
-			//return (9);
 		else if (str[i] == '=')
 			return (12);
 		else if (str[i + 1] == '\0')
@@ -64,12 +62,11 @@ int	single_char(char *str)
 	return (0);
 }
 
-int	list_prep(t_list **list, char **arr, t_env **env)
+int	list_prep(t_list **list, char **arr)
 {
 	int		i;
 	int		j;
 	t_list	*tmp;
-	(void)env;
 
 	i = 0;
 	while (arr[i])
@@ -84,6 +81,5 @@ int	list_prep(t_list **list, char **arr, t_env **env)
 		}
 		i++;
 	}
-	//va_env(list, env);
 	return (check_sym_err(list));
 }

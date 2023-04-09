@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:38:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:50:18 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:33:20 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static t_list	*find_break(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = (*lst);
 	while (tmp)
 	{
 		if (tmp->next && tmp->next->data == 6)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
-	return tmp;
+	return (tmp);
 }
 
 static void	update_path(t_list *tmp, t_env **env)
@@ -43,7 +43,7 @@ void	handle_err(int err_code)
 
 static void	update_env_vars(t_env **env)
 {
-	char cwd[2048];
+	char	cwd[2048];
 
 	if (!ft_getenv(env, "PWD"))
 		ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
@@ -53,7 +53,7 @@ static void	update_env_vars(t_env **env)
 
 void	ft_cd(t_list **lst, t_env **env)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (ft_strcmp((*lst)->arg, CD_P) == 0)
 		ft_cd_p(lst);
@@ -65,12 +65,12 @@ void	ft_cd(t_list **lst, t_env **env)
 		if (g_base.cd.path == NULL)
 		{
 			handle_err(7);
-			return;
+			return ;
 		}
 		if (chdir(g_base.cd.path) == -1)
 		{
 			handle_err(8);
-			return;
+			return ;
 		}
 		update_env_vars(env);
 		register_pwd();
