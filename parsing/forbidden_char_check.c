@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:29:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/05 20:09:38 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:25:35 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,35 @@ size_t	countmallocnewstring(char *str)
 {
 	int	i;
 	int	count;
-	int	quote;
 
 	i = 0;
 	count = 0;
-	quote = 0;
 	while (str[i])
 	{
-		if (str[i] == '"')
-			{
-				count++;
-				i++;
-				while (str[i] && str[i] != '"')
-				{
-					i++;
-					count++;
-				}
-			}
-		if (str[i] == '\'')
-			{
-				count++;
-				i++;
-				while (str[i] && str[i] != '\'')
-				{
-					i++;
-					count++;
-				}
-			}
-		if (str[i] == '\0')
-			return (count);
 		if (str[i] == '|')
 			count += 2;
-		i++;
+		else if (str[i] == '"')
+		{
+			count++;
+			i++;
+			while (str[i] != '"')
+				{
+					count++;
+					i++;
+				}
+		}
+		else if (str[i] == '\'')
+		{
+			count++;
+			i++;
+			while (str[i] != '\'')
+			{
+				count++;
+				i++;
+			}
+		}
 		count++;
+		i++;
 	}
 	return (count);
 }
@@ -85,6 +81,8 @@ char	*addspacewhenneededpipe(char *str)
 	{
 		if (str[g_base.spaceoppipe.i] == '"')
 		{
+			rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
+			g_base.spaceoppipe.j++;
 			g_base.spaceoppipe.i++;
 			while (str[g_base.spaceoppipe.i] && str[g_base.spaceoppipe.i] != '"')
 			{
@@ -93,8 +91,10 @@ char	*addspacewhenneededpipe(char *str)
 				g_base.spaceoppipe.j++;
 			} 
 		}
-		if (str[g_base.spaceoppipe.i] == '\'')
+		else if (str[g_base.spaceoppipe.i] == '\'')
 		{
+			rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
+			g_base.spaceoppipe.j++;
 			g_base.spaceoppipe.i++;
 			while (str[g_base.spaceoppipe.i] && str[g_base.spaceoppipe.i] != '\'')
 			{
@@ -103,9 +103,9 @@ char	*addspacewhenneededpipe(char *str)
 				g_base.spaceoppipe.j++;
 			}
 		}
-		if (str[g_base.spaceoppipe.i] == '\0')
+		else if (str[g_base.spaceoppipe.i] == '\0')
 			break ;
-		if (str[g_base.spaceoppipe.i] == '|' || str[g_base.spaceoppipe.i - 1] == '|')
+		else if (str[g_base.spaceoppipe.i] == '|' || (g_base.spaceoppipe.i > 0 && str[g_base.spaceoppipe.i - 1] == '|'))
 		{
 			rtv[g_base.spaceoppipe.j] = ' ';
 			g_base.spaceoppipe.j++;

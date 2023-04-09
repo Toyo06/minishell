@@ -3,7 +3,7 @@
 char	*checkdol(char *str, t_env **env)
 {
 	int	i;
-	char	*retstr;
+	//char	*retstr;
 
 	i = 0;
 	while (str[i])
@@ -16,12 +16,12 @@ char	*checkdol(char *str, t_env **env)
 				while (str[i] != '\'')
 				i++;
 			}
-		if (str[i] && str[i] == '$' && str[i + 1] != '\0' && str[i + 1] != '?')
+		if (str[i] && str[i] == '$' && str[i + 1] != '?')
 			{
-				retstr = finalstringdol(str, env);
-				return (retstr);
+				str = finalstringdol(str, env);
+				i = 0;
 			}
-		if (str[i] != '\0')
+		else if (str[i] != '\0')
 			i++;
 	}
 	return (str);
@@ -159,17 +159,18 @@ int	countdolmal(char *str)
 char	*finalstringdol(char *str, t_env **env)
 {
 	char	*strnew;
-	char	*tmp;
+	char	*tmpd;
 
 	beforedol(str);
 	replacedol(str);
 	checkenvdol(env);
-	tmp = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
 	afterdol(str);
-	strnew = ft_strjoin(tmp, g_base.dol.end);
+	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
+	strnew = ft_strjoin(tmpd, g_base.dol.end);
+	if (g_base.dol.strret)
+		free(g_base.dol.strret);
 	if (strnew == NULL)
 		return (NULL);
-	free(str);
 	return (strnew);
 }
 

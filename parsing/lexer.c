@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 22:31:06 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:29:41 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 	comp = 0;
 	i = 0;
 	g_base.op.liststate = 0;
+	str = ft_strdup(str);
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
 		return (1);
 	else
@@ -51,8 +52,6 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		}
 		prep_quotes(str);
 		g_base.parsing.tab = ft_split(str, ' ');
-		if (comp > 0)
-			free(str);
 		g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
 		while (g_base.parsing.tab[i])
 		{
@@ -62,12 +61,16 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 			i++;
 		}
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab, env);
-		free(g_base.parsing.tab);
+		free(g_base.parsing.tab);	
+		if (checkfilecannotbeopen(lst, str) == 1)
+			return (1);
 		if (err_management(lst) == 0 || checkererrorparsing(lst) == 1)
 			return (1);
 		while (deletenullarg(lst) == 1)	
 			deletenullarg(lst);
 	}
+	if (str)
+		free(str);
 	return (0);
 }
 
@@ -130,4 +133,66 @@ int	freenullargbis(t_list **lst)
 		return (1);
 	}
 	return (1);
+}
+
+int	checkfilecannotbeopen(t_list **lst, char *str)
+{
+	t_list	*tmp;
+	int	i;
+
+	tmp = (*lst);
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->data == 2)
+		{
+			if (access(tmp->next->arg, F_OK) != 0)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					ft_putstr_fd(tmp->next->arg, 2);
+					ft_putstr_fd(": No such file or directory\n", 2);
+					tmp->next->data = 20;
+					tmp = tmp->next;
+					if (deletenodeforerror(&tmp) == 1)
+						{
+							free(str);
+							return (1);
+						}
+					while ((*lst) && (*lst)->data != 6)
+						(*lst) = (*lst)->next;
+					(*lst) = (*lst)->next;
+					tmp = (*lst);
+				}
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	deletenodeforerror(t_list **lst)
+{
+	t_list	*tmp;
+	t_list	*delete;
+
+	tmp = (*lst);
+	while (tmp->next != NULL && tmp->next->data != 6)
+		tmp = tmp->next;
+	while (tmp->prev != NULL && tmp->prev->data != 6)
+	{
+		delete = tmp;
+		tmp = tmp->prev;
+		if (delete->next != NULL)
+			delete->prev->next = delete->next;
+		else
+			delete->prev->next = NULL;
+		if (delete->next != NULL)
+			delete->next->prev = delete->prev;
+		delete->next = NULL;
+		delete->prev = NULL;
+		free(delete->arg);
+		free(delete);
+		if (tmp->next == NULL)
+			return (1);
+	}
+	return (0);
 }

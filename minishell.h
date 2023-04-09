@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 22:56:46 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 16:38:50 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,5 +437,7 @@ int		countdolmal(char *str);
 char	*finalstringdol(char *str, t_env **env);
 void	checkenvdol(t_env **env);
 int		countmallocend(char *str);
+int		checkfilecannotbeopen(t_list **lst, char *str);
+int		deletenodeforerror(t_list **lst);
 extern t_base	g_base;
 #endif

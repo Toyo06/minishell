@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 20:53:46 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:26:16 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	main(int argc, char **argv, char **envp)
 				{
 					g_base.path.totalpipe = checkpipes(&lst);
 					execution(&lst, &env);
-					//free(g_base.sig.str);
+					if (g_base.sig.str != NULL)
+						free(g_base.sig.str);
 				}
 			while (lst && lst->prev) {
 				lst = lst->prev;

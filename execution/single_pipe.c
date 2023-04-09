@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/05 18:52:46 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:14:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	execonepipe(t_list **lst, t_env **env)
 	if (pipe(g_base.path.pipefd) == 0)
 	{
 		g_base.redir.fdcount += countredirinpipe(&tmpb) - 1;
+		g_base.heredoc.processhere += counthereinpipe(lst) - 1;
 		signal(SIGQUIT, sig_block_handler);
 		signal(SIGINT, sig_block_handler);
 		g_base.path.forkparent = fork();
@@ -35,7 +36,6 @@ void	execonepipe(t_list **lst, t_env **env)
 		g_base.redir.fdcount += countredirinpipe(&tmpb);
 		g_base.path.forkchild = fork();
 		execonepipebis(&tmpb, env, status);
-		g_base.heredoc.processhere += counthereinpipe(&tmpb);
 	}
 	close(g_base.path.pipefd[1]);
 	close(g_base.path.pipefd[0]);
@@ -77,7 +77,6 @@ void	singlepipeaction(t_list **tmpb, t_env **env)
 
 void	execone(t_list **lst, t_env **env)
 {
-	g_base.heredoc.processhere += counthereinpipe(lst);
 	if (counthereinpipe(lst) == 0)
 		dup2(0, 0);
 	else

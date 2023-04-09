@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/05 20:27:12 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:23:11 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	pipeline(t_env **env, t_list **lst)
 		g_base.multipipe.i++;
 		if (g_base.multipipe.i > 1)
 		{
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][1]);
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][0]);
+			close(g_base.multipipe.pipefd[g_base.multipipe.i - 1][1]);
+			close(g_base.multipipe.pipefd[g_base.multipipe.i - 1][0]);
 		}
 	}
 	envofpipeline();

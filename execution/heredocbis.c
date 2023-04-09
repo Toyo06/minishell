@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:57 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/05 18:29:23 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:16:23 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	counthereinpipe(t_list **lst)
 	int		i;
 
 	tmp = (*lst);
+	printthelist(&tmp);
 	i = 0;
 	while (tmp != NULL && tmp->data != 6)
 	{

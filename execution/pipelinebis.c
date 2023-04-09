@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:47 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/05 20:25:34 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:24:00 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	startingpipe(t_list **lst, t_env **env)
 	t_list	*tmp;
 
 	tmp = (*lst);
-	g_base.heredoc.processhere += counthereinpipe(&tmp);
+	g_base.heredoc.processhere += counthereinpipe(&tmp) - 1;
 	g_base.redir.fdcount += countredirinpipe(&tmp) - 1;
 	closeredir();
 	closeheredoc();

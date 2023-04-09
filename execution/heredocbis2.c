@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocbis2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:17:02 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/01 13:17:03 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 19:29:51 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	countmuchhere(t_list *tmp, t_list **lst)
 {
 	while (tmp)
 	{
-		if (tmp->data == 1 || tmp->data == 2)
+		if (tmp->data == 2 || tmp->data == 1)
 			g_base.heredoc.countallforset++;
 		tmp = tmp->next;
 	}
@@ -46,7 +46,7 @@ void	countheredoc(t_list **lst)
 	if (g_base.heredoc.totalheredoc > 0)
 	{
 		g_base.heredoc.fdout = malloc(sizeof(int)
-				* g_base.heredoc.totalheredoc);
+				* g_base.heredoc.totalheredoc + 1);
 		if (g_base.heredoc.totalrealheredoc > 0)
 			g_base.heredoc.filename = malloc(sizeof(char *)
 					* (g_base.heredoc.totalrealheredoc + 1));
