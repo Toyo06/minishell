@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:13:05 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:23:36 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,13 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }				t_env;
+
+typedef struct s_strjoin
+{
+	int		i;
+	int		j;
+	char	*str;
+}				t_strjoin;
 
 typedef struct s_op
 {
@@ -194,6 +201,7 @@ typedef struct s_multipipe
 
 typedef struct s_base
 {
+	t_strjoin		strjoin;
 	t_dol			dol;
 	t_spaceoppipe	spaceoppipe;
 	t_multipipe		multipipe;
@@ -444,5 +452,6 @@ void	setsinglecmd(t_list **lst);
 void	setmultipipeval(t_list **tmp, t_env **env);
 void	executionstart(t_list **lst, t_env **env);
 void	cutingacessbis(t_list **tmp, int i);
+void	setvalueforjoin(void);
 extern t_base	g_base;
 #endif
