@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:39:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 22:29:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 21:31:45 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ char	*rm_quote(char *str, t_env **env)
 		i++;
 		j++;
 	}
+	g_base.quote.nextquote = str[i];
 	if (str[i] != '\0')
 		i++;
 	while (str[i])

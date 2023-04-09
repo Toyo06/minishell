@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 16:38:50 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:13:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,5 +439,10 @@ void	checkenvdol(t_env **env);
 int		countmallocend(char *str);
 int		checkfilecannotbeopen(t_list **lst, char *str);
 int		deletenodeforerror(t_list **lst);
+void	impsingle(t_list **tmpb, t_env **env);
+void	setsinglecmd(t_list **lst);
+void	setmultipipeval(t_list **tmp, t_env **env);
+void	executionstart(t_list **lst, t_env **env);
+void	cutingacessbis(t_list **tmp, int i);
 extern t_base	g_base;
 #endif

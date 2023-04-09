@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 19:31:43 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 21:47:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ void	execsimglecmd(t_list **lst, t_env **env)
 {
 	int		f;
 	int		status;
-	
+
 	g_base.redir.fdcount = 0;
 	if (check_if_empty(lst) == 1)
 		return ;
 	tabforcmd(lst);
 	preparepathforexec(env, lst);
 	f = fork();
-	signal(SIGQUIT, sig_block_handler);
-	signal(SIGINT, sig_block_handler);
-	g_base.redir.fdcount += countredirinpipe(lst) - 1;
-	g_base.heredoc.processhere += counthereinpipe(lst) - 1;
+	setsinglecmd(lst);
 	if (f == 0)
 		execsinglechild(lst, env);
 	closesinglecmd();
@@ -40,6 +37,14 @@ void	execsimglecmd(t_list **lst, t_env **env)
 			printf("Quit: 3\n");
 	}
 	freeforpipe();
+}
+
+void	setsinglecmd(t_list **lst)
+{
+	signal(SIGQUIT, sig_block_handler);
+	signal(SIGINT, sig_block_handler);
+	g_base.redir.fdcount += countredirinpipe(lst) - 1;
+	g_base.heredoc.processhere += counthereinpipe(lst) - 1;
 }
 
 void	closesinglecmd(void)
@@ -64,9 +69,9 @@ void	execsinglechild(t_list **lst, t_env **env)
 		dup2(1, 1);
 	else
 		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
-	if (isitabuiltin(lst, env)== 1)
+	if (isitabuiltin(lst, env) == 1)
 		if (execve(g_base.path.finalpath, g_base.path.cmdfull,
-			g_base.path.envtab) == -1)
+				g_base.path.envtab) == -1)
 			exit(127);
 	exit(0);
 }

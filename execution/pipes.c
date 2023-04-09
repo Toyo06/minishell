@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 15:34:09 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:04:13 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,18 @@ int	check_builtin(char *arg)
 	return (0);
 }
 
-void	execution(t_list **lst, t_env **env)
+void	executionstart(t_list **lst, t_env **env)
 {
-	int	retval;
-
-	retval = 0;
-	g_base.retval.pcd = 0;
-	g_base.retval.inp = 0;
-	redirection(lst);
-	countheredoc(lst);
-	while (1)
-	{
-		retval = heredoc(lst);
-		if (retval == 1)
-			break ;
-		if (retval == 2)
-			return ;
-	}
-	if (checkpipes(lst) == 0)
-	{
-		if (ft_strcmp("exit", (*lst)->arg) == 0)
-			ft_exit(lst);
-		else if (ft_strcmp("cd", (*lst)->arg) == 0
+	if (ft_strcmp("exit", (*lst)->arg) == 0)
+		ft_exit(lst);
+	else if (ft_strcmp("cd", (*lst)->arg) == 0
 		|| ft_strcmp(CD_P, (*lst)->arg) == 0)
-			ft_cd(lst, env);
-		else if (ft_strcmp("export", (*lst)->arg) == 0)
-			isitabuiltin_bis(lst, env);
-		else if (ft_strcmp("unset", (*lst)->arg) == 0)
-			check_unset(lst, env);
-		execsimglecmd(lst, env);
-	}
-	if (checkpipes(lst) == 1)
-		execonepipe(lst, env);
-	if (checkpipes(lst) > 1)
-		pipeline(env, lst);
+		ft_cd(lst, env);
+	else if (ft_strcmp("export", (*lst)->arg) == 0)
+		isitabuiltin_bis(lst, env);
+	else if (ft_strcmp("unset", (*lst)->arg) == 0)
+		check_unset(lst, env);
+	execsimglecmd(lst, env);
 }
 
 void	isitabuiltin_bis(t_list **lst, t_env **env)

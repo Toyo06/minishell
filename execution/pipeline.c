@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 19:23:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 21:56:35 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,24 @@ void	pipeline(t_env **env, t_list **lst)
 		close(g_base.multipipe.pipefd[g_base.multipipe.i][1]);
 		closeheredoc();
 		closeredir();
-		if (g_base.multipipe.i < g_base.multipipe.totalpipe
-			&& g_base.multipipe.totalpipe > 0)
-			singlepipeaction(&tmp, env);
-		g_base.heredoc.processhere += counthereinpipe(&tmp);
-		g_base.redir.fdcount += countredirinpipe(&tmp);
-		g_base.multipipe.i++;
-		if (g_base.multipipe.i > 1)
+		setmultipipeval(&tmp, env);
+		if (g_base.multipipe.i > 2)
 		{
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 1][1]);
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 1][0]);
+			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][1]);
+			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][0]);
 		}
 	}
 	envofpipeline();
+}
+
+void	setmultipipeval(t_list **tmp, t_env **env)
+{
+	if (g_base.multipipe.i < g_base.multipipe.totalpipe
+		&& g_base.multipipe.totalpipe > 0)
+		singlepipeaction(tmp, env);
+	g_base.heredoc.processhere += counthereinpipe(tmp);
+	g_base.redir.fdcount += countredirinpipe(tmp);
+	g_base.multipipe.i++;
 }
 
 void	envofpipeline(void)

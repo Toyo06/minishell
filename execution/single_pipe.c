@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:08:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 19:14:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 21:44:01 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	execonepipe(t_list **lst, t_env **env)
 
 	tmpb = (*lst);
 	status = 0;
-	
 	tabforcmd(&tmpb);
 	preparepathforexec(env, &tmpb);
 	if (pipe(g_base.path.pipefd) == 0)
@@ -31,15 +30,20 @@ void	execonepipe(t_list **lst, t_env **env)
 		g_base.path.forkparent = fork();
 		if (g_base.path.forkparent == 0)
 			execone(&tmpb, env);
-		g_base.heredoc.processhere += counthereinpipe(&tmpb);
-		singlepipeaction(&tmpb, env);
-		g_base.redir.fdcount += countredirinpipe(&tmpb);
-		g_base.path.forkchild = fork();
+		impsingle(&tmpb, env);
 		execonepipebis(&tmpb, env, status);
 	}
 	close(g_base.path.pipefd[1]);
 	close(g_base.path.pipefd[0]);
 	freeforpipe();
+}
+
+void	impsingle(t_list **tmpb, t_env **env)
+{
+	singlepipeaction(tmpb, env);
+	g_base.heredoc.processhere += counthereinpipe(tmpb);
+	g_base.redir.fdcount += countredirinpipe(tmpb);
+	g_base.path.forkchild = fork();
 }
 
 void	execonepipebis(t_list **tmpb, t_env **env, int status)
@@ -63,16 +67,6 @@ void	singlepipesign(int status)
 		if (WTERMSIG(status) == 3)
 			printf("Quit: 3\n");
 	}
-}
-
-void	singlepipeaction(t_list **tmpb, t_env **env)
-{
-	while ((*tmpb)->data != 6)
-		(*tmpb) = (*tmpb)->next;
-	(*tmpb) = (*tmpb)->next;
-	freeforpipe();
-	tabforcmd(tmpb);
-	preparepathforexec(env, tmpb);
 }
 
 void	execone(t_list **lst, t_env **env)

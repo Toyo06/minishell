@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:37:13 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/06 20:35:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:13:54 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_list	*find_next_valid_node(t_list **lst)
 
 	tmp = (*lst);
 	while (tmp && (tmp->data == 11 || tmp->data == 3
-			|| tmp->data == 4 || tmp->data == 13 || tmp->data == 12 || tmp->data == 15))
+			|| tmp->data == 4 || tmp->data == 13
+			|| tmp->data == 12 || tmp->data == 15))
 	{
 		tmp = tmp->next;
 	}
@@ -59,10 +60,7 @@ void	checkaccessbis(t_list **lst)
 	i = -1;
 	while (g_base.path.preppath[++i])
 	{
-		if (tmp->arg[0] == '/' && access(tmp->arg, F_OK) != 0)
-			g_base.path.finalpath = ft_strdup(tmp->arg);
-		else
-			g_base.path.finalpath = ft_strjoin(g_base.path.preppath[i], tmp->arg);
+		cutingacessbis(&tmp, i);
 		if (access(g_base.path.finalpath, F_OK) == 0)
 		{
 			i++;
@@ -76,4 +74,13 @@ void	checkaccessbis(t_list **lst)
 			path_not_found(lst);
 		}
 	}
+}
+
+void	cutingacessbis(t_list **tmp, int i)
+{
+	if ((*tmp)->arg[0] == '/' && access((*tmp)->arg, F_OK) != 0)
+			g_base.path.finalpath = ft_strdup((*tmp)->arg);
+	else
+		g_base.path.finalpath
+			= ft_strjoin(g_base.path.preppath[i], (*tmp)->arg);
 }

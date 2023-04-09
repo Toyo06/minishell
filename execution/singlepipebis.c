@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:27 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/05 18:51:59 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 21:43:57 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exectwo(t_list **lst, t_env **env)
 {
-	g_base.heredoc.processhere += counthereinpipe(lst);
 	if (countredirinpipe(lst) == 0)
 		dup2(1, 1);
 	else if (countredirinpipe(lst) > 0)
@@ -34,4 +33,14 @@ void	exectwo(t_list **lst, t_env **env)
 		exit(127);
 	}
 	exit(0);
+}
+
+void	singlepipeaction(t_list **tmpb, t_env **env)
+{
+	while ((*tmpb)->data != 6)
+		(*tmpb) = (*tmpb)->next;
+	(*tmpb) = (*tmpb)->next;
+	freeforpipe();
+	tabforcmd(tmpb);
+	preparepathforexec(env, tmpb);
 }
