@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:23:36 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:36:11 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ int		check_quote_state(void);
 char	*prep_quotes(char *str);
 char	*revert_nl_to_sp(char *str);
 char	**revert_quotes(char **arr);
-char	*rm_quote(char *str, t_env **env);
+char	*rm_quote(char *str);
 /*	lexer.c	*/
 int		check_prompt(char *str, t_list **lst, t_env **env);
 

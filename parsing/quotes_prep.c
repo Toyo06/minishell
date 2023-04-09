@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:39:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 21:31:45 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:35:35 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ char	**revert_quotes(char **arr)
 	return (arr);
 }
 
-
-char	*rm_quote(char *str, t_env **env)
+char	*rm_quote(char *str)
 {
 	char	*new_str;
 	int		i;
 	int		j;
-	(void)env;
 
 	i = 0;
 	j = 0;
