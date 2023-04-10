@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 21:47:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:08:54 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execsimglecmd(t_list **lst, t_env **env)
+void	execsimglecmd(t_list **lst, t_env **env, int fd)
 {
 	int		f;
 	int		status;
@@ -25,7 +25,7 @@ void	execsimglecmd(t_list **lst, t_env **env)
 	f = fork();
 	setsinglecmd(lst);
 	if (f == 0)
-		execsinglechild(lst, env);
+		execsinglechild(lst, env, fd);
 	closesinglecmd();
 	waitpid(f, &status, 0);
 	if (WIFEXITED(status))
@@ -59,7 +59,7 @@ void	closesinglecmd(void)
 	}
 }
 
-void	execsinglechild(t_list **lst, t_env **env)
+void	execsinglechild(t_list **lst, t_env **env, int fd)
 {
 	if (counthereinpipe(lst) == 0)
 		dup2(0, 0);
@@ -69,7 +69,7 @@ void	execsinglechild(t_list **lst, t_env **env)
 		dup2(1, 1);
 	else
 		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
-	if (isitabuiltin(lst, env) == 1)
+	if (isitabuiltin(lst, env, fd) == 1)
 		if (execve(g_base.path.finalpath, g_base.path.cmdfull,
 				g_base.path.envtab) == -1)
 			exit(127);

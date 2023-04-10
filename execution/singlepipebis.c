@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   singlepipebis.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:27 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/09 21:43:57 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:10:24 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exectwo(t_list **lst, t_env **env)
+void	exectwo(t_list **lst, t_env **env, int fd)
 {
 	if (countredirinpipe(lst) == 0)
 		dup2(1, 1);
@@ -24,7 +24,7 @@ void	exectwo(t_list **lst, t_env **env)
 		dup2(g_base.heredoc.fdout[g_base.heredoc.processhere], 0);
 	g_base.retval.pcd = 1;
 	g_base.retval.inp = 1;
-	isitabuiltin(lst, env);
+	isitabuiltin(lst, env, fd);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull,
 			g_base.path.envtab) == -1)
 	{

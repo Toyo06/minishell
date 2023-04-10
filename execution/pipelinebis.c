@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:47 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/09 19:24:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:00:29 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	multipipesend(void)
 	}
 }
 
-void	execvething(t_list **lst, t_env **env)
+void	execvething(t_list **lst, t_env **env, int fd)
 {
 	t_list	*tmp;
 
 	tmp = (*lst);
 	g_base.retval.pcd = 1;
 	g_base.retval.inp = 1;
-	isitabuiltin(&tmp, env);
+	isitabuiltin(&tmp, env, fd);
 	if (execve(g_base.path.finalpath, g_base.path.cmdfull,
 			g_base.path.envtab) == -1)
 	{

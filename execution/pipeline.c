@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 21:56:35 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:01:46 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	pipeline(t_env **env, t_list **lst)
+void	pipeline(t_env **env, t_list **lst, int fd)
 {
 	t_list	*tmp;
 
@@ -22,7 +22,7 @@ void	pipeline(t_env **env, t_list **lst)
 	startingpipe(&tmp, env);
 	while (g_base.multipipe.i <= g_base.multipipe.totalpipe)
 	{
-		actionpipeline(&tmp, env);
+		actionpipeline(&tmp, env, fd);
 			g_base.multipipe.fdin
 			= g_base.multipipe.pipefd[g_base.multipipe.i][0];
 		close(g_base.multipipe.pipefd[g_base.multipipe.i][1]);

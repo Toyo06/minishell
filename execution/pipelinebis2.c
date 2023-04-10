@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:43 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/05 19:04:28 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:01:10 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	freepipeline(void)
 	free(g_base.multipipe.forkfd);
 }
 
-void	actionpipeline(t_list **lst, t_env **env)
+void	actionpipeline(t_list **lst, t_env **env, int fd)
 {
 	t_list	*tmp;
 
@@ -78,6 +78,6 @@ void	actionpipeline(t_list **lst, t_env **env)
 	{
 		multipipechild(tmp);
 		close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
-		execvething(&tmp, env);
+		execvething(&tmp, env, fd);
 	}
 }
