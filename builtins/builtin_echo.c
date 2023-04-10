@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:45:43 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:53:40 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:26:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,29 @@ void	print_echo_output(t_list **tmp, int fd)
 	}
 }
 
-void	prepare_echo(t_list **lst, t_list **tmp, int fd)
+int	prepare_echo(t_list **lst, t_list **tmp, int fd)
 {
 	(*tmp) = (*lst)->next;
 	if ((*tmp) == NULL || (*tmp)->data == 6)
 	{
 		ft_putstr_fd("\n", fd);
-		return ;
+		return (1);
 	}
 	while ((*tmp)->data != 10 && (*tmp)->data != 8)
 	{
 		if (!(*tmp))
-			return ;
+			return (0);
 		(*tmp) = (*tmp)->next;
 	}
+	return (0);
 }
 
 void	ft_echo(t_list **lst, int fd)
 {
 	t_list	*tmp;
+	int		newlineprinted;
 
-	prepare_echo(lst, &tmp, fd);
+	newlineprinted = prepare_echo(lst, &tmp, fd);
 	if (tmp)
 		g_base.echo.option = ft_checkoption(tmp->arg);
 	if (g_base.echo.option == 1 && tmp->next == NULL)
@@ -60,7 +62,7 @@ void	ft_echo(t_list **lst, int fd)
 	if (check_echo_option(tmp))
 		tmp = tmp->next;
 	print_echo_output(&tmp, fd);
-	if (g_base.echo.option == 0)
+	if (g_base.echo.option == 0 && !newlineprinted)
 		ft_putstr_fd("\n", fd);
 	g_base.retval.code = 0;
 	exit_condition(0);

@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:31:06 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 20:02:15 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:19:51 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,15 @@ void	dispatch2(t_list **lst, t_env **env, int fd)
 
 void	isitabuiltin_bis(t_list **lst, t_env **env, int fd)
 {
-	if ((*lst)->next == NULL || (*lst)->next->data == 6
+	if ((*lst)->next == NULL || ((*lst)->next != NULL && ((*lst)->next->data == 6
 		|| (*lst)->next->data == 4 || (*lst)->next->data == 3
-		|| (*lst)->next->data == 11)
+		|| (*lst)->next->data == 11)))
 	{
 		ft_printexport(env, 1);
 	}
 	else
 	{
-		if ((*lst)->prev->data == 6)
+		if ((*lst)->prev && (*lst)->data == 6)
 			return ;
 		ft_export(lst, env, fd);
 	}
@@ -141,11 +141,12 @@ int	isitabuiltin(t_list	**lst, t_env **env, int fd)
 	g_base.retval.pxit = 1;
 	while (tmp && tmp->data != 6)
 	{
-		if (tmp->data != 10)
+		if (tmp->data != 10 && tmp->next != NULL)
 			tmp = tmp->next;
 		if (dispatch(&tmp, env, fd) == 0)
 			return (0);
-		tmp = tmp->next;
+		if (tmp != NULL)
+			tmp = tmp->next;
 	}
 	return (1);
 }

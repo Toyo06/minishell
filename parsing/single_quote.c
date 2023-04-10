@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:45:06 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 12:45:08 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:48:47 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*checkdol(char *str, t_env **env)
 		{
 			str = finalstringdol(str, env);
 			i = 0;
+			if (str == NULL)
+				return (NULL);
 		}
 		else if (str[i] != '\0')
 			i++;

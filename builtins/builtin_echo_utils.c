@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 02:44:44 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:44:46 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:23:54 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_echo_option(t_list *tmp)
 {
-	if (tmp->next != NULL && ft_checkoption(tmp->arg)
+	if (tmp && tmp->next != NULL && ft_checkoption(tmp->arg)
 		&& tmp->next != NULL)
 		return (1);
 	return (0);
@@ -22,7 +22,7 @@ int	check_echo_option(t_list *tmp)
 
 void	handle_echo_option(t_list **tmp)
 {
-	while ((*tmp)->next != NULL && g_base.echo.option == 1)
+	while ((*tmp) && (*tmp)->next != NULL && g_base.echo.option == 1)
 	{
 		(*tmp) = (*tmp)->next;
 		if (ft_checkoption((*tmp)->arg) && (*tmp)->next == NULL)

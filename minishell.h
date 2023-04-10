@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 18:11:01 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:40:10 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_dol
 	char	*strret;
 	char	*beforedol;
 	char	*end;
+	int		nullpo;
 }			t_dol;
 
 typedef struct s_export
@@ -337,7 +338,7 @@ void	ft_printenv(t_env **env, int fd);
 void	ft_env(t_env **env, t_list **lst, int fd);
 /*	builtin_echo.c	*/
 void	ft_echo(t_list	**lst, int fd);
-void	prepare_echo(t_list **lst, t_list **tmp, int fd);
+int		prepare_echo(t_list **lst, t_list **tmp, int fd);
 void	print_echo_output(t_list **tmp, int fd);
 /*	builtin_echo_utils.c	*/
 int		ft_checkoption(char *str);
