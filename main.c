@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 03:02:32 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:43:28 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
 	t_env	*env;
-	int	k = 0;
-	int fd = 1;
 
 	(void)argc;
 	(void)argv;
@@ -29,40 +27,51 @@ int	main(int argc, char **argv, char **envp)
 	convertenvtotab(&env);
 	while (42)
 	{
-		k = 0;
+		g_base.main.k = 0;
 		signal(SIGQUIT, sig_handler);
 		signal(SIGINT, sig_handler);
 		lst = NULL;
 		g_base.sig.str = readline("\e[0;33mMinishell: \e[0m");
 		if (!g_base.sig.str || checklinespace(g_base.sig.str) == 1)
-			k = 1;
+			g_base.main.k = 1;
 		if (!g_base.sig.str)
 			break ;
-		if (ft_strlen(g_base.sig.str) > 0 && k == 0)
-		{
-			add_history(g_base.sig.str);
-			if (op_count(g_base.sig.str) == 0)
-				if (check_prompt(g_base.sig.str, &lst, &env) == 0 && g_base.op.liststate == 0)
-				{
-					g_base.path.totalpipe = checkpipes(&lst);
-					execution(&lst, &env, fd);
-					if (g_base.sig.str != NULL)
-						free(g_base.sig.str);
-				}
-			while (lst && lst->prev) {
-				lst = lst->prev;
-			}
-			if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
-					unlinkheredoc();
-			if (g_base.heredoc.totalheredoc > 0)
-					free(g_base.heredoc.fdout);
-			if (g_base.redir.totalred > 0)
-					free(g_base.redir.fdout);
-			lst = free_list(lst);
-			free(lst);
-		}
-		//system("leaks minishell");
+		if (ft_strlen(g_base.sig.str) > 0 && g_base.main.k == 0)
+			lunchingloopthings(&lst, &env);
+		system("leaks minishell");
 	}
+}
+
+void	freeendofloop(t_list **lst)
+{
+	while ((*lst) && (*lst)->prev)
+		(*lst) = (*lst)->prev;
+	if (g_base.heredoc.totalrealheredoc > 0 && g_base.heredoc.sign == 0)
+		unlinkheredoc();
+	if (g_base.heredoc.totalheredoc > 0)
+		free(g_base.heredoc.fdout);
+	if (g_base.redir.totalred > 0)
+		free(g_base.redir.fdout);
+	(*lst) = free_list((*lst));
+	free((*lst));
+}
+
+void	lunchingloopthings(t_list **lst, t_env **env)
+{
+	add_history(g_base.sig.str);
+	if (op_count(g_base.sig.str) == 0)
+		if (check_prompt(g_base.sig.str, lst, env)
+			== 0 && g_base.op.liststate == 0)
+			lunchingexec(lst, env);
+	freeendofloop(lst);
+}
+
+void	lunchingexec(t_list **lst, t_env **env)
+{
+	g_base.path.totalpipe = checkpipes(lst);
+	execution(lst, env, g_base.main.fd);
+	if (g_base.sig.str != NULL)
+		free(g_base.sig.str);
 }
 
 int	checklinespace(char *str)

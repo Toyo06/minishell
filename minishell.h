@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:37:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:44:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ typedef struct s_sig
 {
 	char	*str;
 }			t_sig;
+
+typedef struct s_main
+{
+	int	k;
+	int	fd;
+}				t_main;
 
 typedef struct s_list
 {
@@ -203,6 +209,7 @@ typedef struct s_multipipe
 
 typedef struct s_base
 {
+	t_main			main;
 	t_strjoin		strjoin;
 	t_dol			dol;
 	t_spaceoppipe	spaceoppipe;
@@ -473,5 +480,12 @@ void	setmultipipeval(t_list **tmp, t_env **env);
 void	executionstart(t_list **lst, t_env **env);
 void	cutingacessbis(t_list **tmp, int i);
 void	setvalueforjoin(void);
+void	fileerror(t_list **tmp);
+int		countbefdol(char *str);
+void	beforedol(char *str);
+void	afterdol(char *str);
+void	freeendofloop(t_list **lst);
+void	lunchingexec(t_list **lst, t_env **env);
+void	lunchingloopthings(t_list **lst, t_env **env);
 extern t_base	g_base;
 #endif
