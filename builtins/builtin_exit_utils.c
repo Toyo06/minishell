@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:40:47 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/28 20:44:52 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 02:46:04 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	check_nb(char *str)
 	return (1);
 }
 
-void	display_exit(int nb, int choice)
+void	display_exit(int nb, int choice, int fd)
 {
 	if (g_base.retval.pxit != 1)
-		printf("exit\n");
+		ft_putstr_fd("exit\n", fd);
 	if (choice == 1)
 		error_msg(1);
 	else if (choice == 3)
@@ -55,6 +55,7 @@ void	display_exit(int nb, int choice)
 		else if (g_base.retval.pxit == 0)
 			return ;
 	}
+	g_base.retval.code = nb;
 	exit (nb);
 }
 
@@ -67,9 +68,9 @@ int	check_exit_args(t_list **lst)
 	tmp = (*lst);
 	while (tmp->next)
 	{
-		if (tmp->data == 6)
-			break ;
 		tmp = tmp->next;
+		if (tmp->data != 10)
+			continue ;
 		i++;
 	}
 	return (i);

@@ -3,59 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:48:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:32:20 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 02:46:20 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_exit_zero_args(t_list *tmp)
+void	handle_exit_zero_args(t_list *tmp, int fd)
 {
 	if (tmp->prev == NULL && tmp->next == NULL)
 		g_base.retval.pxit = 0;
-	display_exit(0, 0);
+	display_exit(0, 0, fd);
 }
 
-void	handle_exit_multiple_args(t_list *tmp)
+void	handle_exit_multiple_args(t_list *tmp, int fd)
 {
-	g_base.retval.pxit = 1;
-	if (tmp->next->data == 6)
-		display_exit(0, 0);
-	if (!check_nb(tmp->next->arg))
-		display_exit(255, 3);
-	else if (check_nb(tmp->next->arg) && tmp->next->next != NULL
-		&& tmp->next->next->data != 6)
+	// g_base.retval.pxit = 0;
+	while (tmp)
 	{
-		if (tmp->prev == NULL)
-			g_base.retval.pxit = 0;
-		display_exit(1, 4);
+		tmp = tmp->next;
+		if (tmp->data == 6)
+			display_exit(0, 0, fd);
+		if (tmp->data != 10)
+			continue ;
+		if (!check_nb(tmp->arg))
+			display_exit(255, 3, fd);
+		else if (check_nb(tmp->arg) && tmp->next != NULL && tmp->next->data != 6)
+		{
+			if (tmp->prev == NULL)
+				g_base.retval.pxit = 0;
+			display_exit(1, 4, fd);
+			return ;
+		}
+		else
+			display_exit(base_check(ft_atoi(tmp->arg)), 0, fd);
 	}
-	else
-		display_exit(base_check(ft_atoi(tmp->next->arg)), 0);
 }
 
-void	handle_exit_cmd(t_list *tmp)
+void	handle_exit_cmd(t_list *tmp, int fd)
 {
-	int	exit_args;
+	int exit_args;
 
 	exit_args = check_exit_args(&tmp);
 	if (exit_args == 0)
-		handle_exit_zero_args(tmp);
+		handle_exit_zero_args(tmp, fd);
 	else if (exit_args >= 1)
-		handle_exit_multiple_args(tmp);
+		handle_exit_multiple_args(tmp, fd);
 }
 
-void	ft_exit(t_list **lst)
+void	ft_exit(t_list **lst, int fd)
 {
 	t_list	*tmp;
 
 	tmp = (*lst);
-	g_base.retval.pxit = 1;
+	// g_base.retval.pxit = 1;
 	if (ft_strcmp(tmp->arg, "exit") == 0)
-	{
-		handle_exit_cmd(tmp);
-	}
+		handle_exit_cmd(tmp, fd);
 }

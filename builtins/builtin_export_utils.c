@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/14 17:04:28 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:00:08 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ char	*get_env_var(char **arr, t_env **env)
 char	*get_arg(char *equal, t_env **env)
 {
 	char	*arg;
-	char	*trimmed_arg;
+	// char	*trimmed_arg;
 	char	**env_vars;
 
 	arg = ft_strdup(equal + 1);
-	trimmed_arg = ft_trim(arg);
-	free(arg);
-	if (check_env_var(trimmed_arg))
+	// trimmed_arg = ft_trim(arg);
+	// free(arg);
+	printf(RED "%s" CRESET "\n", arg);
+	if (check_env_var(arg))
 	{
-		env_vars = ft_split(trimmed_arg, '$');
-		trimmed_arg = get_env_var(env_vars, env);
+		env_vars = ft_split(arg, '$');
+		arg = get_env_var(env_vars, env);
 	}
-	return (trimmed_arg);
+	return (arg);
 }
 
 char	*ft_trim(char *str)
@@ -87,4 +88,36 @@ int	count_quotes(char *str)
 		i++;
 	}
 	return (count_quotes);
+}
+
+void	ft_export_bis(t_list **lst, t_env **env, int fd)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	(void)fd;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		if (tmp->data != 10 && tmp->data != 12)
+			continue ;
+		g_base.xport.eq_fl = 1;
+		if (!check_arg_validity(tmp->arg))
+			continue ;
+		g_base.xport.eq = ft_strchr(tmp->arg, '=');
+		if (g_base.xport.eq == NULL)
+		{
+			g_base.xport.eq_fl = 0;
+			if (!check_arg_validity(tmp->arg))
+				continue ;
+			ft_update_export(env, tmp->arg, NULL, g_base.xport.eq_fl);
+			continue ;
+		}
+		*g_base.xport.eq = '\0';
+		g_base.xport.arg = get_arg(g_base.xport.eq, env);
+		g_base.xport.arg = get_arg(g_base.xport.eq, env);
+		ft_update_export(env, tmp->arg, g_base.xport.arg, g_base.xport.eq_fl);
+		free(g_base.xport.arg);
+	}
+	exit_condition(0);
 }

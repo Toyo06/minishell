@@ -6,31 +6,21 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:37:04 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/27 22:36:08 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 02:45:49 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_env **env, t_list **lst)
+void	ft_env(t_env **env, t_list **lst, int fd)
 {
-	int		count;
-	t_list	*tmp;
-
-	tmp = (*lst);
-	count = ft_strlen(tmp->arg);
-	if (count < 3)
-		count = 3;
-	if (ft_strncmp(tmp->arg, "env", count) == 0
-		|| ft_strcmp(tmp->arg, ENV_P) == 0)
-	{
-		ft_printenv(env);
-		exit_condition(0);
-		return ;
-	}
+	(void)lst;
+	ft_printenv(env, fd);
+	exit_condition(0);
+	return ;
 }
 
-void	ft_printenv(t_env **env)
+void	ft_printenv(t_env **env, int fd)
 {
 	t_env	*tmp;
 
@@ -39,9 +29,10 @@ void	ft_printenv(t_env **env)
 	{
 		if (tmp->name != NULL && tmp->content != NULL)
 		{
-			printf("%s", tmp->name);
-			printf("=");
-			printf("%s\n", tmp->content);
+			ft_putstr_fd(tmp->name, fd);
+			ft_putstr_fd("=", fd);
+			ft_putstr_fd(tmp->content, fd);
+			ft_putstr_fd("\n", fd);
 		}
 		tmp = tmp->next;
 	}

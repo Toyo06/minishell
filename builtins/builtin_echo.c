@@ -3,81 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:45:43 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:34:32 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 04:03:13 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_echo_option(t_list *tmp)
-{
-	if (tmp->next != NULL && ft_checkoption(tmp->arg)
-		&& tmp->next != NULL)
-		return (1);
-	return (0);
-}
-
-void	handle_echo_option(t_list **tmp)
-{
-	while ((*tmp)->next != NULL && g_base.echo.option == 1)
-	{
-		*tmp = (*tmp)->next;
-		if (ft_checkoption((*tmp)->arg) && (*tmp)->next == NULL)
-		{
-			exit_condition(0);
-			return ;
-		}
-		else if (!ft_checkoption((*tmp)->arg))
-			break ;
-	}
-}
-
 void	print_echo_output(t_list **tmp, int fd)
 {
-	while (*tmp || (*tmp)->next->data != 6)
+	while (*tmp && (*tmp)->data != 6)
 	{
 		if ((*tmp)->data == 8)
 			ft_putstr_fd(ft_itoa(g_base.retval.code), fd);
-		else
+		else if ((*tmp)->data == 10)
 			ft_putstr_fd((*tmp)->arg, fd);
 		if ((*tmp)->next == NULL)
-			break ;
-		if ((*tmp)->next != NULL)
+			break;
+		if ((*tmp)->next != NULL && (*tmp)->next->data == 10)
 			ft_putstr_fd(" ", fd);
 		*tmp = (*tmp)->next;
 	}
 }
 
-int	ft_checkoption(char *str)
+void	prepare_echo(t_list **lst, t_list **tmp, int fd)
 {
-	int	i;
-
-	i = 1;
-	if (str == NULL)
-		return (0);
-	if (str[0] != '-')
-		return (0);
-	while (str[i])
+	(*tmp) = (*lst)->next;
+	if ((*tmp) == NULL || (*tmp)->data == 6)
 	{
-		if (str[i] != 'n')
-			return (0);
-		i++;
+		ft_putstr_fd("\n", fd);
+		return;
 	}
-	return (1);
+	while ((*tmp)->data != 10 && (*tmp)->data != 8)
+	{
+		if (!(*tmp))
+			return;
+		(*tmp) = (*tmp)->next;
+	}
 }
 
-void	ft_echo(t_list **lst, int fd)
+void ft_echo(t_list **lst, int fd)
 {
-	t_list	*tmp;
+	t_list *tmp;
 
-	tmp = (*lst);
-	tmp = tmp->next;
-	if (tmp == NULL)
-		return (ft_putstr_fd("\n", fd));
-	g_base.echo.option = ft_checkoption(tmp->arg);
+	prepare_echo(lst, &tmp, fd);
+	if (tmp)
+		g_base.echo.option = ft_checkoption(tmp->arg);
 	if (g_base.echo.option == 1 && tmp->next == NULL)
 	{
 		exit_condition(0);

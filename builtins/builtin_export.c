@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:31:17 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 02:46:59 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,21 @@ void	ft_update_export(t_env **env, char *name, char *content, int eq_flag)
 	add_next_node_env(env, tmp);
 }
 
-void	ft_export(t_list **lst, t_env **env)
+void	ft_export(t_list **lst, t_env **env, int fd)
 {
 	t_list	*tmp;
 
 	tmp = (*lst);
-	while (tmp->next != NULL && tmp->next->data != 6)
+	while (tmp->next && tmp->data != 6)
 	{
-		g_base.xport.eq_fl = 1;
 		tmp = tmp->next;
+		if (tmp->data != 10 && tmp->data != 12)
+		{
+			if (tmp->next && g_base.xport.disp2 == 0)
+				ft_printexport(env, fd);
+			continue ;
+		}
+		g_base.xport.eq_fl = 1;
 		if (!check_arg_validity(tmp->arg))
 			continue ;
 		g_base.xport.eq = ft_strchr(tmp->arg, '=');
@@ -86,29 +92,30 @@ static t_env	*find_next_min(t_env *env, const char *prev_min)
 	return (min);
 }
 
-static void	print_env_node(t_env *node)
+static void	print_env_node(t_env *node, int fd)
 {
 	if (node->name != NULL)
 	{
-		printf("declare -x ");
-		printf("%s", node->name);
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(node->name, fd);
 		if (node->content)
 		{
-			printf("=");
-			printf("\"");
-			printf("%s", node->content);
-			printf("\"");
+			ft_putstr_fd("=", fd);
+			ft_putstr_fd("\"", fd);
+			ft_putstr_fd(node->content, fd);
+			ft_putstr_fd("\"", fd);
 		}
-		printf("\n");
+		ft_putstr_fd("\n", fd);
 	}
 	else
 	{
-		printf("declare -x ");
-		printf("%s\n", node->content);
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(node->content, fd);
+		ft_putstr_fd("\n", fd);
 	}
 }
 
-void	ft_printexport(t_env **env)
+void	ft_printexport(t_env **env, int fd)
 {
 	t_env	*min;
 	char	*prev_min;
@@ -117,7 +124,7 @@ void	ft_printexport(t_env **env)
 	min = find_next_min(*env, prev_min);
 	while (min != NULL)
 	{
-		print_env_node(min);
+		print_env_node(min, fd);
 		free(prev_min);
 		prev_min = ft_strdup(min->name);
 		min = find_next_min(*env, prev_min);

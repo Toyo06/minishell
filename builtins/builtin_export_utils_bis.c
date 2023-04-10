@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:03:24 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/17 18:08:13 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 04:06:49 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ int	check_arg_validity(char *str)
 	{
 		err_msg_export(5);
 		return (0);
-	}
-	while (str[i])
-	{
-		if (sp_check(str))
-		{
-			err_msg_export(5);
-			return (0);
-		}
-		i++;
 	}
 	return (1);
 }
