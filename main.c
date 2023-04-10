@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 21:31:53 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:02:32 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*lst;
 	t_env	*env;
 	int	k = 0;
+	int fd = 1;
 
 	(void)argc;
 	(void)argv;
@@ -44,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 				if (check_prompt(g_base.sig.str, &lst, &env) == 0 && g_base.op.liststate == 0)
 				{
 					g_base.path.totalpipe = checkpipes(&lst);
-					execution(&lst, &env);
+					execution(&lst, &env, fd);
 					if (g_base.sig.str != NULL)
 						free(g_base.sig.str);
 				}
@@ -58,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 			if (g_base.redir.totalred > 0)
 					free(g_base.redir.fdout);
 			lst = free_list(lst);
-			free(lst);		
+			free(lst);
 		}
 		//system("leaks minishell");
 	}

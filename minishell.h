@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:36:11 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 03:11:15 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_retval
 	int	pxit;
 	int	pcd;
 	int	inp;
+	int	pbuilt;
 }			t_retval;
 
 typedef struct s_sig
@@ -138,6 +139,7 @@ typedef struct s_export
 	char	*eq;
 	int		eq_fl;
 	char	*arg;
+	int		disp2;
 }				t_export;
 
 typedef struct s_echo
@@ -309,43 +311,62 @@ int		check_prompt(char *str, t_list **lst, t_env **env);
 
 /*	-----	Builtins	-----	*/
 /*	builtin_env.c	*/
-void	ft_printenv(t_env **env);
-void	ft_env(t_env **env, t_list **lst);
+void	ft_printenv(t_env **env, int fd);
+void	ft_env(t_env **env, t_list **lst, int fd);
 /*	builtin_echo.c	*/
 void	ft_echo(t_list	**lst, int fd);
+void	prepare_echo(t_list **lst, t_list **tmp, int fd);
+void	print_echo_output(t_list **tmp, int fd);
+/*	builtin_echo_utils.c	*/
 int		ft_checkoption(char *str);
+void	handle_echo_option(t_list **tmp);
+int		check_echo_option(t_list *tmp);
 /*	builtin_exit.c	*/
-void	ft_exit(t_list **lst);
+void	ft_exit(t_list **lst, int fd);
+void	handle_exit_cmd(t_list *tmp, int fd);
+void	handle_exit_multiple_args(t_list *tmp, int fd);
+void	handle_exit_zero_args(t_list *tmp, int fd);
+/*	builtin_exit_utils.c	*/
+void	exit_condition(int n);
 int		base_check(int nb);
 int		check_nb(char *str);
-void	display_exit(int nb, int choice);
+void	display_exit(int nb, int choice, int fd);
 int		check_exit_args(t_list **lst);
 /*	builtin_export.c	*/
 void	ft_update_export(t_env **env, char *name, char *content, int eq_flag);
-void	ft_export(t_list **lst, t_env **env);
-void	ft_printexport(t_env **env);
+void	ft_export(t_list **lst, t_env **env, int fd);
+void	ft_printexport(t_env **env, int fd);
 /*	builtin_export_utils.c	*/
 char	*get_env_var(char **arr, t_env **env);
 char	*get_arg(char *equal, t_env **env);
 char	*ft_trim(char *str);
 int		count_quotes(char *str);
+void	ft_export_bis(t_list **lst, t_env **env, int fd);
 /*	builtin_export_utils_bis.c	*/
 int		check_export_arg(char *str);
 int		sp_check(char *str);
 int		check_env_var(char *str);
 int		check_arg_validity(char *str);
 /*	builtin_unset.c	*/
+int		check_unset_arg(char *str);
 void	ft_unset(t_env **env, char *str);
 void	check_unset(t_list **lst, t_env **env);
 int		check_alnum(char *str);
 /*	builtin_pwd.c	*/
 void	register_pwd(void);
-void	ft_pwd(t_list **lst);
+void	print_pwd(int fd);
+void	ft_pwd_p(t_list **lst, int fd);
+void	ft_pwd(t_list **lst, int fd);
 /*	dispatch_builtins.c	*/
-void	dispatch_builtins(t_list **lst, t_env **env);
+int		isitabuiltin(t_list	**lst, t_env **env, int fd);
+int		dispatch(t_list **lst, t_env **env, int fd);
+void	isitabuiltin_bis(t_list **lst, t_env **env, int fd);
+void	dispatch2(t_list **lst, t_env **env, int fd);
+int		check_dispatch2(t_list **lst, t_env **env, int fd);
+int		check_builtin(char *arg);
 /*	builtin_cd.c	*/
 void	ft_cd(t_list **lst, t_env **env);
-
+void	ft_cd_p(t_list **lst);
 /*	-----	Execution	-----	*/
 /*	pipes_utils.c	*/
 void	freeforpipe(void);
@@ -353,15 +374,15 @@ int		checkpipes(t_list **lst);
 void	mallocforthetabtoenv(t_env **env);
 void	convertenvtotab(t_env **env);
 /*	pipes.c	*/
-void	execution(t_list **lst, t_env **env);
-int		isitabuiltin(t_list	**lst, t_env **env);
+void	execution(t_list **lst, t_env **env, int fd);
+int		isitabuiltin(t_list	**lst, t_env **env, int fd);
 /*	single_pipe.c	*/
-void	execonepipe(t_list **lst, t_env **env);
+void	execonepipe(t_list **lst, t_env **env, int fd);
 void	singlepipeaction(t_list **tmpb, t_env **env);
-void	execone(t_list **lst, t_env **env);
-void	exectwo(t_list **lst, t_env **env);
+void	execone(t_list **lst, t_env **env, int fd);
+void	exectwo(t_list **lst, t_env **env, int fd);
 /*	single_cmd.c	*/
-void	execsimglecmd(t_list **lst, t_env **env);
+void	execsimglecmd(t_list **lst, t_env **env, int fd);
 /*	path_prep.c	*/
 void	preparepathforexec(t_env **env, t_list **lst);
 void	tabforcmd(t_list **lst);
@@ -375,7 +396,7 @@ void	checkaccessbis(t_list **lst);
 void	sig_handler(int sig);
 void	sig_block_handler(int sig);
 /*	pipeline.c	*/
-void	pipeline(t_env **env, t_list **lst);
+void	pipeline(t_env **env, t_list **lst, int fd);
 /*	Extras	*/
 void	rl_replace_line(char *str, int i);
 int		heredoc(t_list **lst);
@@ -397,17 +418,17 @@ void	redirection(t_list **lst);
 int		countredirinpipe(t_list **lst);
 int		checklinespace(char *str);
 
-void	ft_pwd_p(t_list **lst);
+void	ft_pwd_p(t_list **lst, int fd);
 void	err_msg_pwd(int i);
 void	exit_condition(int n);
 void	ft_cd_p(t_list **lst);
 void	handle_err(int err_code);
 
 int		checklinespace(char *str);
-void	execsinglechild(t_list **lst, t_env **env);
+void	execsinglechild(t_list **lst, t_env **env, int fd);
 void	closesinglecmd(void);
 void	singlepipesign(int status);
-void	execonepipebis(t_list **tmpb, t_env **env, int status);
+void	execonepipebis(t_list **tmpb, t_env **env, int status, int fd);
 
 int		mallocfortab(t_list *tmp);
 void	taberrorprint(t_list **lst);
@@ -416,7 +437,6 @@ int		isitabuiltinbis(t_list	**lst, t_env **env);
 void	countmuchhere(t_list *tmp, t_list **lst);
 int		heredocexec(t_list *tmp);
 
-void	isitabuiltin_bis(t_list **lst, t_env **env);
 int		controlcheredoc(void);
 int		sinplehere(t_list **lst);
 int		doubleredir(t_list **lst);
@@ -426,10 +446,10 @@ void	closeredir(void);
 void	closeheredoc(void);
 void	multipipesend(void);
 void	startingpipe(t_list **tmp, t_env **env);
-void	execvething(t_list **lst, t_env **env);
+void	execvething(t_list **lst, t_env **env, int fd);
 void	mallocpipeline(void);
 void	freepipeline(void);
-void	actionpipeline(t_list **lst, t_env **env);
+void	actionpipeline(t_list **lst, t_env **env, int fd);
 void	envofpipeline(void);
 
 int		deletenullarg(t_list **lst);
