@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:08:45 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 13:56:33 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:07:49 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	splitingforquote(char *str)
 	prep_quotes(str);
 	g_base.parsing.tab = ft_split(str, ' ');
 	g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
+	while (g_base.parsing.tab[i])
+		i++;
 	while (g_base.parsing.tab[i])
 	{
 		g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i]);

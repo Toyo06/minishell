@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 13:59:30 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:11:01 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -512,5 +512,6 @@ void	addspacewhenneededbro(void);
 void	movelistiferror(t_list **lst);
 int		splitingforquote(char *str);
 int		freestrerror(char *str);
+void	sortrm(char *str);
 extern t_base	g_base;
 #endif

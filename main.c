@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 14:01:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:12:26 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (ft_strlen(g_base.sig.str) > 0 && g_base.main.k == 0)
 			lunchingloopthings(&lst, &env);
-		system("leaks minishell");
 	}
 }
+		//system("leaks minishell");
 
 void	freeendofloop(t_list **lst)
 {
