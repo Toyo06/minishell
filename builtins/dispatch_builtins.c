@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:31:06 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:51:22 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:02:15 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	isitabuiltin_bis(t_list **lst, t_env **env, int fd)
 		|| (*lst)->next->data == 4 || (*lst)->next->data == 3
 		|| (*lst)->next->data == 11)
 	{
-		ft_printexport(env, fd);
+		ft_printexport(env, 1);
 	}
 	else
 	{
@@ -97,6 +97,7 @@ void	isitabuiltin_bis(t_list **lst, t_env **env, int fd)
 
 int	dispatch(t_list **lst, t_env **env, int fd)
 {
+	fd = 1;
 	if (ft_strcmp("echo", (*lst)->arg) == 0
 		|| ft_strcmp(ECHO_P, (*lst)->arg) == 0
 		|| ft_strcmp("ECHO", (*lst)->arg) == 0)
