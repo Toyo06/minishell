@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:48:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:46:20 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:53:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	handle_exit_zero_args(t_list *tmp, int fd)
 
 void	handle_exit_multiple_args(t_list *tmp, int fd)
 {
-	// g_base.retval.pxit = 0;
 	while (tmp)
 	{
 		tmp = tmp->next;
@@ -31,7 +30,8 @@ void	handle_exit_multiple_args(t_list *tmp, int fd)
 			continue ;
 		if (!check_nb(tmp->arg))
 			display_exit(255, 3, fd);
-		else if (check_nb(tmp->arg) && tmp->next != NULL && tmp->next->data != 6)
+		else if (check_nb(tmp->arg) && tmp->next
+			!= NULL && tmp->next->data != 6)
 		{
 			if (tmp->prev == NULL)
 				g_base.retval.pxit = 0;
@@ -45,7 +45,7 @@ void	handle_exit_multiple_args(t_list *tmp, int fd)
 
 void	handle_exit_cmd(t_list *tmp, int fd)
 {
-	int exit_args;
+	int	exit_args;
 
 	exit_args = check_exit_args(&tmp);
 	if (exit_args == 0)
@@ -59,7 +59,6 @@ void	ft_exit(t_list **lst, int fd)
 	t_list	*tmp;
 
 	tmp = (*lst);
-	// g_base.retval.pxit = 1;
 	if (ft_strcmp(tmp->arg, "exit") == 0)
 		handle_exit_cmd(tmp, fd);
 }

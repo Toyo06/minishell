@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocbis2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:17:02 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 02:41:02 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:50:17 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	countheredoc(t_list **lst)
 int	heredoc(t_list **lst)
 {
 	t_list	*tmp;
-	// int		i;
 
-	// i = -1;
 	g_base.sigint_received = 0;
 	tmp = (*lst);
 	while (tmp->next != NULL && tmp->data != 1 && tmp->data != 2)

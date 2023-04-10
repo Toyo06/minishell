@@ -3,38 +3,27 @@
 char	*checkdol(char *str, t_env **env)
 {
 	int	i;
-	//char	*retstr;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'')
-			{
-				if (str[i + 1] == '\0')
-					return (str);
+		{
+			if (str[i + 1] == '\0')
+				return (str);
+			i++;
+			while (str[i] != '\'')
 				i++;
-				while (str[i] != '\'')
-				i++;
-			}
+		}
 		if (str[i] && str[i] == '$' && str[i + 1] != '?')
-			{
-				str = finalstringdol(str, env);
-				i = 0;
-			}
+		{
+			str = finalstringdol(str, env);
+			i = 0;
+		}
 		else if (str[i] != '\0')
 			i++;
 	}
 	return (str);
-}
-
-int	countbefdol(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '$')
-		i++;
-	return (i);
 }
 
 void	afterdol(char *str)
@@ -64,25 +53,6 @@ void	afterdol(char *str)
 	g_base.dol.end[j] = '\0';
 }
 
-int	countmallocend(char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i] != '$')
-		i++;
-	while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
-		i++;
-	while (str[i])
-	{
-		i++;
-		j++;
-	}
-	return (j);
-}
-
 void	beforedol(char *str)
 {
 	int	i;
@@ -95,7 +65,7 @@ void	beforedol(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-				break ;
+			break ;
 		g_base.dol.beforedol[j] = str[i];
 		i++;
 		j++;
@@ -110,7 +80,7 @@ void	replacedol(char *str)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	j = 0;
 	if (countdolmal(str) > 0)
@@ -120,7 +90,7 @@ void	replacedol(char *str)
 	if (str[i + 1] == '\0')
 	{
 		g_base.dol.strret = NULL;
-		return;
+		return ;
 	}
 	i++;
 	while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
@@ -132,51 +102,9 @@ void	replacedol(char *str)
 	g_base.dol.strret[j] = '\0';
 }
 
-int	countdolmal(char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1] != '\0' && str[i + 1] != '?')
-		{
-			i++;
-			while (str[i] && str[i] != ' ' && str[i] != '\'' && str[i] != '"')
-			{
-				i++;
-				j++;
-			}
-			return (j);
-		}
-		i++;
-	}
-	return (j);
-}
-
-char	*finalstringdol(char *str, t_env **env)
-{
-	char	*strnew;
-	char	*tmpd;
-
-	beforedol(str);
-	replacedol(str);
-	checkenvdol(env);
-	afterdol(str);
-	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
-	strnew = ft_strjoin(tmpd, g_base.dol.end);
-	if (g_base.dol.strret)
-		free(g_base.dol.strret);
-	if (strnew == NULL)
-		return (NULL);
-	return (strnew);
-}
-
 void	checkenvdol(t_env **env)
 {
-	int	i;
+	int		i;
 	t_env	*tmp;
 	char	*stra;
 

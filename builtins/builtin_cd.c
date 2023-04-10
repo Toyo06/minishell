@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:38:15 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:43:39 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:54:04 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_list	*find_break(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = (*lst);
 	while (tmp)
@@ -54,7 +54,7 @@ void	handle_err(int err_code)
 
 static void	update_env_vars(t_env **env)
 {
-	char cwd[2048];
+	char	cwd[2048];
 
 	if (!ft_getenv(env, "PWD"))
 		ft_update_env(env, "PWD", getcwd(cwd, sizeof(cwd)));
@@ -64,7 +64,7 @@ static void	update_env_vars(t_env **env)
 
 void	ft_cd(t_list **lst, t_env **env)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (ft_strcmp((*lst)->arg, CD_P) == 0)
 		ft_cd_p(lst);

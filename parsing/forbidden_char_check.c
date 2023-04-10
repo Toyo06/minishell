@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:29:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 16:25:35 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:50:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ size_t	countmallocnewstring(char *str)
 			count++;
 			i++;
 			while (str[i] != '"')
-				{
-					count++;
-					i++;
-				}
+			{
+				count++;
+				i++;
+			}
 		}
 		else if (str[i] == '\'')
 		{
@@ -84,19 +84,21 @@ char	*addspacewhenneededpipe(char *str)
 			rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
 			g_base.spaceoppipe.j++;
 			g_base.spaceoppipe.i++;
-			while (str[g_base.spaceoppipe.i] && str[g_base.spaceoppipe.i] != '"')
+			while (str[g_base.spaceoppipe.i]
+				&& str[g_base.spaceoppipe.i] != '"')
 			{
 				rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
 				g_base.spaceoppipe.i++;
 				g_base.spaceoppipe.j++;
-			} 
+			}
 		}
 		else if (str[g_base.spaceoppipe.i] == '\'')
 		{
 			rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
 			g_base.spaceoppipe.j++;
 			g_base.spaceoppipe.i++;
-			while (str[g_base.spaceoppipe.i] && str[g_base.spaceoppipe.i] != '\'')
+			while (str[g_base.spaceoppipe.i]
+				&& str[g_base.spaceoppipe.i] != '\'')
 			{
 				rtv[g_base.spaceoppipe.j] = str[g_base.spaceoppipe.i];
 				g_base.spaceoppipe.i++;
@@ -105,7 +107,8 @@ char	*addspacewhenneededpipe(char *str)
 		}
 		else if (str[g_base.spaceoppipe.i] == '\0')
 			break ;
-		else if (str[g_base.spaceoppipe.i] == '|' || (g_base.spaceoppipe.i > 0 && str[g_base.spaceoppipe.i - 1] == '|'))
+		else if (str[g_base.spaceoppipe.i] == '|' || (g_base.spaceoppipe.i > 0
+				&& str[g_base.spaceoppipe.i - 1] == '|'))
 		{
 			rtv[g_base.spaceoppipe.j] = ' ';
 			g_base.spaceoppipe.j++;

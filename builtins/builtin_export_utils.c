@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 03:00:08 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:52:17 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,9 @@ char	*get_env_var(char **arr, t_env **env)
 char	*get_arg(char *equal, t_env **env)
 {
 	char	*arg;
-	// char	*trimmed_arg;
 	char	**env_vars;
 
 	arg = ft_strdup(equal + 1);
-	// trimmed_arg = ft_trim(arg);
-	// free(arg);
-	printf(RED "%s" CRESET "\n", arg);
 	if (check_env_var(arg))
 	{
 		env_vars = ft_split(arg, '$');

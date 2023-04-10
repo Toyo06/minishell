@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:52:33 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:46:19 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ int	err_management(t_list **lst)
 int	check_sym_err(t_list **lst)
 {
 	t_list	*tmp;
-	int	count;
+	int		count;
 
 	tmp = (*lst);
 	count = 0;
 	while (tmp)
 	{
-		if (tmp->data == 6 && (tmp->next == NULL ||
-				tmp->prev == NULL || tmp->next->data != 10 ||
-				tmp->prev->data != 10))
+		if (tmp->data == 6 && (tmp->next == NULL
+				|| tmp->prev == NULL || tmp->next->data != 10
+				|| tmp->prev->data != 10))
 		{
 			g_base.retval.code = 258;
 			error_msg(1);
 			return (1);
 		}
-		if (tmp->data == 3 && (tmp->next == NULL ||
-				tmp->next->data != 10))
+		if (tmp->data == 3 && (tmp->next == NULL
+				|| tmp->next->data != 10))
 		{
 			g_base.retval.code = 258;
 			error_msg(1);
 			return (1);
 		}
-		if ((tmp->data == 2 || tmp->data == 4) &&
-				(tmp->next == NULL || tmp->next->data != 10))
+		if ((tmp->data == 2 || tmp->data == 4)
+			&& (tmp->next == NULL || tmp->next->data != 10))
 		{
 			g_base.retval.code = 258;
 			error_msg(1);
@@ -81,4 +81,3 @@ int	check_sym_err(t_list **lst)
 	}
 	return (0);
 }
-

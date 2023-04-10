@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 03:11:15 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:37:00 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ t_list	*free_list(t_list *lst);
 int		set_lst_data(char *str);
 int		double_char(char *str);
 int		single_char(char *str);
-int		list_prep(t_list **list, char **arr, t_env **env);
+int		list_prep(t_list **list, char **arr);
 /*	va_env.c	*/
 void	va_env(t_list **lst, t_env **env);
 void	va_convert(t_list **lst);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:06:40 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:48:51 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:38:01 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	execution(t_list **lst, t_env **env, int fd)
 	}
 	if (checkpipes(lst) == 0)
 	{
-		// isitabuiltin(lst, env, fd);
 		dispatch2(lst, env, fd);
 		execsimglecmd(lst, env, fd);
 	}

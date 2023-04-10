@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 18:29:41 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:48:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 	else
 	{
 		if (ft_strlen(str) != countmallocnewstring(str))
-			{
-				comp = countmallocnewstring(str);
-				str = addspacewhenneededpipe(str);
-			}
+		{
+			comp = countmallocnewstring(str);
+			str = addspacewhenneededpipe(str);
+		}
 		str = checkdol(str, env);
 		if (str == NULL)
 		{
@@ -55,18 +55,18 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
 		while (g_base.parsing.tab[i])
 		{
-			g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i], env);
+			g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i]);
 			if (g_base.parsing.tab[i] == NULL)
 				return (1);
 			i++;
 		}
-		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab, env);
-		free(g_base.parsing.tab);	
+		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab);
+		free(g_base.parsing.tab);
 		if (checkfilecannotbeopen(lst, str) == 1)
 			return (1);
 		if (err_management(lst) == 0 || checkererrorparsing(lst) == 1)
 			return (1);
-		while (deletenullarg(lst) == 1)	
+		while (deletenullarg(lst) == 1)
 			deletenullarg(lst);
 	}
 	if (str)
@@ -84,11 +84,11 @@ int	deletenullarg(t_list **lst)
 		if (tmp->arg == NULL && (tmp->next != NULL || tmp->prev != NULL))
 			return (freenullargbis(&tmp));
 		else if (tmp->arg == NULL)
-			{
-				g_base.op.liststate = 1;
-				return (0);
-			}
-		tmp = tmp->next;	
+		{
+			g_base.op.liststate = 1;
+			return (0);
+		}
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -138,7 +138,7 @@ int	freenullargbis(t_list **lst)
 int	checkfilecannotbeopen(t_list **lst, char *str)
 {
 	t_list	*tmp;
-	int	i;
+	int		i;
 
 	tmp = (*lst);
 	i = 0;
@@ -147,22 +147,22 @@ int	checkfilecannotbeopen(t_list **lst, char *str)
 		if (tmp->data == 2)
 		{
 			if (access(tmp->next->arg, F_OK) != 0)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(tmp->next->arg, 2);
+				ft_putstr_fd(": No such file or directory\n", 2);
+				tmp->next->data = 20;
+				tmp = tmp->next;
+				if (deletenodeforerror(&tmp) == 1)
 				{
-					ft_putstr_fd("minishell: ", 2);
-					ft_putstr_fd(tmp->next->arg, 2);
-					ft_putstr_fd(": No such file or directory\n", 2);
-					tmp->next->data = 20;
-					tmp = tmp->next;
-					if (deletenodeforerror(&tmp) == 1)
-						{
-							free(str);
-							return (1);
-						}
-					while ((*lst) && (*lst)->data != 6)
-						(*lst) = (*lst)->next;
-					(*lst) = (*lst)->next;
-					tmp = (*lst);
+					free(str);
+					return (1);
 				}
+				while ((*lst) && (*lst)->data != 6)
+					(*lst) = (*lst)->next;
+				(*lst) = (*lst)->next;
+				tmp = (*lst);
+			}
 		}
 		tmp = tmp->next;
 	}

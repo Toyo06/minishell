@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 18:45:43 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 04:03:13 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:53:40 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_echo_output(t_list **tmp, int fd)
 		else if ((*tmp)->data == 10)
 			ft_putstr_fd((*tmp)->arg, fd);
 		if ((*tmp)->next == NULL)
-			break;
+			break ;
 		if ((*tmp)->next != NULL && (*tmp)->next->data == 10)
 			ft_putstr_fd(" ", fd);
 		*tmp = (*tmp)->next;
@@ -34,19 +34,19 @@ void	prepare_echo(t_list **lst, t_list **tmp, int fd)
 	if ((*tmp) == NULL || (*tmp)->data == 6)
 	{
 		ft_putstr_fd("\n", fd);
-		return;
+		return ;
 	}
 	while ((*tmp)->data != 10 && (*tmp)->data != 8)
 	{
 		if (!(*tmp))
-			return;
+			return ;
 		(*tmp) = (*tmp)->next;
 	}
 }
 
-void ft_echo(t_list **lst, int fd)
+void	ft_echo(t_list **lst, int fd)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	prepare_echo(lst, &tmp, fd);
 	if (tmp)

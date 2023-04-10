@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatch_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:31:06 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:55:22 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:51:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	check_dispatch2(t_list **lst, t_env **env, int fd)
 	else if (ft_strcmp("unset", (*lst)->arg) == 0)
 		check_unset(lst, env);
 	else if (ft_strcmp("cd", (*lst)->arg) == 0
-			|| ft_strcmp(CD_P, (*lst)->arg) == 0
-			|| ft_strcmp("CD", (*lst)->arg) == 0)
+		|| ft_strcmp(CD_P, (*lst)->arg) == 0
+		|| ft_strcmp("CD", (*lst)->arg) == 0)
 	{
 		ft_cd(lst, env);
 		g_base.retval.pbuilt = 1;
@@ -68,8 +68,6 @@ void	dispatch2(t_list **lst, t_env **env, int fd)
 	tmp = (*lst);
 	g_base.retval.pxit = 0;
 	g_base.retval.pbuilt = 0;
-	// if (tmp->data == 8)
-	// 	return ;
 	while (tmp && tmp->data != 6)
 	{
 		if (tmp->data != 10 && tmp->data != 8)
@@ -136,7 +134,7 @@ int	dispatch(t_list **lst, t_env **env, int fd)
 
 int	isitabuiltin(t_list	**lst, t_env **env, int fd)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = (*lst);
 	g_base.retval.pxit = 1;
