@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 12:43:28 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:01:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ int	checklinespace(char *str)
 	int	i;
 
 	i = 0;
+	g_base.rmquote.i = 0;
+	g_base.rmquote.j = 0;
+	g_base.err.count = 0;
 	while (str[i])
 	{
 		if (str[i] != ' ')

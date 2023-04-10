@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:53:48 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:20:29 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:59:27 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ void	err_msg_pwd(int i)
 		g_base.retval.code = 1;
 		return ;
 	}
+}
+
+int	checkeight(t_list **tmp)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd((*tmp)->arg, 2);
+	ft_putstr_fd(": command not found\n", 2);
+	g_base.retval.code = 127;
+	return (1);
 }

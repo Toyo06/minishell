@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 12:22:42 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:55:53 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	checkfilecannotbeopen(t_list **lst, char *str)
 					free(str);
 					return (1);
 				}
-				while ((*lst) && (*lst)->data != 6)
-					(*lst) = (*lst)->next;
-				(*lst) = (*lst)->next;
+				movelistiferror(lst);
 				tmp = (*lst);
 			}
 		}
@@ -77,4 +75,17 @@ int	deletenodeforerror(t_list **lst)
 			return (1);
 	}
 	return (0);
+}
+
+void	movelistiferror(t_list **lst)
+{
+	while ((*lst) && (*lst)->data != 6)
+		(*lst) = (*lst)->next;
+	(*lst) = (*lst)->next;
+}
+
+int	freestrerror(char *str)
+{
+	free(str);
+	return (1);
 }

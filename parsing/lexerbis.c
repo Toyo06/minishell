@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:08:45 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 12:13:20 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:56:33 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int	check_space(char *str)
 
 int	check_prompt(char *str, t_list **lst, t_env **env)
 {
-	int	i;
-	int	comp;
-
-	comp = 0;
-	i = 0;
 	g_base.op.liststate = 0;
 	str = ft_strdup(str);
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
@@ -40,26 +35,12 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 	else
 	{
 		if (ft_strlen(str) != countmallocnewstring(str))
-		{
-			comp = countmallocnewstring(str);
 			str = addspacewhenneededpipe(str);
-		}
 		str = checkdol(str, env);
 		if (str == NULL)
-		{
-			free(str);
+			return (freestrerror(str));
+		if (splitingforquote(str) == 1)
 			return (1);
-		}
-		prep_quotes(str);
-		g_base.parsing.tab = ft_split(str, ' ');
-		g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
-		while (g_base.parsing.tab[i])
-		{
-			g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i]);
-			if (g_base.parsing.tab[i] == NULL)
-				return (1);
-			i++;
-		}
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab);
 		free(g_base.parsing.tab);
 		if (checkfilecannotbeopen(lst, str) == 1)
@@ -71,6 +52,24 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 	}
 	if (str)
 		free(str);
+	return (0);
+}
+
+int	splitingforquote(char *str)
+{
+	int	i;
+
+	i = 0;
+	prep_quotes(str);
+	g_base.parsing.tab = ft_split(str, ' ');
+	g_base.parsing.tab = revert_quotes(g_base.parsing.tab);
+	while (g_base.parsing.tab[i])
+	{
+		g_base.parsing.tab[i] = rm_quote(g_base.parsing.tab[i]);
+		if (g_base.parsing.tab[i] == NULL)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -87,23 +86,6 @@ int	deletenullarg(t_list **lst)
 		{
 			g_base.op.liststate = 1;
 			return (0);
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-int	checkererrorparsing(t_list **lst)
-{
-	t_list	*tmp;
-
-	tmp = (*lst);
-	while (tmp)
-	{
-		if (tmp->data == 6 && (tmp->next == NULL || tmp->prev == NULL))
-		{
-			error_msg(3);
-			return (1);
 		}
 		tmp = tmp->next;
 	}

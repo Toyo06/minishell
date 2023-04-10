@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:46:19 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:57:56 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,49 @@ int	err_management(t_list **lst)
 int	check_sym_err(t_list **lst)
 {
 	t_list	*tmp;
-	int		count;
 
 	tmp = (*lst);
-	count = 0;
 	while (tmp)
 	{
 		if (tmp->data == 6 && (tmp->next == NULL
 				|| tmp->prev == NULL || tmp->next->data != 10
 				|| tmp->prev->data != 10))
-		{
-			g_base.retval.code = 258;
-			error_msg(1);
-			return (1);
-		}
+			return (checksix());
 		if (tmp->data == 3 && (tmp->next == NULL
 				|| tmp->next->data != 10))
-		{
-			g_base.retval.code = 258;
-			error_msg(1);
-			return (1);
-		}
+			return (checkthree());
 		if ((tmp->data == 2 || tmp->data == 4)
 			&& (tmp->next == NULL || tmp->next->data != 10))
-		{
-			g_base.retval.code = 258;
-			error_msg(1);
-			return (1);
-		}
+			return (checktwofour());
 		if (tmp->data == 8)
 		{
 			tmp->arg = ft_strdup(ft_itoa(g_base.retval.code));
 			if (tmp->prev == NULL || tmp->prev->data == 6)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(tmp->arg, 2);
-				ft_putstr_fd(": command not found\n", 2);
-				g_base.retval.code = 127;
-				return (1);
-			}
+				return (checkeight(&tmp));
 		}
 		tmp = tmp->next;
-		count++;
+		g_base.err.count++;
 	}
 	return (0);
+}
+
+int	checktwofour(void)
+{
+	g_base.retval.code = 258;
+	error_msg(1);
+	return (1);
+}
+
+int	checkthree(void)
+{
+	g_base.retval.code = 258;
+	error_msg(1);
+	return (1);
+}
+
+int	checksix(void)
+{
+	g_base.retval.code = 258;
+	error_msg(1);
+	return (1);
 }

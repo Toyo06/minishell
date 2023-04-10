@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 12:44:33 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:59:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_spaceoppipe
 	int		i;
 	int		j;
 	int		quote;
+	char	*rtv;
 }				t_spaceoppipe;
 
 typedef struct s_env
@@ -193,6 +194,18 @@ typedef struct s_heredoc
 	int		sign;
 }				t_heredoc;
 
+typedef struct s_rmquote
+{
+	int		i;
+	char	*new_str;
+	int		j;
+}				t_rmquote;
+
+typedef struct s_sym_err
+{
+	int		count;
+}				t_sym_err;
+
 typedef struct s_multipipe
 {
 	int		totalpipe;
@@ -209,6 +222,8 @@ typedef struct s_multipipe
 
 typedef struct s_base
 {
+	t_rmquote		rmquote;
+	t_sym_err		err;
 	t_main			main;
 	t_strjoin		strjoin;
 	t_dol			dol;
@@ -487,5 +502,15 @@ void	afterdol(char *str);
 void	freeendofloop(t_list **lst);
 void	lunchingexec(t_list **lst, t_env **env);
 void	lunchingloopthings(t_list **lst, t_env **env);
+int		checktwofour(void);
+int		checkthree(void);
+int		checkeight(t_list **tmp);
+int		checksix(void);
+void	singlequotechecker(char *str);
+void	doublequotechecker(char *str);
+void	addspacewhenneededbro(void);
+void	movelistiferror(t_list **lst);
+int		splitingforquote(char *str);
+int		freestrerror(char *str);
 extern t_base	g_base;
 #endif

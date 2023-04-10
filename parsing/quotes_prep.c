@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:39:07 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:35:35 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:01:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,28 @@ char	**revert_quotes(char **arr)
 
 char	*rm_quote(char *str)
 {
-	char	*new_str;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
 	if (str == NULL)
 		return (str);
-	new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
-	while (str[i] && str[i] != 34 && str[i] != 39)
+	g_base.rmquote.new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[g_base.rmquote.i] && str[g_base.rmquote.i] != 34 && str[i] != 39)
 	{
-		new_str[j] = str[i];
-		i++;
-		j++;
+		g_base.rmquote.new_str[g_base.rmquote.j] = str[g_base.rmquote.i];
+		g_base.rmquote.i++;
+		g_base.rmquote.j++;
 	}
 	g_base.quote.nextquote = str[i];
-	if (str[i] != '\0')
-		i++;
-	while (str[i])
+	if (str[g_base.rmquote.i] != '\0')
+		g_base.rmquote.i++;
+	while (str[g_base.rmquote.i])
 	{
-		if (str[i] != g_base.quote.nextquote)
+		if (str[g_base.rmquote.i] != g_base.quote.nextquote)
 		{
 			new_str[j] = str[i];
-			j++;
+			g_base.rmquote.j++;
 		}
-		i++;
+		g_base.rmquote.i++;
 	}
-	new_str[j] = '\0';
+	new_str[g_base.rmquote.j] = '\0';
 	free(str);
-	return (new_str);
+	return (g_base.rmquote.new_str);
 }

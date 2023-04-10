@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:33:00 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:35:16 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:56:43 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,21 @@ int	check_quote_state(void)
 		return (0);
 	}
 	return (1);
+}
+
+int	checkererrorparsing(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (tmp->data == 6 && (tmp->next == NULL || tmp->prev == NULL))
+		{
+			error_msg(3);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }
