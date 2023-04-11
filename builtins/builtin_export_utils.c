@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:53:52 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:52:17 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:31:15 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,7 @@ void	ft_export_bis(t_list **lst, t_env **env, int fd)
 			ft_update_export(env, tmp->arg, NULL, g_base.xport.eq_fl);
 			continue ;
 		}
-		*g_base.xport.eq = '\0';
-		g_base.xport.arg = get_arg(g_base.xport.eq, env);
-		g_base.xport.arg = get_arg(g_base.xport.eq, env);
-		ft_update_export(env, tmp->arg, g_base.xport.arg, g_base.xport.eq_fl);
-		free(g_base.xport.arg);
+		update_export_eq(tmp, env);
 	}
 	exit_condition(0);
 }

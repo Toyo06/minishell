@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:03:24 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 04:06:49 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:30:14 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,16 @@ int	check_arg_validity(char *str)
 	i = 0;
 	if (!str || !ft_isalpha(str[i]))
 	{
+		if (ft_strcmp(str, "<") == 0)
+			return (0);
 		err_msg_export(5);
 		return (0);
 	}
 	return (1);
+}
+
+void	print_export_condition(t_list *tmp, t_env **env, int fd)
+{
+	if (tmp->next && g_base.xport.disp2 == 0)
+		ft_printexport(env, fd);
 }

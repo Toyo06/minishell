@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:02:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 20:20:24 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:03:32 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,22 @@ void	ft_export(t_list **lst, t_env **env, int fd)
 	{
 		tmp = tmp->next;
 		if (tmp->data != 10 && tmp->data != 12)
+			print_export_condition(tmp, env, fd);
+		else
 		{
-			if (tmp->next && g_base.xport.disp2 == 0)
-				ft_printexport(env, fd);
-			continue ;
+			g_base.xport.eq_fl = 1;
+			if (check_arg_validity(tmp->arg))
+			{
+				g_base.xport.eq = ft_strchr(tmp->arg, '=');
+				if (g_base.xport.eq == NULL)
+				{
+					g_base.xport.eq_fl = 0;
+					ft_update_export(env, tmp->arg, NULL, g_base.xport.eq_fl);
+				}
+				else
+					update_export_eq(tmp, env);
+			}
 		}
-		g_base.xport.eq_fl = 1;
-		if (!check_arg_validity(tmp->arg))
-			continue ;
-		g_base.xport.eq = ft_strchr(tmp->arg, '=');
-		if (g_base.xport.eq == NULL)
-		{
-			g_base.xport.eq_fl = 0;
-			if (!check_arg_validity(tmp->arg))
-				continue ;
-			ft_update_export(env, tmp->arg, NULL, g_base.xport.eq_fl);
-			continue ;
-		}
-		*g_base.xport.eq = '\0';
-		g_base.xport.arg = get_arg(g_base.xport.eq, env);
-		ft_update_export(env, tmp->arg, g_base.xport.arg, g_base.xport.eq_fl);
-		free(g_base.xport.arg);
 	}
 	exit_condition(0);
 }

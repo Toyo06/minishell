@@ -6,7 +6,7 @@
 /*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:22:31 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 02:47:22 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:36:49 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	check_unset(t_list **lst, t_env **env)
 			if (tmp->data == 6)
 				break ;
 			err_msg_unset(9);
+			g_base.retval.code = 1;
 			exit_condition(1);
 			if (tmp->next)
 				continue ;
@@ -75,6 +76,7 @@ void	check_unset(t_list **lst, t_env **env)
 		}
 		ft_unset(env, tmp->arg);
 	}
+	g_base.retval.code = 0;
 	exit_condition(0);
 }
 
