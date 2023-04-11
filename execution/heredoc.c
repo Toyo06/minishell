@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:24:17 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/09 19:31:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:24:13 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	sinplehere(t_list **lst)
 
 	tmp = (*lst);
 	if (g_base.heredoc.countalldoc > 0)
-		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc
-			- 1]);
+		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc - 1]);
 	g_base.heredoc.fdout[g_base.heredoc.countheredoc]
 		= open(tmp->next->arg, O_RDONLY);
 	tmp->next->data = 15;

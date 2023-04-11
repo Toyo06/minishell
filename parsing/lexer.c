@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 13:55:53 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 01:24:03 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	checkfilecannotbeopen(t_list **lst, char *str)
 {
 	t_list	*tmp;
-	int		i;
 
 	tmp = (*lst);
-	i = 0;
 	while (tmp)
 	{
 		if (tmp->data == 2)

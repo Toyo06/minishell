@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:05:48 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/01 13:20:41 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:19:41 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,3 @@ void	add_next_node_env(t_env **head, t_env *new_node)
 	tmp->next = new_node;
 	new_node->prev = tmp;
 }
-
-// void	printthelistenv(t_env **head)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = *head;
-// 	while (tmp)
-// 	{
-// 		ft_printf("%s     ", tmp->name);
-// 		ft_printf("%s\n", tmp->content);
-// 		tmp = tmp->next;
-// 	}
-// }

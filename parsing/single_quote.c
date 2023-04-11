@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:45:06 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 20:48:47 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 01:24:24 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,9 @@ void	replacedol(char *str)
 
 void	checkenvdol(t_env **env)
 {
-	int		i;
 	t_env	*tmp;
 	char	*stra;
 
-	i = 0;
 	tmp = (*env);
 	if (g_base.dol.strret == NULL)
 		return ;

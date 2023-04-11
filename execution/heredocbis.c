@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocbis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:57 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/09 21:32:40 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:24:38 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	singlesignehere(t_list **lst)
 
 	tmp = (*lst);
 	if (g_base.heredoc.countalldoc > 0)
-		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc
-			- 1]);
+		close(g_base.heredoc.fdout[g_base.heredoc.countheredoc - 1]);
 	g_base.heredoc.fdout[g_base.heredoc.countheredoc]
 		= open(tmp->next->arg, O_RDONLY);
 	tmp->next->data = 15;
@@ -108,8 +107,10 @@ int	counthereinpipe(t_list **lst)
 
 	tmp = (*lst);
 	i = 0;
-	while (tmp != NULL && tmp->data != 6)
+	while (tmp != NULL)
 	{
+		if (tmp->data != 6)
+			break ;
 		if (tmp->data == 11 || tmp->data == 12)
 			i++;
 		tmp = tmp->next;
