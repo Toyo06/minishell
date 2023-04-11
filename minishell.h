@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 20:40:10 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:32:13 by mayyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,7 @@ char	**ft_split(char const *s, char c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char *s1, char *s2);
+void	setvalueforjoin(void);
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strrchr(const char *s, int c);
@@ -276,66 +277,103 @@ void	*ft_memset(void *s, int c, size_t n);
 int		ft_isprint(char *str);
 
 /*	-----	Utils	-----	*/
-/*	list_utils.c	*/
-void	add_node(t_list **head, int nb, char *str);
-void	add_next_node(t_list **head, t_list *new_node);
-int		count_list(t_list **head);
-t_list	*free_list(t_list *lst);
-/*	list_prep.c	*/
-int		set_lst_data(char *str);
-int		double_char(char *str);
-int		single_char(char *str);
-int		list_prep(t_list **list, char **arr);
-/*	va_env.c	*/
-void	va_env(t_list **lst, t_env **env);
-void	va_convert(t_list **lst);
-char	*va_search(char *new_str, t_env **env, char **arr);
-char	*cpy_until_dollar(char *str);
-char	*cpy_after_dollar(char *str);
+/*	env_prep.c	*/
+void	env_prep(char **envp, t_env **env);
+void	err_msg_pwd(int i);
+int		checkeight(t_list **tmp);
+/*	env_utils.c	*/
+t_env	*create_node_env(char *name, char *content);
+void	add_next_node_env(t_env **head, t_env *new_node);
 /*	error_msg.c	*/
 void	error_msg(int i);
 void	err_msg_cd(int i);
 void	err_msg_exit(int i);
 void	err_msg_export(int i);
 void	err_msg_unset(int i);
-/*	env_utils.c	*/
-t_env	*create_node_env(char *name, char *content);
-void	add_next_node_env(t_env **head, t_env *new_node);
-/*	env_prep.c	*/
-void	env_prep(char **envp, t_env **env);
 /*	ft_free_arr.c	*/
 void	ft_free_arr(char **arr);
 /*	ft_getenv.c	*/
 char	*ft_getenv(t_env **env, char *str);
 /*	ft_update_env.c	*/
 void	ft_update_env(t_env **env, char *name, char *content);
+/*	list_prep.c	*/
+int		set_lst_data(char *str);
+int		double_char(char *str);
+int		single_char(char *str);
+int		list_prep(t_list **list, char **arr);
+/*	list_utils.c	*/
+void	add_node(t_list **head, int nb, char *str);
+void	add_next_node(t_list **head, t_list *new_node);
+int		count_list(t_list **head);
+t_list	*free_list(t_list *lst);
+void	printthelist(t_list **head);
+/*	va_env.c	*/
+void	va_env(t_list **lst, t_env **env);
+void	va_convert(t_list **lst);
+char	*va_search(char *new_str, t_env **env, char **arr);
+char	*cpy_until_dollar(char *str);
+char	*cpy_after_dollar(char *str);
 
 /*	-----	Parsing	-----	*/
-/*	parsing.c	*/
-int		check_sym_err(t_list **lst);
-int		err_management(t_list **lst);
+/*	forbidden_char_check.c	*/
+void	singlequotechecker(char *str);
+size_t	countmallocnewstring(char *str);
+void	doublequotechecker(char *str);
+/*	forbidden_char_checkbis.c	*/
+int		check_forbidden_char(char *str);
+void	setvalueforquotepipe(void);
+void	checkstatusquotepipe(char *str);
+char	*addspacewhenneededpipe(char *str);
+void	addspacewhenneededbro(void);
+/*	lexer.c	*/
+int		checkfilecannotbeopen(t_list **lst, char *str);
+int		deletenodeforerror(t_list **lst);
+void	movelistiferror(t_list **lst);
+void	fileerror(t_list **tmp);
+int		freestrerror(char *str);
+/*	lexerbis.c	*/
+int		check_prompt(char *str, t_list **lst, t_env **env);
+int		deletenullarg(t_list **lst);
+int		freenullargbis(t_list **lst);
+int		splitingforquote(char *str);
 /*	parsing_check.c	*/
 int		op_count(char *str);
 int		op_check(char *str);
 int		op_check_bis(char *str);
 int		pipe_check(char *str);
-/*	forbidden_char_check.c	*/
-int		check_forbidden_char(char *str);
+/*	parsing.c	*/
+int		checktwofour(void);
+int		checkthree(void);
+int		checksix(void);
+int		check_sym_err(t_list **lst);
+int		err_management(t_list **lst);
 /*	quotes_check.c	*/
 int		check_quotes(char *str);
 int		check_quote_state(void);
+int		checkererrorparsing(t_list **lst);
 /*	quotes_prep.c	*/
+void	sortrm(char *str);
 char	*prep_quotes(char *str);
 char	*revert_nl_to_sp(char *str);
 char	**revert_quotes(char **arr);
 char	*rm_quote(char *str);
-/*	lexer.c	*/
-int		check_prompt(char *str, t_list **lst, t_env **env);
+/*	single_quotebis.c	*/
+int		countdolmal(char *str);
+char	*finalstringdol(char *str, t_env **env);
+int		countmallocend(char *str);
+int		countbefdol(char *str);
+/*	single_quote.c	*/
+void	replacedol(char *str);
+char	*checkdol(char *str, t_env **env);
+void	beforedol(char *str);
+void	afterdol(char *str);
+void	checkenvdol(t_env **env);
 
 /*	-----	Builtins	-----	*/
-/*	builtin_env.c	*/
-void	ft_printenv(t_env **env, int fd);
-void	ft_env(t_env **env, t_list **lst, int fd);
+/*	builtin_cd.c	*/
+void	ft_cd(t_list **lst, t_env **env);
+void	ft_cd_p(t_list **lst);
+void	handle_err(int err_code);
 /*	builtin_echo.c	*/
 void	ft_echo(t_list	**lst, int fd);
 int		prepare_echo(t_list **lst, t_list **tmp, int fd);
@@ -344,6 +382,9 @@ void	print_echo_output(t_list **tmp, int fd);
 int		ft_checkoption(char *str);
 void	handle_echo_option(t_list **tmp);
 int		check_echo_option(t_list *tmp);
+/*	builtin_env.c	*/
+void	ft_printenv(t_env **env, int fd);
+void	ft_env(t_env **env, t_list **lst, int fd);
 /*	builtin_exit.c	*/
 void	ft_exit(t_list **lst, int fd);
 void	handle_exit_cmd(t_list *tmp, int fd);
@@ -370,27 +411,79 @@ int		check_export_arg(char *str);
 int		sp_check(char *str);
 int		check_env_var(char *str);
 int		check_arg_validity(char *str);
-/*	builtin_unset.c	*/
-int		check_unset_arg(char *str);
-void	ft_unset(t_env **env, char *str);
-void	check_unset(t_list **lst, t_env **env);
-int		check_alnum(char *str);
+void	print_export_condition(t_list *tmp, t_env **env, int fd);
+/*	builtin_export_utils_bis2.c	*/
+void	update_export_eq(t_list *tmp, t_env **env);
 /*	builtin_pwd.c	*/
 void	register_pwd(void);
 void	print_pwd(int fd);
 void	ft_pwd_p(t_list **lst, int fd);
 void	ft_pwd(t_list **lst, int fd);
+void	ft_pwd_p(t_list **lst, int fd);
+/*	builtin_unset.c	*/
+int		check_unset_arg(char *str);
+void	ft_unset(t_env **env, char *str);
+void	check_unset(t_list **lst, t_env **env);
+int		check_alnum(char *str);
 /*	dispatch_builtins.c	*/
 int		isitabuiltin(t_list	**lst, t_env **env, int fd);
-int		dispatch(t_list **lst, t_env **env, int fd);
+int		check_builtin(char *arg);
 void	isitabuiltin_bis(t_list **lst, t_env **env, int fd);
 void	dispatch2(t_list **lst, t_env **env, int fd);
 int		check_dispatch2(t_list **lst, t_env **env, int fd);
 int		check_builtin(char *arg);
-/*	builtin_cd.c	*/
-void	ft_cd(t_list **lst, t_env **env);
-void	ft_cd_p(t_list **lst);
+/*	dispatch_utils_bis.c	*/
+int		dispatch(t_list **lst, t_env **env, int fd);
+int		check_b_env(t_list **lst, t_env **env, int fd);
+int		check_b_cd(t_list **lst, t_env **env);
+/*	dispatch_utils.c	*/
+int		check_b_unset(t_list **lst, t_env **env);
+int		check_b_pwd(t_list **lst, int fd);
+int		check_b_export(t_list **lst, t_env **env, int fd);
+int		check_b_exit(t_list **lst, int fd);
+int		check_b_echo(t_list **lst, int fd);
+
 /*	-----	Execution	-----	*/
+/*	heredoc.c	*/
+int		controlcheredoc(void);
+int		sinplehere(t_list **lst);
+int		doubleredir(t_list **lst);
+/*	heredocbis.c	*/
+void	removenextnode(t_list	**lst);
+int		counthereinpipe(t_list **lst);
+void	unlinkheredoc(void);
+int		heredocexec(t_list *tmp);
+/*	heredocbis2.c	*/
+int		heredoc(t_list **lst);
+void	countheredoc(t_list **lst);
+void	countmuchhere(t_list *tmp, t_list **lst);
+/*	path_prep.c	*/
+void	preparepathforexec(t_env **env, t_list **lst);
+void	tabforcmd(t_list **lst);
+void	checkaccess(t_list	**lst, t_env **env);
+int		mallocfortab(t_list *tmp);
+/*	path_prep_utils.c	*/
+t_list	*find_next_valid_node(t_list **lst);
+void	cutingacessbis(t_list **tmp, int i);
+void	free_preppath_from_index(int index);
+void	path_not_found(t_list **lst);
+void	checkaccessbis(t_list **lst);
+/*	pipeline.c	*/
+void	pipeline(t_env **env, t_list **lst, int fd);
+void	setmultipipeval(t_list **tmp, t_env **env);
+void	envofpipeline(void);
+/*	pipelinebis.c	*/
+void	setvaluemultipipe(t_list **lst);
+void	multipipechild(t_list *tmp);
+void	multipipesend(void);
+void	startingpipe(t_list **tmp, t_env **env);
+void	execvething(t_list **lst, t_env **env, int fd);
+/*	pipelinebis2.c	*/
+void	closeredir(void);
+void	closeheredoc(void);
+void	mallocpipeline(void);
+void	freepipeline(void);
+void	actionpipeline(t_list **lst, t_env **env, int fd);
 /*	pipes_utils.c	*/
 void	freeforpipe(void);
 int		checkpipes(t_list **lst);
@@ -398,121 +491,45 @@ void	mallocforthetabtoenv(t_env **env);
 void	convertenvtotab(t_env **env);
 /*	pipes.c	*/
 void	execution(t_list **lst, t_env **env, int fd);
-int		isitabuiltin(t_list	**lst, t_env **env, int fd);
-/*	single_pipe.c	*/
-void	execonepipe(t_list **lst, t_env **env, int fd);
-void	singlepipeaction(t_list **tmpb, t_env **env);
-void	execone(t_list **lst, t_env **env, int fd);
-void	exectwo(t_list **lst, t_env **env, int fd);
-/*	single_cmd.c	*/
-void	execsimglecmd(t_list **lst, t_env **env, int fd);
-/*	path_prep.c	*/
-void	preparepathforexec(t_env **env, t_list **lst);
-void	tabforcmd(t_list **lst);
-void	checkaccess(t_list	**lst, t_env **env);
-/*	path_prep_utils.c	*/
-t_list	*find_next_valid_node(t_list **lst);
-void	free_preppath_from_index(int index);
-void	path_not_found(t_list **lst);
-void	checkaccessbis(t_list **lst);
-/*	signals.c	*/
-void	sig_handler(int sig);
-void	sig_block_handler(int sig);
-/*	pipeline.c	*/
-void	pipeline(t_env **env, t_list **lst, int fd);
-/*	Extras	*/
-void	rl_replace_line(char *str, int i);
-int		heredoc(t_list **lst);
-void	removenextnode(t_list	**lst);
-void	printthelist(t_list **head);
-void	countheredoc(t_list **lst);
-int		counthereinpipe(t_list **lst);
-void	unlinkheredoc(void);
-
-void	sig_heredoc(int sig);
-void	simulate_return_key_press(void);
-void	remove_newline(void);
 int		check_if_empty(t_list **lst);
-int		check_builtin(char *arg);
-
+/*	redir.c	*/
 void	setvaluered(t_list **lst);
 int		countredir(t_list	**lst);
 void	redirection(t_list **lst);
 int		countredirinpipe(t_list **lst);
-int		checklinespace(char *str);
-
-void	ft_pwd_p(t_list **lst, int fd);
-void	err_msg_pwd(int i);
-void	exit_condition(int n);
-void	ft_cd_p(t_list **lst);
-void	handle_err(int err_code);
-
-int		checklinespace(char *str);
+/*	signals.c	*/
+void	sig_handler(int sig);
+void	sig_block_handler(int sig);
+void	sig_heredoc(int sig);
+void	simulate_return_key_press(void);
+/*	single_cmd.c	*/
+void	setsinglecmd(t_list **lst);
+void	execsimglecmd(t_list **lst, t_env **env, int fd);
 void	execsinglechild(t_list **lst, t_env **env, int fd);
 void	closesinglecmd(void);
-void	singlepipesign(int status);
-void	execonepipebis(t_list **tmpb, t_env **env, int status, int fd);
-
-int		mallocfortab(t_list *tmp);
-void	taberrorprint(t_list **lst);
-void	accessfree(int i);
-int		isitabuiltinbis(t_list	**lst, t_env **env);
-void	countmuchhere(t_list *tmp, t_list **lst);
-int		heredocexec(t_list *tmp);
-
-int		controlcheredoc(void);
-int		sinplehere(t_list **lst);
-int		doubleredir(t_list **lst);
-void	setvaluemultipipe(t_list **lst);
-void	multipipechild(t_list *tmp);
-void	closeredir(void);
-void	closeheredoc(void);
-void	multipipesend(void);
-void	startingpipe(t_list **tmp, t_env **env);
-void	execvething(t_list **lst, t_env **env, int fd);
-void	mallocpipeline(void);
-void	freepipeline(void);
-void	actionpipeline(t_list **lst, t_env **env, int fd);
-void	envofpipeline(void);
-
-int		deletenullarg(t_list **lst);
-int		checkererrorparsing(t_list **lst);
-int		freenullargbis(t_list **lst);
-void	setvalueforquotepipe(void);
-void	checkstatusquotepipe(char *str);
-char	*addspacewhenneededpipe(char *str);
-size_t	countmallocnewstring(char *str);
-void	replacedol(char *str);
-char	*checkdol(char *str, t_env **env);
-int		countdolmal(char *str);
-char	*finalstringdol(char *str, t_env **env);
-void	checkenvdol(t_env **env);
-int		countmallocend(char *str);
-int		checkfilecannotbeopen(t_list **lst, char *str);
-int		deletenodeforerror(t_list **lst);
+/*	single_pipe.c	*/
 void	impsingle(t_list **tmpb, t_env **env);
-void	setsinglecmd(t_list **lst);
-void	setmultipipeval(t_list **tmp, t_env **env);
-void	executionstart(t_list **lst, t_env **env);
-void	cutingacessbis(t_list **tmp, int i);
-void	setvalueforjoin(void);
-void	fileerror(t_list **tmp);
-int		countbefdol(char *str);
-void	beforedol(char *str);
-void	afterdol(char *str);
+void	execonepipe(t_list **lst, t_env **env, int fd);
+void	execone(t_list **lst, t_env **env, int fd);
+void	execonepipebis(t_list **tmpb, t_env **env, int status, int fd);
+void	singlepipesign(int status);
+/*	singlepipebis.c	*/
+void	singlepipeaction(t_list **tmpb, t_env **env);
+void	exectwo(t_list **lst, t_env **env, int fd);
+
+/*	main.c	*/
+int		checklinespace(char *str);
+int		checklinespace(char *str);
 void	freeendofloop(t_list **lst);
 void	lunchingexec(t_list **lst, t_env **env);
 void	lunchingloopthings(t_list **lst, t_env **env);
-int		checktwofour(void);
-int		checkthree(void);
-int		checkeight(t_list **tmp);
-int		checksix(void);
-void	singlequotechecker(char *str);
-void	doublequotechecker(char *str);
-void	addspacewhenneededbro(void);
-void	movelistiferror(t_list **lst);
-int		splitingforquote(char *str);
-int		freestrerror(char *str);
-void	sortrm(char *str);
+
+/*	Extras	*/
+void	executionstart(t_list **lst, t_env **env);
+int		isitabuiltinbis(t_list	**lst, t_env **env);
+void	accessfree(int i);
+void	taberrorprint(t_list **lst);
+void	remove_newline(void);
+void	rl_replace_line(char *str, int i);
 extern t_base	g_base;
 #endif
