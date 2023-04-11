@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:43 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 03:01:10 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:19:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	actionpipeline(t_list **lst, t_env **env, int fd)
 		g_base.multipipe.fdout = 1;
 	else
 		g_base.multipipe.fdout = g_base.multipipe.pipefd[g_base.multipipe.i][1];
+	close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
 	g_base.multipipe.forkfd[g_base.multipipe.i] = fork();
 	signal(SIGQUIT, sig_block_handler);
 	signal(SIGINT, sig_block_handler);

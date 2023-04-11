@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 12:14:08 by mayyildi          #+#    #+#              #
-#    Updated: 2023/04/11 22:16:53 by mayyildi         ###   ########.fr        #
+#    Updated: 2023/04/11 22:25:12 by sroggens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,11 +90,11 @@ OBJECTS = $(SRCS:.c=.o)
 
 CC = gcc
 
-READLINE = #READLINE
+READLINE = -L/Users/sroggens/homebrew/opt/readline/lib -lreadline
 
 CFLAGS = -Wall -Werror -Wextra
 
-SFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+SFLAGS = -Wall -Werror -Wextra 
 
 all : $(NAME)
 

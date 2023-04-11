@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:29:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 13:46:51 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:21:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,44 @@ void	doublequotechecker(char *str)
 		g_base.spaceoppipe.i++;
 		g_base.spaceoppipe.j++;
 	}
+}
+
+int	errorset(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	while (tmp)
+	{
+		if (tmp->data == 4 || tmp->data == 2 || tmp->data == 3
+			|| tmp->data == 1 || tmp->data == 6)
+			if (errorsetbis(&tmp) != 0)
+				return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	errorsetbis(t_list **lst)
+{
+	t_list	*tmp;
+
+	tmp = (*lst);
+	if (tmp->next == NULL)
+	{
+		if (tmp->data == 6)
+			printf("minishell: syntax error near unexpected token `|'\n");
+		else
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		return (1);
+	}
+	else if (tmp->next->data != 10)
+	{
+		if (tmp->data == 6 && tmp->next->data == 6)
+			printf("minishell: syntax error near unexpected token `|'\n");
+		else
+			printf("minishell: syntax error near unexpected token `newline'\n");
+		return (1);
+	}
+	return (0);
 }

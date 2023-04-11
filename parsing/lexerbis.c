@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:08:45 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 20:49:00 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:21:51 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 			return (1);
 		g_base.quote.returnvalue = list_prep(lst, g_base.parsing.tab);
 		free(g_base.parsing.tab);
-		if (checkfilecannotbeopen(lst, str) == 1)
+		if (errorset(lst) == 1 || checkfilecannotbeopen(lst, str) == 1)
 			return (1);
 		if (err_management(lst) == 0 || checkererrorparsing(lst) == 1)
 			return (1);

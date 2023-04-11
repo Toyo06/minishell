@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:46:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 12:57:56 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:29:32 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ int	check_sym_err(t_list **lst)
 	tmp = (*lst);
 	while (tmp)
 	{
-		if (tmp->data == 6 && (tmp->next == NULL
-				|| tmp->prev == NULL || tmp->next->data != 10
-				|| tmp->prev->data != 10))
-			return (checksix());
-		if (tmp->data == 3 && (tmp->next == NULL
-				|| tmp->next->data != 10))
-			return (checkthree());
-		if ((tmp->data == 2 || tmp->data == 4)
-			&& (tmp->next == NULL || tmp->next->data != 10))
-			return (checktwofour());
 		if (tmp->data == 8)
 		{
 			tmp->arg = ft_strdup(ft_itoa(g_base.retval.code));
