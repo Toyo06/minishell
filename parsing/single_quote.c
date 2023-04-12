@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:45:06 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/11 01:24:24 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:16:12 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	afterdol(char *str)
 	while (str[i] != '$')
 		i++;
 	while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
-		i++;
+	i++;
 	if (str[i] == '\0')
 	{
 		g_base.dol.end = NULL;
@@ -101,7 +101,7 @@ void	replacedol(char *str)
 		g_base.dol.strret = malloc(sizeof(char) * (countdolmal(str) + 1));
 	while (str[i] != '$')
 		i++;
-	if (str[i + 1] == '\0')
+	if (str[i + 1] == '\0' || str[i + 1] == '\'')
 	{
 		g_base.dol.strret = NULL;
 		return ;

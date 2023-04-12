@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:06:39 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 20:47:01 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:13:13 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	countmallocend(char *str)
 	while (str[i] != '$')
 		i++;
 	while (str[i] && str[i] != ' ' && str[i] != '"' && str[i] != '\'')
-		i++;
+	i++;
 	while (str[i])
 	{
 		i++;
@@ -73,8 +73,8 @@ char	*finalstringdol(char *str, t_env **env)
 	beforedol(str);
 	replacedol(str);
 	checkenvdol(env);
-	afterdol(str);
 	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
+	afterdol(str);
 	strnew = ft_strjoin(tmpd, g_base.dol.end);
 	if (g_base.dol.strret)
 		free(g_base.dol.strret);

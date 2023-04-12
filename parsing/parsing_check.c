@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 18:57:35 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/12 20:55:23 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:58:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,6 @@ int	pipe_check(char *str)
 			{
 				error_msg(1);
 				return (1);
-			}
-			if (str[i + 1] == '\0')
-			{
-				error_msg(1);
-				return (0);
 			}
 			if (str[i + 1] != ' ')
 			{
