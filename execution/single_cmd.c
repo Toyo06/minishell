@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:10:50 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 22:37:39 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:50:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	setsinglecmd(t_list **lst)
 	signal(SIGQUIT, sig_block_handler);
 	signal(SIGINT, sig_block_handler);
 	g_base.redir.fdcount += countredirinpipe(lst) - 1;
-	g_base.heredoc.processhere += counthereinpipe(lst) - 1;
+	g_base.heredoc.processhere += (counthereinpipe(lst) - 1);
 }
 
 void	closesinglecmd(void)

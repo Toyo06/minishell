@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/11 22:20:15 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:51:18 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ char	*cpy_after_dollar(char *str);
 void	singlequotechecker(char *str);
 size_t	countmallocnewstring(char *str);
 void	doublequotechecker(char *str);
-int		 errorset(t_list **lst);
+int		errorset(t_list **lst);
 int		errorsetbis(t_list **lst);
 /*	forbidden_char_checkbis.c	*/
 int		check_forbidden_char(char *str);

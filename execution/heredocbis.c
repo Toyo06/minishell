@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocbis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:57 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/11 19:24:38 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:49:47 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	counthereinpipe(t_list **lst)
 	i = 0;
 	while (tmp != NULL)
 	{
-		if (tmp->data != 6)
+		if (tmp->data == 6)
 			break ;
 		if (tmp->data == 11 || tmp->data == 12)
 			i++;
