@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 19:22:31 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/11 20:36:49 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:44:05 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_unset(t_env **env, char *str)
 			if (tmp->content)
 				free(tmp->content);
 			free(tmp);
+			tmp = (*env);
 		}
 		tmp = tmp->next;
 	}
