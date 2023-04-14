@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:06:39 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/12 21:13:13 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/13 22:06:04 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ char	*finalstringdol(char *str, t_env **env)
 	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
 	afterdol(str);
 	strnew = ft_strjoin(tmpd, g_base.dol.end);
-	if (g_base.dol.strret)
-		free(g_base.dol.strret);
+	if (g_base.dol.beforedol)
+		free(g_base.dol.beforedol);
 	if (strnew == NULL)
 		return (NULL);
 	return (strnew);

@@ -6,7 +6,7 @@
 #    By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 12:14:08 by mayyildi          #+#    #+#              #
-#    Updated: 2023/04/11 22:25:12 by sroggens         ###   ########.fr        #
+#    Updated: 2023/04/14 23:25:20 by sroggens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS =	main.c								\
 		utils/ft_print_arr.c				\
 		utils/ft_update_env.c				\
 		utils/list_prep.c					\
+		utils/list_prepbis.c 				\
 		utils/list_utils.c					\
 		utils/update_retval.c				\
 		utils/va_env.c						\
@@ -30,6 +31,7 @@ SRCS =	main.c								\
 		parsing/lexerbis.c					\
 		parsing/parsing_check.c				\
 		parsing/parsing.c					\
+		parsing/quotes_precbis.c				\
 		parsing/quotes_check.c				\
 		parsing/quotes_prep.c				\
 		parsing/single_quote.c				\
@@ -92,7 +94,7 @@ CC = gcc
 
 READLINE = -L/Users/sroggens/homebrew/opt/readline/lib -lreadline
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 
 SFLAGS = -Wall -Werror -Wextra 
 

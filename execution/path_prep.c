@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:13:23 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/08 23:08:31 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:30:38 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,25 @@ void	preparepathforexec(t_env **env, t_list **lst)
 		}
 		tmp = tmp->next;
 	}
-	g_base.path.preppath = ft_split(tmp->content, ':');
-	while (g_base.path.preppath[++i])
-		g_base.path.preppath[i] = ft_strjoin(g_base.path.preppath[i], "/");
+	paththings2(&tmp);
 	checkaccess(lst, env);
+}
+
+void	paththings2(t_env **lst)
+{
+	t_env	*tmp;
+	int		i;
+
+	tmp = (*lst);
+	i = -1;
+	if (tmp->content != NULL && ft_strlen(tmp->content) > 0)
+	{
+		g_base.path.preppath = ft_split(tmp->content, ':');
+		while (g_base.path.preppath[++i])
+			g_base.path.preppath[i] = ft_strjoin(g_base.path.preppath[i], "/");
+	}
+	else
+		g_base.path.preppath = NULL;
 }
 
 int	mallocfortab(t_list *tmp)
@@ -90,7 +105,7 @@ void	checkaccess(t_list	**lst, t_env **env)
 	if (access(tmp->arg, F_OK) == 0 || check_builtin(tmp->arg) == 1)
 	{
 		g_base.path.finalpath = ft_strdup(tmp->arg);
-		while (g_base.path.preppath[i])
+		while (g_base.path.preppath != NULL && g_base.path.preppath[i])
 		{
 			free(g_base.path.preppath[i]);
 			i++;

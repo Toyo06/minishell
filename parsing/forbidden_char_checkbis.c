@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 13:38:21 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 13:42:57 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:12:45 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ char	*addspacewhenneededpipe(char *str)
 		g_base.spaceoppipe.j++;
 	}
 	g_base.spaceoppipe.rtv[g_base.spaceoppipe.j] = '\0';
-	free(str);
-	return (g_base.spaceoppipe.rtv);
+	return (returnwhatiwant(str));
 }
 
 void	setvalueforquotepipe(void)

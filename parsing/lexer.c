@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/11 01:24:03 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:02:27 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	fileerror(t_list **tmp)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd((*tmp)->next->arg, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
-	(*tmp)->next->data = 20;
 }
 
 int	deletenodeforerror(t_list **lst)
@@ -77,7 +76,7 @@ int	deletenodeforerror(t_list **lst)
 
 void	movelistiferror(t_list **lst)
 {
-	while ((*lst) && (*lst)->data != 6)
+	while ((*lst)->next && (*lst)->data != 6)
 		(*lst) = (*lst)->next;
 	(*lst) = (*lst)->next;
 }

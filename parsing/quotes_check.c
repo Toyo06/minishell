@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:33:00 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 13:56:43 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:04:03 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ int	checkererrorparsing(t_list **lst)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+char	*returnwhatiwant(char *str)
+{
+	char	*rtv;
+
+	rtv = ft_strdup(g_base.spaceoppipe.rtv);
+	free(g_base.spaceoppipe.rtv);
+	free(str);
+	return (rtv);
 }

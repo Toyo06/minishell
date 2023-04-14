@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/12 20:51:18 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:29:30 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,7 +466,7 @@ void	checkaccess(t_list	**lst, t_env **env);
 int		mallocfortab(t_list *tmp);
 /*	path_prep_utils.c	*/
 t_list	*find_next_valid_node(t_list **lst);
-void	cutingacessbis(t_list **tmp, int i);
+int		cutingacessbis(t_list **tmp, int i, t_list **lst);
 void	free_preppath_from_index(int index);
 void	path_not_found(t_list **lst);
 void	checkaccessbis(t_list **lst);
@@ -533,5 +533,13 @@ void	accessfree(int i);
 void	taberrorprint(t_list **lst);
 void	remove_newline(void);
 void	rl_replace_line(char *str, int i);
+char	*returnwhatiwant(char *str);
+void	listchangeifquote(t_list **lst);
+
+char	*changeinsq(char *str);
+char	*addcoping3(char *str, char *new_str);
+char	*addcoping2(char *str, char *new_str);
+char	*addcoping(char *str, char *new_str);
+void	paththings2(t_env **lst);
 extern t_base	g_base;
 #endif

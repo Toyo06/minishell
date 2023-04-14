@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 22:03:08 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/03/20 14:44:44 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:04:31 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	freeforpipe(void)
 		i++;
 	}
 	free(g_base.path.cmdfull);
-	free(g_base.path.preppath);
-	free(g_base.path.finalpath);
+	if (g_base.path.preppath != NULL)
+		free(g_base.path.preppath);
+	if (g_base.path.finalpath != NULL)
+		free(g_base.path.finalpath);
 }
 
 int	checkpipes(t_list **lst)

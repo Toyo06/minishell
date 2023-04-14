@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 14:37:13 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/09 22:13:54 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:26:19 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,35 @@ void	checkaccessbis(t_list **lst)
 	if (tmp == NULL || tmp->data == 6)
 		return ;
 	i = -1;
-	while (g_base.path.preppath[++i])
+	if (g_base.path.preppath == NULL)
 	{
-		cutingacessbis(&tmp, i);
-		if (access(g_base.path.finalpath, F_OK) == 0)
-		{
-			i++;
-			free_preppath_from_index(i);
-			break ;
-		}
-		free(g_base.path.finalpath);
-		if (g_base.path.preppath[i + 1] == NULL)
-		{
-			g_base.path.finalpath = NULL;
-			path_not_found(lst);
-		}
+		g_base.path.finalpath = NULL;
+		path_not_found(lst);
+		return ;
 	}
+	while (g_base.path.preppath[++i])
+		if (cutingacessbis(&tmp, i, lst) == 0)
+			break ;
 }
 
-void	cutingacessbis(t_list **tmp, int i)
+int	cutingacessbis(t_list **tmp, int i, t_list **lst)
 {
 	if ((*tmp)->arg[0] == '/' && access((*tmp)->arg, F_OK) != 0)
 			g_base.path.finalpath = ft_strdup((*tmp)->arg);
 	else
 		g_base.path.finalpath
 			= ft_strjoin(g_base.path.preppath[i], (*tmp)->arg);
+	if (access(g_base.path.finalpath, F_OK) == 0)
+	{
+		i++;
+		free_preppath_from_index(i);
+		return (0);
+	}
+	free(g_base.path.finalpath);
+	if (g_base.path.preppath[i + 1] == NULL)
+	{
+		g_base.path.finalpath = NULL;
+		path_not_found(lst);
+	}
+	return (1);
 }

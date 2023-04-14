@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:08:45 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/12 20:56:47 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:05:21 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	check_prompt(char *str, t_list **lst, t_env **env)
 		while (deletenullarg(lst) == 1)
 			deletenullarg(lst);
 	}
-	if (str)
-		free(str);
+	free(str);
 	return (0);
 }
 
