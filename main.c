@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 08:07:25 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/13 20:57:14 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:14:51 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
 	t_env	*env;
+	char	*str;
 
 	(void)argc;
 	(void)argv;
@@ -31,13 +32,13 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, sig_handler);
 		signal(SIGINT, sig_handler);
 		lst = NULL;
-		g_base.sig.str = readline("\e[0;33mMinishell: \e[0m");
-		if (!g_base.sig.str || checklinespace(g_base.sig.str) == 1)
+		str = readline("\e[0;33mMinishell: \e[0m");
+		if (!str || checklinespace(str) == 1)
 			g_base.main.k = 1;
-		if (!g_base.sig.str)
+		if (!str)
 			break ;
-		if (ft_strlen(g_base.sig.str) > 0 && g_base.main.k == 0)
-			lunchingloopthings(&lst, &env);
+		if (ft_strlen(str) > 0 && g_base.main.k == 0)
+			lunchingloopthings(&lst, &env, str);
 	}
 }
 
@@ -55,11 +56,11 @@ void	freeendofloop(t_list **lst)
 	free((*lst));
 }
 
-void	lunchingloopthings(t_list **lst, t_env **env)
+void	lunchingloopthings(t_list **lst, t_env **env, char *str)
 {
-	add_history(g_base.sig.str);
-	if (op_count(g_base.sig.str) == 0)
-		if (check_prompt(g_base.sig.str, lst, env)
+	add_history(str);
+	if (op_count(str) == 0)
+		if (check_prompt(str, lst, env)
 			== 0 && g_base.op.liststate == 0)
 			lunchingexec(lst, env);
 	freeendofloop(lst);

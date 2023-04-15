@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:45:06 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/12 21:16:12 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:04:35 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	replacedol(char *str)
 		i++;
 	if (str[i + 1] == '\0' || str[i + 1] == '\'')
 	{
+		free(g_base.dol.strret);
 		g_base.dol.strret = NULL;
 		return ;
 	}
@@ -119,24 +120,20 @@ void	replacedol(char *str)
 void	checkenvdol(t_env **env)
 {
 	t_env	*tmp;
-	char	*stra;
 
 	tmp = (*env);
 	if (g_base.dol.strret == NULL)
 		return ;
-	stra = ft_strdup(g_base.dol.strret);
-	free(g_base.dol.strret);
 	while (tmp)
 	{
-		if (ft_strcmp(stra, tmp->name) == 0)
+		if (ft_strcmp(g_base.dol.strret, tmp->name) == 0)
 		{
-			free(stra);
+			free(g_base.dol.strret);
 			g_base.dol.strret = ft_strdup(tmp->content);
 			return ;
 		}
 		tmp = tmp->next;
 	}
-	if (stra != NULL)
-		free(stra);
+	free(g_base.dol.strret);
 	g_base.dol.strret = NULL;
 }

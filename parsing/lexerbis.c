@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:08:45 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/14 23:05:21 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:17:19 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	check_space(char *str)
 int	check_prompt(char *str, t_list **lst, t_env **env)
 {
 	g_base.op.liststate = 0;
-	str = ft_strdup(str);
 	if (check_forbidden_char(str) == 1 || check_quotes(str) == 0)
 		return (1);
 	else

@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:43 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/11 22:19:05 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:56:20 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,12 @@ void	actionpipeline(t_list **lst, t_env **env, int fd)
 		g_base.multipipe.fdout = 1;
 	else
 		g_base.multipipe.fdout = g_base.multipipe.pipefd[g_base.multipipe.i][1];
-	close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
 	g_base.multipipe.forkfd[g_base.multipipe.i] = fork();
 	signal(SIGQUIT, sig_block_handler);
 	signal(SIGINT, sig_block_handler);
 	if (g_base.multipipe.forkfd[g_base.multipipe.i] == 0)
 	{
 		multipipechild(tmp);
-		close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
 		execvething(&tmp, env, fd);
 	}
 }

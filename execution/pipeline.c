@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:14:27 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/10 03:01:46 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:10:46 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ void	pipeline(t_env **env, t_list **lst, int fd)
 		closeheredoc();
 		closeredir();
 		setmultipipeval(&tmp, env);
-		if (g_base.multipipe.i > 2)
-		{
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][1]);
-			close(g_base.multipipe.pipefd[g_base.multipipe.i - 2][0]);
-		}
 	}
 	envofpipeline();
 }
@@ -50,11 +45,13 @@ void	setmultipipeval(t_list **tmp, t_env **env)
 
 void	envofpipeline(void)
 {
-	while (g_base.multipipe.j <= g_base.multipipe.totalpipe)
+	while (g_base.multipipe.j >= 0)
 	{
+		close(g_base.multipipe.pipefd[g_base.multipipe.j][1]);
+		close(g_base.multipipe.pipefd[g_base.multipipe.j][0]);
 		waitpid(g_base.multipipe.forkfd[g_base.multipipe.j],
 			&g_base.multipipe.status, 0);
-		g_base.multipipe.j++;
+		g_base.multipipe.j--;
 	}
 	freepipeline();
 	multipipesend();

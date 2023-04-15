@@ -6,7 +6,7 @@
 #    By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/10 12:14:08 by mayyildi          #+#    #+#              #
-#    Updated: 2023/04/14 23:25:20 by sroggens         ###   ########.fr        #
+#    Updated: 2023/04/15 15:15:39 by sroggens         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS =	main.c								\
 		parsing/lexerbis.c					\
 		parsing/parsing_check.c				\
 		parsing/parsing.c					\
-		parsing/quotes_precbis.c				\
+		parsing/quotes_precbis.c			\
 		parsing/quotes_check.c				\
 		parsing/quotes_prep.c				\
 		parsing/single_quote.c				\
@@ -94,17 +94,12 @@ CC = gcc
 
 READLINE = -L/Users/sroggens/homebrew/opt/readline/lib -lreadline
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
-
-SFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(READLINE) -o $(NAME)
-
-segv: ${OBJECTS}
-	$(CC) $(READLINE) $(SFLAGS) $(OBJECTS) -o $(NAME)
 
 clean :
 	rm -rf $(OBJECTS)

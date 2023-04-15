@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 12:06:39 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/13 22:06:04 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:19:07 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	countdolmal(char *str)
 		if (str[i] == '$' && str[i + 1] != '\0' && str[i + 1] != '?')
 		{
 			i++;
+			j++;
 			while (str[i] && str[i] != ' ' && str[i] != '\'' && str[i] != '"')
 			{
 				i++;
@@ -72,12 +73,12 @@ char	*finalstringdol(char *str, t_env **env)
 
 	beforedol(str);
 	replacedol(str);
-	checkenvdol(env);
-	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
+	if (g_base.dol.strret != NULL)
+		checkenvdol(env);
 	afterdol(str);
+	tmpd = ft_strjoin(g_base.dol.beforedol, g_base.dol.strret);
 	strnew = ft_strjoin(tmpd, g_base.dol.end);
-	if (g_base.dol.beforedol)
-		free(g_base.dol.beforedol);
+	free(str);
 	if (strnew == NULL)
 		return (NULL);
 	return (strnew);

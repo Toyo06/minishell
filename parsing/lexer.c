@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:16:57 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/12 22:02:27 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:01:27 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	checkfilecannotbeopen(t_list **lst, char *str)
 				if (deletenodeforerror(&tmp) == 1)
 				{
 					free(str);
+					free(g_base.sig.str);
 					return (1);
 				}
 				movelistiferror(lst);

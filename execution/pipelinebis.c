@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipelinebis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayyildi <mayyildi@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 13:16:47 by sroggens          #+#    #+#             */
-/*   Updated: 2023/04/10 03:00:29 by mayyildi         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:08:26 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	multipipechild(t_list *tmp)
 		dup2(g_base.multipipe.fdout, 1);
 	else
 		dup2(g_base.redir.fdout[g_base.redir.fdcount], 1);
+	if (g_base.multipipe.i < g_base.multipipe.totalpipe)
+	{
+		close(g_base.multipipe.pipefd[g_base.multipipe.i][0]);
+		close(g_base.multipipe.pipefd[g_base.multipipe.i][1]);
+	}
 }
 
 void	setvaluemultipipe(t_list **lst)
@@ -73,7 +78,7 @@ void	setvaluemultipipe(t_list **lst)
 	g_base.multipipe.i = 0;
 	g_base.multipipe.fdin = 0;
 	g_base.multipipe.fdout = 1;
-	g_base.multipipe.j = 0;
+	g_base.multipipe.j = g_base.multipipe.totalpipe;
 	g_base.multipipe.k = 0;
 	g_base.multipipe.l = 0;
 }

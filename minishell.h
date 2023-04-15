@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 07:57:55 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/14 23:29:30 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:16:22 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -524,7 +524,7 @@ int		checklinespace(char *str);
 int		checklinespace(char *str);
 void	freeendofloop(t_list **lst);
 void	lunchingexec(t_list **lst, t_env **env);
-void	lunchingloopthings(t_list **lst, t_env **env);
+void	lunchingloopthings(t_list **lst, t_env **env, char *str);
 
 /*	Extras	*/
 void	executionstart(t_list **lst, t_env **env);

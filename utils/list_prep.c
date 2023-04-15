@@ -6,7 +6,7 @@
 /*   By: sroggens <sroggens@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:59:30 by mayyildi          #+#    #+#             */
-/*   Updated: 2023/04/14 23:07:52 by sroggens         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:48:06 by sroggens         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	list_prep(t_list **list, char **arr)
 		i++;
 	}
 	listchangeifquote(list);
-	printthelist(list);
 	return (check_sym_err(list));
 }
 
